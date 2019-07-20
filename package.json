@@ -56,8 +56,8 @@
 		"watchify": "^3.11.1"
 	},
 	"scripts": {
-		"start": "NODE_ENV=development gulp serve --development",
-		"build": "NODE_ENV=production gulp build --production"
+		"start": "SET NODE_ENV=development gulp serve --development",
+		"build": "SET NODE_ENV=production gulp build --production"
 	},
 	"repository": {
 		"type": "git",
