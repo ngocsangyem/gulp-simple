@@ -1,0 +1,22 @@
+include ./_includes/watermark
+block var
+doctype html
+html(dir='ltr', lang=SEO.seo_lang, itemscope, itemtype="http://schema.org/WebSite", prefix="og: http://ogp.me/ns#", class="no-js")
+	head
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+		meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+		meta(name='format-detection', content='telephone=no')
+		meta(name='msapplication-tap-highlight', content='no')
+		meta(name='theme-color', content=SEO.mobile_color)
+		meta(name='msapplication-navbutton-color', content=SEO.mobile_color)
+		meta(name='apple-mobile-web-app-status-bar-style', content=SEO.mobile_color)
+		include ./_includes/seo
+		include ./_includes/css
+		title #{title} - #{SEO.cfg_name}
+	body(class=bodyClass)
+		include ../../components/header/index
+		main(data-sticky-wrap)
+			block main
+		include ../../components/footer/index
+		include ./_includes/scripts
