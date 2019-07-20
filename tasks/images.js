@@ -32,6 +32,16 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 					title: 'Add :'
 				})
 			)
+			.pipe(
+				$.rename(function(filepath) {
+					// Remove 'source' directory as well as prefixed folder underscores
+					// Ex: 'src/_scripts' --> '/scripts'
+					filepath.dirname = filepath.dirname
+						.replace(dirs.source, '')
+						.replace(dirs.assets, '')
+						.replace('_', '');
+				})
+			)
 			.pipe(gulp.dest(dest));
 	});
 }

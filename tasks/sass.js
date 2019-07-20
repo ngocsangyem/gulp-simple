@@ -47,6 +47,17 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			)
 			.pipe($.if(args.production, $.cssnano({ rebase: false })))
 			.pipe($.if(!args.production, $.sourcemaps.write('./')))
+			.pipe(
+				$.rename(function(filepath) {
+					// Remove 'source' directory as well as prefixed folder underscores
+					// Ex: 'src/_scripts' --> '/scripts'
+					filepath.dirname = filepath.dirname
+						.replace(dirs.source, '')
+						.replace(dirs.app, '')
+						.replace(dirs.styles, '')
+						.replace('_', '');
+				})
+			)
 			.pipe(gulp.dest(dest))
 			.pipe(
 				browserSync.reload({

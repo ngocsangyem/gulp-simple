@@ -44,6 +44,17 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 					title: 'Compiles:'
 				})
 			)
+			.pipe(
+				$.rename(function(filepath) {
+					// Remove 'source' directory as well as prefixed folder underscores
+					// Ex: 'src/_scripts' --> '/scripts'
+					filepath.dirname = filepath.dirname
+						.replace(dirs.source, '')
+						.replace(dirs.app, '')
+						.replace(dirs.views, '')
+						.replace('_', '');
+				})
+			)
 			.pipe(gulp.dest(dest))
 			.pipe(
 				browserSync.reload({
