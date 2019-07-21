@@ -8,19 +8,16 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 
 	gulp.task('pug', () => {
 		return gulp
-			.src(
-				[
-					path.join(dirs.source, dirs.app, dirs.views, '**/*.pug'),
-					'!' +
-						path.join(
-							dirs.source,
-							dirs.app,
-							dirs.views,
-							'{**/_*,**/_*/**}'
-						)
-				],
-				{ resolveSymlinks: false }
-			)
+			.src([
+				path.join(dirs.source, dirs.app, dirs.views, '**/*.pug'),
+				'!' +
+					path.join(
+						dirs.source,
+						dirs.app,
+						dirs.views,
+						'{**/_*,**/_*/**}'
+					)
+			])
 			.pipe(
 				$.plumber({
 					errorHandler: $.notify.onError(
@@ -45,6 +42,17 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			.pipe(
 				$.debug({
 					title: 'Compiles:'
+				})
+			)
+			.pipe(
+				$.rename(function(filepath) {
+					// Remove 'source' directory as well as prefixed folder underscores
+					// Ex: 'src/_scripts' --> '/scripts'
+					filepath.dirname = filepath.dirname
+						.replace(dirs.source, '')
+						.replace(dirs.app, '')
+						.replace(dirs.views, '')
+						.replace('_', '');
 				})
 			)
 			.pipe(gulp.dest(dest))

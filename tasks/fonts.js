@@ -8,12 +8,20 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 		// console.log(filePath)
 
 		return gulp
-			.src(path.join(dirs.source, dirs.assets, dirs.fonts, '**/*'), {
-				resolveSymlinks: false
-			})
+			.src(path.join(dirs.source, dirs.assets, dirs.fonts, '**/*'))
 			.pipe(
 				$.debug({
 					title: 'Add :'
+				})
+			)
+			.pipe(
+				$.rename(function(filepath) {
+					// Remove 'source' directory as well as prefixed folder underscores
+					// Ex: 'src/_scripts' --> '/scripts'
+					filepath.dirname = filepath.dirname
+						.replace(dirs.source, '')
+						.replace(dirs.assets, '')
+						.replace('_', '');
 				})
 			)
 			.pipe(gulp.dest(dest));

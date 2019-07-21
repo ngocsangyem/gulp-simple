@@ -14,8 +14,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 					dirs.assets,
 					dirs.images,
 					'**/*.+(jpg|jpeg|gif|svg|png)'
-				),
-				{ resolveSymlinks: false }
+				)
 			)
 			.pipe(
 				$.if(
@@ -31,6 +30,16 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			.pipe(
 				$.debug({
 					title: 'Add :'
+				})
+			)
+			.pipe(
+				$.rename(function(filepath) {
+					// Remove 'source' directory as well as prefixed folder underscores
+					// Ex: 'src/_scripts' --> '/scripts'
+					filepath.dirname = filepath.dirname
+						.replace(dirs.source, '')
+						.replace(dirs.assets, '')
+						.replace('_', '');
 				})
 			)
 			.pipe(gulp.dest(dest));
