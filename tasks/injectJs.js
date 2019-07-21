@@ -39,7 +39,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 							.join('')
 							.replace(/[\W_js]/g, '');
 
-						return `import ${finalPath} from '${pathRemoveExtension}'`;
+						return `import ${finalPath} from '${pathRemoveExtension}';`;
 					}
 				})
 			)

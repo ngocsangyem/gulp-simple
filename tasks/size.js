@@ -5,18 +5,25 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dest = path.join(taskTarget);
 
 	gulp.task('size', () => {
+		let sz = $.size({
+			gzip: true
+		});
 		return gulp
 			.src(path.join(taskTarget, '**/*'))
+			.pipe(sz)
+			.pipe(gulp.dest(dest))
 			.pipe(
-				$.size({
-					gzip: true
+				$.sizereport({
+					gzip: true,
+					'*': {
+						maxSize: 100000
+					}
 				})
 			)
-			.pipe(gulp.dest(dest))
 			.pipe(
 				$.notify({
 					onLast: true,
-					message: () => `Total size ${s.prettySize}`
+					message: () => `Total size ${sz.prettySize}`
 				})
 			);
 	});

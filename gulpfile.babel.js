@@ -62,9 +62,11 @@ gulp.task(
 			'fonts',
 			'images',
 			'concatCss',
-			'concatJs'
+			'concatJs',
+			'browserify'
 		),
 		'size',
-		'zip'
+		'zip',
+		'done'
 	])
 );

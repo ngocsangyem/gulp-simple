@@ -1,3 +1,4 @@
+include ./_includes/variables
 include ./_includes/watermark
 block var
 doctype html
@@ -11,12 +12,22 @@ html(dir='ltr', lang=SEO.seo_lang, itemscope, itemtype="http://schema.org/WebSit
 		meta(name='theme-color', content=SEO.mobile_color)
 		meta(name='msapplication-navbutton-color', content=SEO.mobile_color)
 		meta(name='apple-mobile-web-app-status-bar-style', content=SEO.mobile_color)
-		include ./_includes/seo
+		if process.argv.slice(3).indexOf('--production') > -1
+			include ./_includes/seo
+		//- if process.argv.slice(3).indexOf('--production') > -1
+		//- 	include ../_include/_favicon
+		<!-- ////////////// CSS Include ////////////// -->
 		include ./_includes/css
 		title #{title} - #{SEO.cfg_name}
-	body(class=bodyClass)
+	body(class=process.argv.slice(3).indexOf('--production') < 0 ? 'kyanon-develop '+prefix+bodyClass+'-page' : prefix+bodyClass+'-page' || 'default')
+		<!-- ////////////// Header ////////////// -->
 		include ../../components/header/index
-		main(data-sticky-wrap)
+		<!-- ////////////// End Header ////////////// -->
+		<!-- ////////////// Begin Main ////////////// -->
+		main
 			block main
+		<!-- ////////////// End Main ////////////// -->
+		<!-- ////////////// Footer ////////////// -->
 		include ../../components/footer/index
 		include ./_includes/scripts
+		<!-- ////////////// End Footer ////////////// -->

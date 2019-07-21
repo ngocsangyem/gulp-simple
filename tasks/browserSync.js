@@ -1,7 +1,9 @@
 import path from 'path';
+import fs from 'fs';
 
 export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dirs = config.directories;
+	const entries = config.entries;
 
 	gulp.task('browserSync', () => {
 		browserSync.init({
@@ -32,10 +34,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			gulp.series('pug')
 		).on('unlink', function(path) {
 			let filePathInBuildDir = path
-				.replace(
-					path.join(dirs.source, dirs.app, dirs.views),
-					taskTarget
-				)
+				.replace(`${dirs.source}/${dirs.app}/${dirs.views}`, taskTarget)
 				.replace('.pug', '.html');
 			fs.unlink(filePathInBuildDir, err => {
 				if (err) throw err;
@@ -75,6 +74,16 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			{ events: ['add'] },
 			gulp.series('injectJs')
 		);
+
+		// Scripts
+		// gulp.watch(
+		// 	[
+		// 		path.join(dirs.source, dirs.app, dirs.scripts, '**/*.js'),
+		// 		path.join(dirs.source, dirs.app, dirs.component, '**/*.js'),
+		// 		'!' + path.join(dirs.source, dirs.app, dirs.scripts, entries.js)
+		// 	],
+		// 	gulp.parallel('browserify')
+		// );
 
 		// Concat files
 		gulp.watch(['./plugins.json'], gulp.parallel('concatCss', 'concatJs'));
