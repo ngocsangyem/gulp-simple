@@ -17,5 +17,14 @@
  		"views": "views",
  		"images": "img",
  		"fonts": "fonts"
+ 	},
+ 	"author": {
+ 		"name": "Ngoc Sang",
+ 		"version": "v1.0.0",
+ 		"link": "https://github.com/ngocsangyem",
+ 		"lincense": "MIT",
+ 		"coding": "Coding by Ngoc Sang",
+ 		"phone": "XXXXXXXXXX",
+ 		"email": "nnsang24@gmail.com"
  	}
  }

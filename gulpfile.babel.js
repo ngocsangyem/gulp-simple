@@ -67,6 +67,8 @@ gulp.task(
 		),
 		'size',
 		'zip',
+		'sitemap',
+		'author',
 		'done'
 	])
 );
