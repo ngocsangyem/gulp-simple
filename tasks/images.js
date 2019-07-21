@@ -5,15 +5,13 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dest = path.join(taskTarget, dirs.images);
 
 	gulp.task('images', () => {
-		// console.log(filePath)
-
 		return gulp
 			.src(
 				path.join(
 					dirs.source,
 					dirs.assets,
 					dirs.images,
-					'**/*.+(jpg|jpeg|gif|svg|png)'
+					'**/*+(jpg|jpeg|gif|svg|png)'
 				)
 			)
 			.pipe(

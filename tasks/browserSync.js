@@ -98,7 +98,21 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 		gulp.watch(
 			[path.join(dirs.source, dirs.assets, dirs.images, '**/*')],
 			gulp.parallel('images')
-		);
+		).on('unlink', function(path) {
+			let filePathInBuildDir = path
+				.replace(
+					`${dirs.source}/${dirs.assets}/${dirs.images}`,
+					`${taskTarget}/${dirs.images}`
+				)
+				.replace(
+					'.+(jpg|jpeg|gif|svg|png)',
+					'.+(jpg|jpeg|gif|svg|png)'
+				);
+			fs.unlink(filePathInBuildDir, err => {
+				if (err) throw err;
+				console.log(`---------- Delete:  ${filePathInBuildDir}`);
+			});
+		});
 
 		// Watch .html change
 		gulp.watch([taskTarget]).on('change', browserSync.reload);

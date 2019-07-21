@@ -7,7 +7,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dirs = config.directories;
 	const dest = path.join(taskTarget, dirs.images, 'sprite');
 
-	gulp.task('images', () => {
+	gulp.task('sprite', () => {
 		let spriteData = gulp
 			.src(
 				path.join(dirs.source, dirs.assets, dirs.images, 'sprite/*.png')
