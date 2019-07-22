@@ -67,6 +67,7 @@ gulp.task(
 		),
 		'size',
 		'zip',
+		'rev',
 		'sitemap',
 		'author',
 		'done'
