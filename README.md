@@ -102,7 +102,8 @@ $ npm build
 | | | |-- footer
 | | | | |-- index.js
 | | | | |-- index.pug
-| | | | `-- index.sass | | |`-- header
+| | | | `-- index.sass
+| | |`-- header
 | | | |-- index.js
 | | | |-- index.pug
 | | | `-- index.sass
