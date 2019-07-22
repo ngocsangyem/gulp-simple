@@ -70,7 +70,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/ngocsangyem/simple-gulp.git"
+		"url": "git+https://github.com/ngocsangyem/gulp-simple.git"
 	},
 	"keywords": [
 		"nodejs",
@@ -87,7 +87,7 @@
 	"author": "ngocsangyem",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/ngocsangyem/simple-gulp/issues"
+		"url": "https://github.com/ngocsangyem/gulp-simple/issues"
 	},
-	"homepage": "https://github.com/ngocsangyem/simple-gulp#readme"
+	"homepage": "https://github.com/ngocsangyem/gulp-simple#readme"
 }

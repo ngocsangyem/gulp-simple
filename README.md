@@ -1,24 +1,17 @@
-<h1 align="center">Welcome to gulp-boilerplate 👋</h1>
+<h1 align="center">Welcome to gulp-simple 👋</h1>
 
-[![gulp-boilerplate](https://img.shields.io/badge/version-2.0.0-orange.svg?cacheSeconds=2592000)](https://github.com/ngocsangyem/HTML-Build-Tool)
+[![gulp-simple](https://img.shields.io/badge/version-2.0.0-orange.svg?cacheSeconds=2592000)](https://github.com/ngocsangyem/HTML-Build-Tool)
 [![node](https://img.shields.io/badge/node-%3E%3D10.x.x-green.svg)](https://nodejs.org/en/)
 [![gulp](https://img.shields.io/badge/gulp-4.0.0-red.svg)](https://gulpjs.com/)
 ![MIT license](https://img.shields.io/github/license/ngocsangyem/HTML-Build-Tool.svg)
 
-## What new in 2.0.0?
-
--   Split task
--   Auto import sass file when create a new component
--   Auto delete page in build floder
--   Optimize js using webpack
-
 ## Overview
 
-gulp-boilerplate is an opinionated boilerplate for web development. Tools for building a great experience across many devices. A solid starting point for both professionals and newcomers to the industry.
+gulp-simple is an opinionated boilerplate for web development. Tools for building a great experience across many devices. A solid starting point for both professionals and newcomers to the industry.
 
 ## Browser Support
 
-At present, i officially aim to support the last two versions of the following browsers:
+At present, I officially aim to support the last two versions of the following browsers:
 
 -   Chrome
 -   Edge
@@ -26,7 +19,7 @@ At present, i officially aim to support the last two versions of the following b
 -   Safari
 -   Internet Explorer
 
-This is not to say that gulp-boilerplate cannot be used in browsers older than those reflected, but merely that my focus will be on ensuring our layouts work great in the above.
+This is not to say that gulp-simple cannot be used in browsers older than those reflected, but merely that my focus will be on ensuring our layouts work great in the above.
 
 ## Prerequisites
 
@@ -46,13 +39,17 @@ If you need to install/upgrade Gulp, open up a terminal and type in the followin
 $ npm install --global gulp
 ```
 
+```sh
+$ npm install --global gulp-cli
+```
+
 _This will install Gulp globally. Depending on your user account, you may need to [configure your system](https://github.com/sindresorhus/guides/blob/master/npm-global-without-sudo.md) to install packages globally without administrative privileges._
 
 **In this project i use Gulp version 4.0**
 
 ### Local dependencies
 
-Next, install the local dependencies gulp-boilerplate requires:
+Next, install the local dependencies gulp-simple requires:
 
 ```sh
 $ npm install
@@ -64,7 +61,7 @@ or
 $ npm i
 ```
 
-That's it! You should now have everything needed to use the gulp-boilerplate.
+That's it! You should now have everything needed to use the gulp-simple.
 
 You may also want to get used to some of the [commands](#commands) available.
 
@@ -91,7 +88,7 @@ $ npm start
 $ npm build
 ```
 
-`npm build` task creates the `production/` folder in the root of the project with **dist files only**. It will **help you** to **create clear** instances of code for the **production** or **further implementation**.
+`npm build` task creates the `production/` folder in the root of the project with **build files only**. It will **help you** to **create clear** instances of code for the **production** or **further implementation**.
 
 ## Structure
 
