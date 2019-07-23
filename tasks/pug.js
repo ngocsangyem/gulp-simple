@@ -4,19 +4,13 @@ import fs from 'fs';
 export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dirs = config.directories;
 	const entries = config.entries;
-	const dest = path.join(taskTarget);
+	const dest = `${taskTarget}`;
 
 	gulp.task('pug', () => {
 		return gulp
 			.src([
-				path.join(dirs.source, dirs.app, dirs.views, '**/*.pug'),
-				'!' +
-					path.join(
-						dirs.source,
-						dirs.app,
-						dirs.views,
-						'{**/_*,**/_*/**}'
-					)
+				`${dirs.source}/${dirs.app}/${dirs.views}/**/*.pug`,
+				`!${dirs.source}/${dirs.app}/${dirs.views}/{**/_*,**/_*/**}`
 			])
 			.pipe(
 				$.plumber({

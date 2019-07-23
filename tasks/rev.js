@@ -2,11 +2,11 @@ import path from 'path';
 
 export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dirs = config.directories;
-	const dest = path.join(taskTarget);
+	const dest = `${taskTarget}`;
 
 	gulp.task('rev', () => {
 		return gulp
-			.src(path.join(taskTarget, '**/*.{css,js}'))
+			.src(`${taskTarget}/**/*.{css,js}`)
 			.pipe($.rev())
 			.pipe(gulp.dest(dest))
 			.pipe($.rev.manifest())

@@ -2,14 +2,14 @@ import path from 'path';
 
 export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dirs = config.directories;
-	const dest = path.join(taskTarget);
+	const dest = `${taskTarget}`;
 
 	gulp.task('size', () => {
 		let sz = $.size({
 			gzip: true
 		});
 		return gulp
-			.src(path.join(taskTarget, '**/*'))
+			.src(`${taskTarget}/**/*`)
 			.pipe(sz)
 			.pipe(gulp.dest(dest))
 			.pipe(

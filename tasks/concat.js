@@ -6,8 +6,8 @@ import stripCssComments from 'gulp-strip-css-comments';
 export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dirs = config.directories;
 	const url = JSON.parse(fs.readFileSync('./plugins.json'));
-	const destJs = path.join(taskTarget, dirs.scripts);
-	const destCss = path.join(taskTarget, dirs.css);
+	const destJs = `${taskTarget}/${dirs.scripts}`;
+	const destCss = `${taskTarget}/${dirs.css}`;
 
 	gulp.task('concatJs', () => {
 		return gulp

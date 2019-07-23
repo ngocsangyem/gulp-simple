@@ -6,17 +6,17 @@
  		"css": "main.+(sass|scss)"
  	},
  	"directories": {
- 		"source": "src/",
- 		"app": "app/",
- 		"destination": "build/",
- 		"temporary": "tmp/",
- 		"component": "components/",
- 		"css": "styles/",
- 		"assets": "assets/",
- 		"scripts": "scripts/",
- 		"views": "views/",
- 		"images": "img/",
- 		"fonts": "fonts/"
+ 		"source": "src",
+ 		"app": "app",
+ 		"destination": "build",
+ 		"temporary": "tmp",
+ 		"component": "components",
+ 		"css": "styles",
+ 		"assets": "assets",
+ 		"scripts": "scripts",
+ 		"views": "views",
+ 		"images": "img",
+ 		"fonts": "fonts"
  	},
  	"author": {
  		"name": "Ngoc Sang",

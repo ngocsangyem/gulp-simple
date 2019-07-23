@@ -8,7 +8,7 @@ import cssDeclarationSorter from 'css-declaration-sorter';
 export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dirs = config.directories;
 	const entries = config.entries;
-	const dest = path.join(taskTarget, dirs.css);
+	const dest = `${taskTarget}/${dirs.css}`;
 	const postCssPlugins = [
 		autoprefixer({ grid: true }),
 		cssDeclarationSorter({
@@ -18,9 +18,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 
 	gulp.task('sass', () => {
 		return gulp
-			.src(path.join(dirs.source, dirs.app, dirs.css, entries.css), {
-				resolveSymlinks: false
-			})
+			.src(`${dirs.source}/${dirs.app}/${dirs.css}/${entries.css}`)
 			.pipe(
 				$.plumber({
 					errorHandler: $.notify.onError(
