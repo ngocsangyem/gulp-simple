@@ -2,7 +2,7 @@ import path from 'path';
 
 export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const auth = config.author;
-	const dest = path.join(taskTarget);
+	const dest = `${taskTarget}`;
 
 	let banner = [
 		'/*',
@@ -19,7 +19,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 
 	gulp.task('author', () => {
 		return gulp
-			.src(path.join(taskTarget, '**/*.+(css|js)'))
+			.src(`${taskTarget}/**/*.{css,js}`)
 			.pipe(
 				$.header(banner, {
 					auth: auth

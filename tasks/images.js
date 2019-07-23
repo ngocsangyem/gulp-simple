@@ -10,7 +10,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 				.src(
 					`${dirs.source}/${dirs.assets}/${
 						dirs.images
-					}/**/*+(jpg|jpeg|gif|svg|png)`
+					}/**/*.{jpg,jpeg,gif,svg,png}`
 				)
 				.pipe(
 					$.if(

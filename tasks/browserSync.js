@@ -27,8 +27,8 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 		// Pug
 		gulp.watch(
 			[
-				path.join(dirs.source, dirs.app, dirs.component, '**/*.pug'),
-				path.join(dirs.source, dirs.app, dirs.views, '**/*.pug'),
+				`${dirs.source}/${dirs.app}/${dirs.component}/**/*.pug`,
+				`${dirs.source}/${dirs.app}/${dirs.views}/**/*.pug`,
 				'./seo.json'
 			],
 			gulp.series('pug')
@@ -45,32 +45,20 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 		// Sass
 		gulp.watch(
 			[
-				path.join(
-					dirs.source,
-					dirs.app,
-					dirs.component,
-					'**/*.+(sass|scss)'
-				),
-				path.join(dirs.source, dirs.app, dirs.css, '**/*.+(sass|scss)')
+				`${dirs.source}/${dirs.app}/${dirs.component}/**/*.{sass,scss}`,
+				`${dirs.source}/${dirs.app}/${dirs.css}/**/*.{sass,scss}`
 			],
 			gulp.series('sass')
 		);
 
 		// Inject tasks
 		gulp.watch(
-			[
-				path.join(
-					dirs.source,
-					dirs.app,
-					dirs.component,
-					'**/*.+(sass|scss)'
-				)
-			],
+			[`${dirs.source}/${dirs.app}/${dirs.component}/**/*.{sass,scss}`],
 			{ events: ['add'] },
 			gulp.series('injectSass')
 		);
 		gulp.watch(
-			[path.join(dirs.source, dirs.app, dirs.component, '**/*.js')],
+			[`${dirs.source}/${dirs.app}/${dirs.component}/**/*.js`],
 			{ events: ['add'] },
 			gulp.series('injectJs')
 		);
@@ -90,13 +78,17 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 
 		// Fonts
 		gulp.watch(
-			[path.join(dirs.source, dirs.assets, dirs.fonts, '**/*')],
+			[`${dirs.source}/${dirs.assets}/${dirs.fonts}/**/*`],
 			gulp.parallel('fonts')
 		);
 
 		// Images
 		gulp.watch(
-			[path.join(dirs.source, dirs.assets, dirs.images, '**/*')],
+			[
+				`${dirs.source}/${dirs.assets}/${
+					dirs.images
+				}/**/*.{jpg,jpeg,gif,svg,png}`
+			],
 			gulp.parallel('images')
 		).on('unlink', function(path) {
 			let filePathInBuildDir = path
@@ -115,6 +107,6 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 		});
 
 		// Watch .html change
-		gulp.watch([taskTarget]).on('change', browserSync.reload);
+		gulp.watch(`${taskTarget}/`).on('change', browserSync.reload);
 	});
 }

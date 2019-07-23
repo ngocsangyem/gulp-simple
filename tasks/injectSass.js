@@ -6,7 +6,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const entries = config.entries;
 	const fileInject = `${dirs.source}/${dirs.app}/${
 		dirs.component
-	}/**/*.+(sass|scss)`;
+	}/**/*.{sass,scss}`;
 
 	gulp.task('injectSass', () => {
 		return gulp

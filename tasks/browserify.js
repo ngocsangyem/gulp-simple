@@ -16,7 +16,8 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 
 	const browserifyTask = files => {
 		return files.map(entry => {
-			let dest = path.resolve(taskTarget);
+			// let dest = path.resolve(taskTarget);
+			let dest = `${taskTarget}`;
 
 			// Options
 			let customOpts = {
@@ -95,7 +96,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 	// Browserify Task
 	gulp.task('browserify', done => {
 		return glob(
-			'./' + path.join(dirs.source, dirs.app, dirs.scripts, entries.js),
+			`./${dirs.source}/${dirs.app}/${dirs.scripts}/${entries.js})`,
 			function(err, files) {
 				if (err) {
 					done(err);
