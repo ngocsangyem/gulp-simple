@@ -8,7 +8,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			.pipe(browserSync.reload({ stream: true, once: true }))
 			.pipe(
 				$.eslint({
-					configFile: './.eslintrc.js'
+					configFile: './eslintrc.json'
 				})
 			)
 			.pipe($.eslint.format())
