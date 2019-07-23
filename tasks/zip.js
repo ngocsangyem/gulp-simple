@@ -6,7 +6,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 
 	gulp.task('zip', () => {
 		return gulp
-			.src(path.join(taskTarget, '**/*'))
+			.src(`${taskTarget}/**/*`)
 			.pipe($.zip(`${taskTarget}.zip`))
 			.pipe(gulp.dest('./'));
 	});

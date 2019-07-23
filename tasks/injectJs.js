@@ -3,16 +3,11 @@ import path from 'path';
 export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dirs = config.directories;
 	const entries = config.entries;
-	const dest = path.join(dirs.source, dirs.app, dirs.scripts);
-	const fileInject = path.join(
-		dirs.source,
-		dirs.app,
-		dirs.component,
-		'**/*.js'
-	);
+	const dest = `${dirs.source}/${dirs.app}/${dirs.scripts}`;
+	const fileInject = `${dirs.source}/${dirs.app}/${dirs.component}/**/*.js`;
 	gulp.task('injectJs', () => {
 		return gulp
-			.src(path.join(dirs.source, dirs.app, dirs.scripts, entries.js))
+			.src(`${dirs.source}/${dirs.app}/${dirs.scripts}/${entries.js}`)
 			.pipe(
 				$.plumber({
 					errorHandler: $.notify.onError(

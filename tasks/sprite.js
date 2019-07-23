@@ -5,13 +5,11 @@ import spritesmith from 'gulp.spritesmith';
 
 export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dirs = config.directories;
-	const dest = path.join(taskTarget, dirs.images, 'sprite');
+	const dest = `${taskTarget}/${dirs.images}/sprite`;
 
 	gulp.task('sprite', () => {
 		let spriteData = gulp
-			.src(
-				path.join(dirs.source, dirs.assets, dirs.images, 'sprite/*.png')
-			)
+			.src(`${dirs.source}/${dirs.assets}/${dirs.images}/sprite/*.png)`)
 			.pipe(
 				spritesmith({
 					imgName: 'sprite.png',
@@ -26,7 +24,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			.pipe(gulp.dest(dest));
 		let cssStream = spriteData.css
 			.pipe($.cssnano({ rebase: false }))
-			.pipe(gulp.dest(path.join(taskTarget, dirs.css)));
+			.pipe(gulp.dest(`${taskTarget}/${dirs.css}`));
 		// Return a merged stream to handle both `end` events
 		return merge(imgStream, cssStream);
 	});
