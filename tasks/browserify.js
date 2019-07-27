@@ -24,7 +24,9 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 				entries: [entry],
 				debug: true,
 				transform: [
-					babelify, // Enable ES6 features
+					babelify.configure({
+						presets: ['@babel/preset-env']
+					}), // Enable ES6 features
 					envify // Sets NODE_ENV for better optimization of npm packages
 				]
 			};
