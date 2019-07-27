@@ -1,1 +1,5 @@
-console.log('this is footer');
+export default class FooterIndex {
+	constructor() {
+		console.log('Footer component');
+	}
+}

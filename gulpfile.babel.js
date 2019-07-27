@@ -1,10 +1,9 @@
-import path from 'path';
 import gulp from 'gulp';
+import path from 'path';
 import browserSyncLib from 'browser-sync';
 import cfg from './config';
 import minimist from 'minimist';
 import glob from 'glob';
-import gutil from 'gulp-util';
 import gulpLoadPlugins from 'gulp-load-plugins';
 
 const defaultNotification = function(err) {
@@ -21,6 +20,9 @@ const dirs = cfg.directories;
 const taskTarget = args.production ? dirs.destination : dirs.temporary;
 const config = Object.assign({}, cfg, defaultNotification);
 const $ = gulpLoadPlugins();
+
+// Create karma server
+const KarmaServer = require('karma').Server;
 
 // BrowserSynce init
 const browserSync = browserSyncLib.create();
@@ -65,11 +67,26 @@ gulp.task(
 			'concatJs',
 			'browserify'
 		),
-		'size',
 		'zip',
 		'rev',
 		'sitemap',
 		'author',
+		'size',
 		'done'
 	])
 );
+
+gulp.task('lint', gulp.series('eslint'));
+
+gulp.task('test', done => {
+	KarmaServer.start(
+		{
+			configFile: path.join(__dirname, '/karma.conf.js'),
+			singleRun: !args.watch,
+			autoWatch: args.watch
+		},
+		function() {
+			done();
+		}
+	);
+});

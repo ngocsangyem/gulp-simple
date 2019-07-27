@@ -1,1 +1,5 @@
-console.log('this is header 1');
+export default class HeaderIndex {
+	constructor() {
+		console.log('Header component');
+	}
+}

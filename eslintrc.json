@@ -5,13 +5,15 @@
 		"node": true
 	},
 	"parserOptions": {
+		"sourceType": "module",
 		"ecmaFeatures": {
-			"experimentalObjectRestSpread": true
+			"experimentalObjectRestSpread": true,
+			"modules": true
 		}
 	},
 	"extends": "eslint:recommended",
 	"rules": {
-		"indent": [2, 2],
+		"indent": [2, "tab"],
 		"quotes": [2, "single", {
 			"avoidEscape": true,
 			"allowTemplateLiterals": true
@@ -20,7 +22,7 @@
 		"eqeqeq": 2,
 		"strict": [2, "global"],
 
-		"no-console": 1,
+		"no-console": 0,
 		"array-callback-return": 1,
 		"block-scoped-var": 1,
 		"consistent-return": 1,
@@ -29,7 +31,7 @@
 		"no-useless-return": 1,
 		"vars-on-top": 1,
 		"no-use-before-define": [1, "nofunc"],
-		"global-require": 1,
+		"global-require": 0,
 		"camelcase": 1,
 		"new-cap": 1,
 		"no-lonely-if": 1,
