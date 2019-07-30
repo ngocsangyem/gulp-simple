@@ -23,11 +23,6 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 						])
 					)
 				)
-				.pipe(
-					$.debug({
-						title: 'Add :'
-					})
-				)
 				// .pipe(
 				// 	$.rename(function(filepath) {
 				// 		// Remove 'source' directory as well as prefixed folder underscores

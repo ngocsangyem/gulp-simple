@@ -29,11 +29,6 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			.pipe(stripCssComments())
 			.pipe($.concat('core.css'))
 			.pipe($.cssnano())
-			.pipe(
-				$.debug({
-					title: 'Concat:'
-				})
-			)
 			.pipe(gulp.dest(destCss));
 	});
 }

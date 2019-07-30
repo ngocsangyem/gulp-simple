@@ -34,11 +34,6 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			})
 			.on('error', $.notify.onError(config.defaultNotification))
 			.pipe(
-				$.debug({
-					title: 'Compiles:'
-				})
-			)
-			.pipe(
 				$.rename(function(filepath) {
 					// Remove 'source' directory as well as prefixed folder underscores
 					// Ex: 'src/_scripts' --> '/scripts'

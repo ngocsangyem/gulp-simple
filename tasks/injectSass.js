@@ -32,11 +32,6 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 					}
 				})
 			)
-			.pipe(
-				$.debug({
-					title: 'Injected:'
-				})
-			)
 			.pipe(gulp.dest(dest));
 	});
 }

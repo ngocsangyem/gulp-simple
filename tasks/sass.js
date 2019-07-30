@@ -40,11 +40,6 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			.on('error', $.notify.onError(config.defaultNotification))
 			.pipe($.postcss(postCssPlugins))
 			.pipe($.if(!args.production, gcmq()))
-			.pipe(
-				$.debug({
-					title: 'Compiles:'
-				})
-			)
 			.pipe($.if(args.production, $.cssnano({ rebase: false })))
 			.pipe($.if(!args.production, $.sourcemaps.write('./')))
 			.pipe(
