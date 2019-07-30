@@ -16,27 +16,39 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 				})
 			)
 			.pipe(
-				$.inject(gulp.src(fileInject, { read: false }), {
-					starttag: '// inject:jsComponentFile',
-					endtag: '// endinject',
-					relative: true,
-					transform: function(filepath) {
-						let pathArr = filepath.split('/').slice(2, 4);
-						let pathRemoveExtension = filepath.replace(
-							/\.[^.]*$/,
-							''
-						);
-						let upperCasePathName = pathArr.map(
-							path =>
-								path.charAt(0).toUpperCase() + path.substr(1)
-						);
-						let finalPath = upperCasePathName
-							.join('')
-							.replace(/[\W_js]/g, '');
+				$.inject(
+					gulp.src(
+						[
+							fileInject,
+							`!${dirs.source}/${dirs.app}/${
+								dirs.component
+							}/**/*.test.js`
+						],
+						{ read: false }
+					),
+					{
+						starttag: '// inject:jsComponentFile',
+						endtag: '// endinject',
+						relative: true,
+						transform: function(filepath) {
+							let pathArr = filepath.split('/').slice(2, 4);
+							let pathRemoveExtension = filepath.replace(
+								/\.[^.]*$/,
+								''
+							);
+							let upperCasePathName = pathArr.map(
+								path =>
+									path.charAt(0).toUpperCase() +
+									path.substr(1)
+							);
+							let finalPath = upperCasePathName
+								.join('')
+								.replace(/[\W_js]/g, '');
 
-						return `import ${finalPath} from '${pathRemoveExtension}';`;
+							return `import ${finalPath} from '${pathRemoveExtension}';`;
+						}
 					}
-				})
+				)
 			)
 			.pipe(gulp.dest(dest));
 	});
