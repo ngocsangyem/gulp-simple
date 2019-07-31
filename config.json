@@ -1,30 +1,30 @@
- {
- 	"port": 9000,
- 	"baseUrl": "./",
- 	"entries": {
- 		"js": "app.js",
- 		"css": "main.+(sass|scss)"
- 	},
- 	"directories": {
- 		"source": "src",
- 		"app": "app",
- 		"destination": "build",
- 		"temporary": "tmp",
- 		"component": "components",
- 		"css": "styles",
- 		"assets": "assets",
- 		"scripts": "scripts",
- 		"views": "views",
- 		"images": "img",
- 		"fonts": "fonts"
- 	},
- 	"author": {
- 		"name": "Ngoc Sang",
- 		"version": "v1.0.0",
- 		"link": "https://github.com/ngocsangyem",
- 		"lincense": "MIT",
- 		"coding": "Coding by Ngoc Sang",
- 		"phone": "XXXXXXXXXX",
- 		"email": "nnsang24@gmail.com"
- 	}
- }
+{
+	"port": 9000,
+	"baseUrl": "./",
+	"entries": {
+		"js": "app.js",
+		"css": "main.+(sass|scss)"
+	},
+	"directories": {
+		"source": "src",
+		"app": "app",
+		"destination": "build",
+		"temporary": "tmp",
+		"component": "components",
+		"css": "styles",
+		"assets": "assets",
+		"scripts": "scripts",
+		"views": "views",
+		"images": "img",
+		"fonts": "fonts"
+	},
+	"author": {
+		"name": "yem",
+		"version": "v1.0.0",
+		"link": "",
+		"lincense": "MIT",
+		"coding": "Coding by yem",
+		"phone": "XXXXXXXXXX",
+		"email": "yem@email.com"
+	}
+}

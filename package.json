@@ -1,5 +1,5 @@
 {
-	"name": "kyanon",
+	"name": "gulpsimple",
 	"version": "1.0.0",
 	"description": "The build tool for Front-end using Gulp4",
 	"main": "index.js",
