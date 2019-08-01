@@ -37,13 +37,14 @@ if (componentName) {
 	}/${componentName}/`; // full path to the created component folder
 
 	mkdirp(dirPath, err => {
+		if (fs.existsSync(dirPath)) {
+			console.log(colors.yellow(`This component has existed`));
+			process.exit();
+		}
 		if (err) {
-			console.log(
-				colors.red(`Cancel operation
-			: ${err}`)
-			);
+			console.log(colors.red(`Cancel operation: ${err}`));
 		} else {
-			console.log(colors.green(`Folder created: ${dirPath}`));
+			console.log('Component created: ' + colors.green(dirPath));
 
 			// We go around the array of extensions and create files if they have not yet been created.
 			extensions.forEach(extension => {
@@ -73,12 +74,10 @@ if (componentName) {
 					fs.writeFile(filePath, fileContent, err => {
 						if (err) {
 							return console.log(
-								colors.red(`File is NOT created
-							: ${err}`)
+								colors.red(`File is NOT created: ${err}`)
 							);
 						}
-						colors.green(`File created
-							: ${filePath}`);
+						console.log('File created: ' + colors.green(filePath));
 						if (fileCreateMsg) {
 							console.warn(fileCreateMsg);
 						}
