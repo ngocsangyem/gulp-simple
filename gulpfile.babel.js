@@ -39,18 +39,18 @@ gulp.task(
 	'serve',
 	gulp.series([
 		'clean',
-		// 'injectSass',
-		'injectJs'
-		// gulp.parallel(
-		// 	'sass',
-		// 	'pug',
-		// 	'browserify',
-		// 	'fonts',
-		// 	'images',
-		// 	'concatCss',
-		// 	'concatJs'
-		// ),
-		// 'browserSync'
+		'injectSass',
+		'injectJs',
+		gulp.parallel(
+			'sass',
+			'pug',
+			'browserify',
+			'fonts',
+			'images',
+			'concatCss',
+			'concatJs'
+		),
+		'browserSync'
 	])
 );
 
