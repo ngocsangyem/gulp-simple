@@ -6,14 +6,26 @@ import minimist from 'minimist';
 import glob from 'glob';
 import gulpLoadPlugins from 'gulp-load-plugins';
 
-const defaultNotification = function(err) {
-	return {
-		subtitle: err.plugin,
-		message: err.message,
-		sound: 'Funk',
-		onLast: true
-	};
+const defaultNotification = function(preffix, err) {
+	gutil.log(
+		gutil.colors.white.bgRed(' ' + preffix + ' '),
+		gutil.colors.white.bgBlue(' ' + err.message + ' ')
+	);
+	notifier.notify({
+		title: preffix,
+		message: err.message
+	});
+	this.emit('end');
 };
+
+// const defaultNotification = function(err) {
+// 	return {
+// 		subtitle: err.plugin,
+// 		message: err.message,
+// 		sound: 'Funk',
+// 		onLast: true
+// 	};
+// };
 
 const args = minimist(process.argv.slice(2));
 const dirs = cfg.directories;
