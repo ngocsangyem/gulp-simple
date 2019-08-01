@@ -4,4 +4,4 @@ const Capitalize = s => {
 	return text.replace(/\.[^.]*$/, '').replace(/[-_]/g, '');
 };
 
-export default Capitalize;
+module.exports = Capitalize;

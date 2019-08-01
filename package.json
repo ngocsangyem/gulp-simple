@@ -63,6 +63,7 @@
 		"lodash": "^4.17.15",
 		"merge-stream": "^2.0.0",
 		"minimist": "^1.2.0",
+		"mkdirp": "^0.5.1",
 		"mocha": "^6.2.0",
 		"ncu": "^0.2.1",
 		"pug-lint": "^2.6.0",
