@@ -36,11 +36,12 @@ if (componentName) {
 		dirs.component
 	}/${componentName}/`; // full path to the created component folder
 
+	if (fs.existsSync(dirPath)) {
+		console.log(colors.yellow(`This component has existed`));
+		process.exit();
+	}
+
 	mkdirp(dirPath, err => {
-		if (fs.existsSync(dirPath)) {
-			console.log(colors.yellow(`This component has existed`));
-			process.exit();
-		}
 		if (err) {
 			console.log(colors.red(`Cancel operation: ${err}`));
 		} else {
@@ -48,7 +49,7 @@ if (componentName) {
 
 			// We go around the array of extensions and create files if they have not yet been created.
 			extensions.forEach(extension => {
-				const filePath = `${dirPath + componentName}.${extension}`; // full path to the file being created
+				const filePath = `${dirPath}index.${extension}`; // full path to the file being created
 				let fileContent = ''; // file content
 				let fileCreateMsg = ''; // message in console when creating file
 				if (extension === 'sass') {
