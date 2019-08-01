@@ -1,4 +1,5 @@
 import path from 'path';
+import Capitalize from './utils/capitalize';
 
 export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dirs = config.directories;
@@ -31,21 +32,16 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 						endtag: '// endinject',
 						relative: true,
 						transform: function(filepath) {
-							let pathArr = filepath.split('/').slice(2, 4);
+							let dirName = Capitalize(
+								path.basename(path.dirname(filepath))
+							);
+							let fileName = Capitalize(path.basename(filepath));
 							let pathRemoveExtension = filepath.replace(
 								/\.[^.]*$/,
 								''
 							);
-							let upperCasePathName = pathArr.map(
-								path =>
-									path.charAt(0).toUpperCase() +
-									path.substr(1)
-							);
-							let finalPath = upperCasePathName
-								.join('')
-								.replace(/[\W_js]/g, '');
-
-							return `import ${finalPath} from '${pathRemoveExtension}';`;
+							return `import ${dirName +
+								fileName} from '${pathRemoveExtension}';`;
 						}
 					}
 				)
