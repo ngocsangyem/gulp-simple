@@ -98,10 +98,10 @@ $ npm start
 ## Serve the Fully Built & Optimized Site
 
 ```sh
-$ npm build
+$ npm run build
 ```
 
-`npm build` task creates the `production/` folder in the root of the project with **build files only**. It will **help you** to **create clear** instances of code for the **production** or **further implementation**.
+`npm run build` task creates the `build/` folder in the root of the project with **build files only**. It will **help you** to **create clear** instances of code for the **production** or **further implementation**.
 
 ## Structure
 
