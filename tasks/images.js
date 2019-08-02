@@ -11,6 +11,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 					dirs.images
 				}/**/*.{jpg,jpeg,gif,svg,png}`
 			)
+			.pipe($.if(!args.production, $.cached()))
 			.pipe(
 				$.if(
 					args.production,
