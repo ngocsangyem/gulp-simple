@@ -5,6 +5,19 @@
 [![gulp](https://img.shields.io/badge/gulp-4.0.0-red.svg)](https://gulpjs.com/)
 ![MIT license](https://img.shields.io/github/license/ngocsangyem/HTML-Build-Tool.svg)
 
+## Features
+
+| Feature                      | Summary                                                                                                                                                                                                                                                                                                                                      |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Sass support                 | Compile [Sass](http://sass-lang.com/) into CSS with ease, bringing support for variables, mixins and more (Run `gulp` for project compiling). In our WSK we follow Sass [guidelines](https://sass-guidelin.es/#architecture).                                                                                                                |
+| Performance optimization     | Minify and concatenate JavaScript, CSS, HTML and images to help keep your pages lean (Run `npm run build` to create an optimised version of your project to `production` folder).                                                                                                                                                            |
+| Code Linting                 | JavaScript code linting is done using [esLint](https://www.npmjs.com/package/gulp-eslint) - a linter tool for identifying and reporting on patterns in JavaScript (used airbnb-base rules https://www.npmjs.com/package/eslint-config-airbnb-base). HTML code hinting is done using [HtmlHint](https://www.npmjs.com/package/gulp-htmlhint). |
+| ES2015(ES6) Support          | Optional ES2015 support .You can use all kind of ES6 features here. ES2015 source code will be automatically transpiled to ES5 for wide browser support.                                                                                                                                                                                     |
+| HTML templating              | Used [pug](https://pugjs.org/api/getting-started.html).                                                                                                                                                                                                                                                                                      |
+| Built-in HTTP Server         | A built-in server for previewing your site locally while you develop and iterate.                                                                                                                                                                                                                                                            |
+| Live Browser Reloading       | Reload the browser in real-time anytime an edit is made without the need for an extension (Run `npm start` and edit your files).                                                                                                                                                                                                             |
+| Cross-device Synchronization | Synchronize clicks, scrolls, forms and live-reload across multiple devices as you edit your project. Powered by [BrowserSync](http://browsersync.io) (Run `npm start` and open up the IP provided on other devices on your network).                                                                                                         |
+
 ## Overview
 
 gulp-simple is an opinionated boilerplate for web development. Tools for building a great experience across many devices. A solid starting point for both professionals and newcomers to the industry.
@@ -45,7 +58,7 @@ $ npm install --global gulp-cli
 
 _This will install Gulp globally. Depending on your user account, you may need to [configure your system](https://github.com/sindresorhus/guides/blob/master/npm-global-without-sudo.md) to install packages globally without administrative privileges._
 
-**In this project i use Gulp version 4.0**
+**In this project I use Gulp version 4.0**
 
 ### Local dependencies
 
@@ -94,69 +107,67 @@ $ npm build
 
 ```
 |-- src
-| |-- app
-| | |-- components
-| | | |-- footer
-| | | | |-- index.js
-| | | | |-- index.pug
-| | | | `-- index.sass
-| | |`-- header
-| | | |-- index.js
-| | | |-- index.pug
-| | | `-- index.sass
-| | |-- scripts
-| | | |-- helper
-| | | `-- app.js
-| | |-- styles
-| | | |-- common
-| | | |-- mixins
-| | |-- main.sass
-| | -- views
-| | |-- _layouts
-| | | |-- _includes
-| | | | |-- css.pug
-| | | | |-- scripts.pug
-| | | | |-- seo.pug
-| | | | |-- variables.pug
-| | | | |-- watermark.pug
-| | | |-- \_mixins
-| | | |-- layout.pug
-| | |-- index.pug
-| `-- assets
-| |-- css
-| | |-- fonts.css
-| | |-- grid.css
-| | |-- reset.css
-| |-- fonts
-| |-- img
-| | -- sprite
-| |-- js
-|-- tasks
-| |-- author.js
-| |-- browserSync.js
-| |-- browserify.js
-| |-- clean.js
-| |-- concat.js
-| |-- done.js
-| |-- eslint.js
-| |-- fonts.js
-| |-- images.js
-| |-- injectJs.js
-| |-- injectSass.js
-| |-- pug.js
-| |-- sass.js
-| |-- sitemap.js
-| |-- size.js
-| |-- sprite.js
-| |-- zip.js
-|-- LICENSE
-|-- README.md
-|-- config.json
-|-- gulpfile.babel.js
-|-- package-lock.json
-|-- package.json
-|-- plugins.json`
-|-- seo.json
+|   |-- app
+|   |   |-- components                # Reusable components
+|   |   |   `-- header
+|   |   |       |-- index.js          # Auto import to script main file when it created
+|   |   |       |-- index.pug
+|   |   |       |-- index.sass        # Auto import to sass main file when it created
+|   |   |       `-- index.test.js
+|   |   |-- scripts                   # Script main
+|   |   |   `-- app.js
+|   |   |-- styles
+|   |   |   |-- common
+|   |   |   |-- mixins
+|   |   |   `-- main.sass             # Sass main
+|   |   `-- views                     # Layout structure for app
+|   |       |-- _layouts
+|   |       `-- index.pug
+|   `-- assets
+|       |-- css                       # Custom css library
+|       |-- fonts                     # Fonts
+|       |-- img                       # Images
+|       `-- js                        # Custom javascript library
+|-- tasks                             # Folder for gulp tasks
+|-- tmp                               # Folder for production build output, in development mode is tmp
+|-- component.js                      # Creat component
+|-- gulpfile.babel.js                 # gulp main
+|-- karma.conf.js                     # karma test
+|-- plugins.json                      # Import library css/js
+`-- seo.json                          # Config SEO for website - build on production mode
+```
+
+## Gulp tasks
+
+| Task        | Deciption                                                                                                 |
+| ----------- | --------------------------------------------------------------------------------------------------------- |
+| Easy start  | All setting of gulp task is in `config.json`                                                              |
+| author      | This task will inject the config.author to css and javascript in production mode.                         |
+| browserify  | Compile the `app.js`. It can only view files imported.                                                    |
+| browserSync | Browsersync can watch your files as you work. Changes you make will eith                                  |
+| clean       | `production` or `development` folder removing                                                             |
+| concat      | Using `gulp-concat` to concat all library's css and javascript file to one single css and javascript file |
+| done        | Notify that the `production` has been done. Will show on the log screen                                   |
+| eslint      | Need to lint js files.                                                                                    |
+| fonts       | Copy fonts.                                                                                               |
+| images      | Copy images to `development` or `production` folder.                                                      |
+| injectJs    | Automatic inject the js file in `components` folder to `app.js`.                                          |
+| injectSass  | Automatic inject the sass file in `components` folder to sass main.                                       |
+| pug         | Compile pug                                                                                               |
+| rev         | Static asset revisioning by appending content hash to filenames unicorn.css → unicorn-d41d8cd98f.css      |
+| sass        | Compile sass file                                                                                         |
+| sitemap     | Make sitemap on `production` mode                                                                         |
+| size        | Log file's size of the `production` folder                                                                |
+| sprite      | Convert a set of images into a spritesheet and CSS variable                                               |
+| size        | Zip the `production` folder                                                                               |
+
+### To create new component
+
+```bash
+
+# format: node component.js [componentName] [add. expansion through the gap]
+
+node component.js demoComponent # will create a index.pug, index.sass, index.js, index.test.js
 ```
 
 ## Troubleshooting
@@ -178,3 +189,5 @@ Give a ⭐️ if this project helped you!
 The MIT License (MIT)
 
 Copyright (c) 2019 by ngocsangyem
+
+The document get from [justcoded](https://github.com/justcoded)

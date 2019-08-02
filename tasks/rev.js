@@ -9,7 +9,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			.src(`${taskTarget}/**/*.{css,js}`)
 			.pipe($.rev())
 			.pipe(gulp.dest(dest))
-			.pipe($.rev.manifest())
+			.pipe($.rev.manifest('manifest.json'))
 			.pipe(gulp.dest(dest));
 	});
 }

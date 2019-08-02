@@ -27,7 +27,7 @@ function fileExist(path) {
 }
 const dirs = config.directories;
 const componentName = process.argv[2];
-const defaultExtensions = ['sass', 'pug', 'js']; // default extensions
+const defaultExtensions = ['sass', 'pug', 'js', 'test.js']; // default extensions
 const extensions = uniqueArray(defaultExtensions.concat(process.argv.slice(3)));
 
 // If there is a component name
@@ -61,12 +61,12 @@ if (componentName) {
 						path.basename(path.dirname(filePath))
 					);
 					let fileName = Capitalize(path.basename(filePath));
-					fileContent = `/* ES6 module */\n\n export default class ${dirName +
+					fileContent = `/* ES6 module */\n\nexport default class ${dirName +
 						fileName} {
-						constructor() {
-							console.log('Header component');
-						}
-					};`;
+	constructor() { 
+		console.log('${dirName + fileName} component');
+	}
+};`;
 				} else if (extension === 'pug') {
 					fileContent = '';
 				}

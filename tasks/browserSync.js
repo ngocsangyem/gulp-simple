@@ -63,16 +63,6 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			gulp.series('injectJs')
 		);
 
-		// Scripts
-		// gulp.watch(
-		// 	[
-		// 		path.join(dirs.source, dirs.app, dirs.scripts, '**/*.js'),
-		// 		path.join(dirs.source, dirs.app, dirs.component, '**/*.js'),
-		// 		'!' + path.join(dirs.source, dirs.app, dirs.scripts, entries.js)
-		// 	],
-		// 	gulp.parallel('browserify')
-		// );
-
 		// Concat files
 		gulp.watch(['./plugins.json'], gulp.parallel('concatCss', 'concatJs'));
 

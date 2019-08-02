@@ -15,11 +15,6 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			.pipe(strip())
 			.pipe($.concat('core.js'))
 			.pipe($.terser())
-			.pipe(
-				$.debug({
-					title: 'Concat:'
-				})
-			)
 			.pipe(gulp.dest(destJs));
 	});
 
