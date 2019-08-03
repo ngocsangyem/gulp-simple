@@ -1,10 +1,4 @@
 {
-	"styles": [
-		"src/assets/css/reset.css",
-		"src/assets/css/grid.css",
-		"node_modules/swiper/dist/css/swiper.css"
-	],
-	"scripts": [
-		"node_modules/swiper/dist/js/swiper.js"
-	]
+	"styles": ["src/assets/css/reset.css"],
+	"scripts": ["src/assets/js/ofi.min.js"]
 }

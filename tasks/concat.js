@@ -11,7 +11,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 
 	gulp.task('concatJs', () => {
 		return gulp
-			.src(url.scripts)
+			.src(url.scripts, { allowEmpty: true })
 			.pipe(strip())
 			.pipe($.concat('core.js'))
 			.pipe($.terser())
@@ -20,7 +20,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 
 	gulp.task('concatCss', () => {
 		return gulp
-			.src(url.styles)
+			.src(url.styles, { allowEmpty: true })
 			.pipe(stripCssComments())
 			.pipe($.concat('core.css'))
 			.pipe($.cssnano())
