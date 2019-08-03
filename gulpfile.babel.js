@@ -78,10 +78,10 @@ gulp.task(
 
 gulp.task('lint', gulp.series('eslint'));
 
-gulp.task('test', done => {
+gulp.task('test', function(done) {
 	KarmaServer.start(
 		{
-			configFile: path.join(__dirname, '/karma.conf.js'),
+			configFile: __dirname + '/karma.conf.js',
 			singleRun: !args.watch,
 			autoWatch: args.watch
 		},

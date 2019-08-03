@@ -1,4 +1,5 @@
 {
+	"parser": "babel-eslint",
 	"env": {
 		"browser": true,
 		"es6": true,
@@ -12,12 +13,28 @@
 		}
 	},
 	"extends": "eslint:recommended",
+	"globals": {
+		"DocumentFragment": true,
+		"it": true,
+		"describe": true,
+		"beforeEach": true,
+		"runs": true,
+		"spyOn": true,
+		"spyOnEvent": true,
+		"waitsFor": true,
+		"expect": true,
+		"afterEach": true
+	},
 	"rules": {
 		"indent": [2, "tab"],
-		"quotes": [2, "single", {
-			"avoidEscape": true,
-			"allowTemplateLiterals": true
-		}],
+		"quotes": [
+			2,
+			"single",
+			{
+				"avoidEscape": true,
+				"allowTemplateLiterals": true
+			}
+		],
 		"semi": [2, "always"],
 		"eqeqeq": 2,
 		"strict": [2, "global"],
@@ -30,20 +47,25 @@
 		"no-empty-function": 1,
 		"no-useless-return": 1,
 		"vars-on-top": 1,
-		"no-use-before-define": [1, "nofunc"],
+		"no-use-before-define": [1],
 		"global-require": 0,
 		"camelcase": 1,
 		"new-cap": 1,
 		"no-lonely-if": 1,
-		"no-multiple-empty-lines": [1, {
-			"max": 3
-		}],
+		"no-multiple-empty-lines": [
+			1,
+			{
+				"max": 3
+			}
+		],
 		"no-trailing-spaces": 1,
 
-		"no-restricted-properties": [1, {
-			"property": "lenght",
-			"message": "Use length instead of lenght (notice the position of the h)"
-		}]
-
+		"no-restricted-properties": [
+			1,
+			{
+				"property": "lenght",
+				"message": "Use length instead of lenght (notice the position of the h)"
+			}
+		]
 	}
 }

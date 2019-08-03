@@ -52,15 +52,13 @@ if (componentName) {
 				const filePath = `${dirPath}index.${extension}`; // full path to the file being created
 				let fileContent = ''; // file content
 				let fileCreateMsg = ''; // message in console when creating file
+				let dirName = Capitalize(path.basename(path.dirname(filePath)));
+				let fileName = Capitalize(path.basename(filePath));
 				if (extension === 'sass') {
 					fileContent = `// Colors of this file should follow the rule of colors in styles folder`;
 				} else if (extension === 'scss') {
 					fileContent = `// Colors of this file should follow the rule of colors in styles folder`;
 				} else if (extension === 'js') {
-					let dirName = Capitalize(
-						path.basename(path.dirname(filePath))
-					);
-					let fileName = Capitalize(path.basename(filePath));
 					fileContent = `/* ES6 module */\n\nexport default class ${dirName +
 						fileName} {
 	constructor() { 
@@ -69,6 +67,24 @@ if (componentName) {
 };`;
 				} else if (extension === 'pug') {
 					fileContent = '';
+				} else if (extension === 'test.js') {
+					fileContent = `import ${(dirName + fileName).replace(
+						/\.[^.]*$/,
+						''
+					)} from './index';
+describe('${dirName} View', function() {
+	beforeEach(() => {
+		this.${path
+			.basename(path.dirname(filePath))
+			.replace(/[-_]/g, '')} = new ${dirName + fileName}();
+	});
+
+	it('Should run a few assertions', () => {
+		expect(this.${path
+			.basename(path.dirname(filePath))
+			.replace(/[-_]/g, '')}).to.exist;
+	});
+});`;
 				}
 
 				if (fileExist(filePath) === false) {

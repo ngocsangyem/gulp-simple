@@ -38,7 +38,7 @@ const karmaConf = function(config) {
 		host: '0.0.0.0',
 
 		// web server port
-		port: 8080,
+		port: 3012,
 
 		// enable / disable colors in the output (reporters and logs)
 		colors: true,
