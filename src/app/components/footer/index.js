@@ -1,5 +1,5 @@
-export default class FooterIndex {
-	constructor() {
-		console.log('This is footer');
-	}
+const FooterIndex = () => {
+	console.log('This is footer');
 }
+
+export default FooterIndex;

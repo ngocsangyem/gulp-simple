@@ -1,0 +1,53 @@
+$breakpoints: (xs: 320px,
+sm: 576px,
+md: 768px,
+lg: 992px,
+xl: 1200px)
+
+// mobile-first breakpoint mixin
+=breakpoint($breakpoint: md, $key: min, $orientation: false)
+	@if ($orientation)
+		@media (#{$key}-width: map-get($breakpoints, $breakpoint)) and (orientation : $orientation)
+			@content
+	@else
+		@media (#{$key}-width: map-get($breakpoints, $breakpoint))
+			@content
+
+
+
+// .selector
+//   font-size: 1rem
+  
+//   +breakpoint()
+//     font-size: 2rem
+  
+//   +breakpoint(sm, max)
+//     font-size: 12px
+  
+//   +breakpoint(lg, min, landscape) {
+//     font-size: 40vh
+
+
+// Out put
+
+// .selector {
+//   font-size: 1rem;
+// }
+
+// @media (min-width: 768px) {
+//   .selector {  
+//     font-size: 2rem;
+//   }
+// }
+
+// @media (max-width: 576px) {
+//   .selector {
+//     font-size: 12px; 
+//   }
+// }
+
+// @media (min-with: 992px) and (orientation: landscape) {
+//   .selector {
+//     font-size: 40vh;
+//   }
+// }
