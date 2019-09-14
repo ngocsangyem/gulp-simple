@@ -8,6 +8,7 @@ const colors = require('colors');
 const config = require('./config');
 const mkdirp = require('mkdirp');
 const Capitalize = require('./tasks/utils/capitalize');
+
 function uniqueArray(arr) {
 	const objectTemp = {};
 	for (let i = 0; i < arr.length; i++) {
@@ -59,12 +60,12 @@ if (componentName) {
 				} else if (extension === 'scss') {
 					fileContent = `// Colors of this file should follow the rule of colors in styles folder`;
 				} else if (extension === 'js') {
-					fileContent = `/* ES6 module */\n\nexport default class ${dirName +
-						fileName} {
-	constructor() { 
-		console.log('${dirName + fileName} component');
-	}
-};`;
+					fileContent = `/* ES6 module */\n\nconst ${dirName +
+						fileName} = () => {
+	console.log('This is ${dirName}')
+}
+
+export default ${dirName + fileName};`;
 				} else if (extension === 'pug') {
 					fileContent = '';
 				} else if (extension === 'test.js') {

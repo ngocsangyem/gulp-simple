@@ -27,6 +27,7 @@
 		"glob": "^7.1.4",
 		"glob-exec": "^0.1.1",
 		"gulp": "^4.0.2",
+		"gulp-babel": "^8.0.0",
 		"gulp-cached": "^1.1.1",
 		"gulp-concat": "^2.6.1",
 		"gulp-cssnano": "^2.1.3",
@@ -79,6 +80,7 @@
 	"scripts": {
 		"start": "set NODE_ENV=development & gulp serve --development",
 		"build": "set NODE_ENV=production & gulp build --production",
+		"component": "set NODE_ENV=production & gulp component --production",
 		"clean-node": "rimraf node_modules",
 		"update": "ncu -u && npm i"
 	},

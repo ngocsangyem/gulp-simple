@@ -6,7 +6,7 @@ import minimist from 'minimist';
 import glob from 'glob';
 import gulpLoadPlugins from 'gulp-load-plugins';
 
-const defaultNotification = function(err) {
+const defaultNotification = function (err) {
 	return {
 		subtitle: err.plugin,
 		message: err.message,
@@ -28,10 +28,10 @@ const KarmaServer = require('karma').Server;
 const browserSync = browserSyncLib.create();
 
 glob.sync('./tasks/**/*.js')
-	.filter(function(file) {
+	.filter(function (file) {
 		return /\.(js)$/i.test(file);
 	})
-	.map(function(file) {
+	.map(function (file) {
 		require(file)(gulp, $, args, config, taskTarget, browserSync);
 	});
 
@@ -76,16 +76,42 @@ gulp.task(
 	])
 );
 
+gulp.task(
+	'component',
+	gulp.series([
+		'clean',
+		gulp.parallel(
+			'pug',
+			'sass',
+			'fonts',
+			'images',
+			'concatCss',
+			'concatJs',
+			'browserify'
+		),
+		gulp.parallel(
+			'componentSASS',
+			'componentPUG',
+			'componentSCRIPT'
+		),
+		'zip',
+		'rev',
+		'sitemap',
+		'author',
+		'size',
+		'done'
+	])
+);
+
 gulp.task('lint', gulp.series('eslint'));
 
-gulp.task('test', function(done) {
-	KarmaServer.start(
-		{
+gulp.task('test', function (done) {
+	KarmaServer.start({
 			configFile: __dirname + '/karma.conf.js',
 			singleRun: !args.watch,
 			autoWatch: args.watch
 		},
-		function() {
+		function () {
 			done();
 		}
 	);
