@@ -21,7 +21,9 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			)
 			.pipe(
 				$.data(function(file) {
-					return JSON.parse(fs.readFileSync('./seo.json'));
+					return JSON.parse(
+						fs.readFileSync('./src/app/data/data.json')
+					);
 				})
 			)
 			.pipe(

@@ -8,6 +8,8 @@ const colors = require('colors');
 const config = require('./config');
 const mkdirp = require('mkdirp');
 const Capitalize = require('./tasks/utils/capitalize');
+const RemoveExtension = require('./tasks/utils/remove-extension');
+const RemoveDash = require('./tasks/utils/remove-dash');
 
 function uniqueArray(arr) {
 	const objectTemp = {};
@@ -28,14 +30,12 @@ function fileExist(path) {
 }
 const dirs = config.directories;
 const componentName = process.argv[2];
-const defaultExtensions = ['sass', 'pug', 'js', 'test.js']; // default extensions
+const defaultExtensions = ['sass', 'pug', 'js', 'test.js', 'json']; // default extensions
 const extensions = uniqueArray(defaultExtensions.concat(process.argv.slice(3)));
 
 // If there is a component name
 if (componentName) {
-	const dirPath = `${dirs.source}/${dirs.app}/${
-		dirs.component
-	}/${componentName}/`; // full path to the created component folder
+	const dirPath = `${dirs.source}/${dirs.app}/${dirs.component}/${componentName}/`; // full path to the created component folder
 
 	if (fs.existsSync(dirPath)) {
 		console.log(colors.yellow(`This component has existed`));
@@ -46,46 +46,54 @@ if (componentName) {
 		if (err) {
 			console.log(colors.red(`Cancel operation: ${err}`));
 		} else {
-			console.log('Component created: ' + colors.green(dirPath));
+			console.log('Created: ' + colors.green(dirPath));
 
 			// We go around the array of extensions and create files if they have not yet been created.
 			extensions.forEach(extension => {
-				const filePath = `${dirPath}index.${extension}`; // full path to the file being created
+				const filePath = `${dirPath +
+					componentName}.component.${extension}`; // full path to the file being created
 				let fileContent = ''; // file content
 				let fileCreateMsg = ''; // message in console when creating file
 				let dirName = Capitalize(path.basename(path.dirname(filePath)));
 				let fileName = Capitalize(path.basename(filePath));
-				if (extension === 'sass') {
-					fileContent = `// Colors of this file should follow the rule of colors in styles folder`;
-				} else if (extension === 'scss') {
-					fileContent = `// Colors of this file should follow the rule of colors in styles folder`;
-				} else if (extension === 'js') {
-					fileContent = `/* ES6 module */\n\nconst ${dirName +
-						fileName} = () => {
-	console.log('This is ${dirName}')
-}
+				const sassTemplate = `// Colors of this file should follow the rule of colors in styles folder`;
+				const scssTemplate = `// Colors of this file should follow the rule of colors in styles folder`;
+				const jsTemplate = `/* ES6 module */\n\nconst ${dirName}Component = () => {
+					console.log('This is ${dirName}Component')
+				}
+				
+				export default ${dirName}Component;`;
+				const pugTemplate = '';
+				const testTemplate = `import ${dirName}Component from './${path.basename(
+					path.dirname(filePath)
+				)}.component';
+describe('${dirName}Component View', function() {
+beforeEach(() => {
+	this.${path
+		.basename(path.dirname(filePath))
+		.replace(/[-_]/g, '')} = new ${dirName}Component();
+});
 
-export default ${dirName + fileName};`;
-				} else if (extension === 'pug') {
-					fileContent = '';
-				} else if (extension === 'test.js') {
-					fileContent = `import ${(dirName + fileName).replace(
-						/\.[^.]*$/,
-						''
-					)} from './index';
-describe('${dirName} View', function() {
-	beforeEach(() => {
-		this.${path
-			.basename(path.dirname(filePath))
-			.replace(/[-_]/g, '')} = new ${dirName + fileName}();
-	});
-
-	it('Should run a few assertions', () => {
-		expect(this.${path
-			.basename(path.dirname(filePath))
-			.replace(/[-_]/g, '')}).to.exist;
-	});
+it('Should run a few assertions', () => {
+	expect(this.${path
+		.basename(path.dirname(filePath))
+		.replace(/[-_]/g, '')}).to.exist;
+});
 });`;
+				const jsonTemplate = '{}';
+
+				if (extension === 'sass') {
+					fileContent = sassTemplate;
+				} else if (extension === 'scss') {
+					fileContent = scssTemplate;
+				} else if (extension === 'js') {
+					fileContent = jsTemplate;
+				} else if (extension === 'pug') {
+					fileContent = pugTemplate;
+				} else if (extension === 'test.js') {
+					fileContent = testTemplate;
+				} else if (extension === 'json') {
+					fileContent = jsonTemplate;
 				}
 
 				if (fileExist(filePath) === false) {
@@ -95,7 +103,7 @@ describe('${dirName} View', function() {
 								colors.red(`File is NOT created: ${err}`)
 							);
 						}
-						console.log('File created: ' + colors.green(filePath));
+						console.log('Created: ' + colors.green(filePath));
 						if (fileCreateMsg) {
 							console.warn(fileCreateMsg);
 						}

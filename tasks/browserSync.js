@@ -31,7 +31,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 				`${dirs.source}/${dirs.app}/${dirs.views}/**/*.pug`,
 				'./seo.json'
 			],
-			gulp.series('pug')
+			gulp.series('pug:data', 'pug')
 		).on('unlink', function(path) {
 			let filePathInBuildDir = path
 				.replace(`${dirs.source}/${dirs.app}/${dirs.views}`, taskTarget)
@@ -72,12 +72,19 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			gulp.parallel('fonts')
 		);
 
+		// Json
+		gulp.watch(
+			[
+				`${dirs.source}/${dirs.app}/${dirs.component}/**/*.json`,
+				`./seo.json`
+			],
+			gulp.series('pug:data')
+		);
+
 		// Images
 		gulp.watch(
 			[
-				`${dirs.source}/${dirs.assets}/${
-					dirs.images
-				}/**/*.{jpg,jpeg,gif,svg,png}`
+				`${dirs.source}/${dirs.assets}/${dirs.images}/**/*.{jpg,jpeg,gif,svg,png}`
 			],
 			gulp.parallel('images')
 		).on('unlink', function(path) {

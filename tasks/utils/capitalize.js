@@ -1,7 +1,23 @@
-const Capitalize = s => {
-	if (typeof s !== 'string') return '';
-	let text = s.charAt(0).toUpperCase() + s.slice(1);
-	return text.replace(/\.[^.]*$/, '').replace(/[-_]/g, '');
+const RemoveVietnamese = require('./remove-vietnamese');
+
+const CapitalizeWord = word => {
+	if (typeof word !== 'string') return '';
+	if (word.includes('-')) {
+		return transformWordWithMinus(word);
+	} else if (word.includes(' ')) {
+		const removeWhiteSpace = RemoveVietnamese(word);
+		return transformWordWithMinus(removeWhiteSpace);
+	} else {
+		return word[0].toUpperCase() + word.slice(1).toLowerCase();
+	}
 };
 
-module.exports = Capitalize;
+const transformWordWithMinus = word => {
+	const wordToArray = word.split('-');
+
+	return wordToArray
+		.map(string => string[0].toUpperCase() + string.slice(1).toLowerCase())
+		.join('');
+};
+
+module.exports = CapitalizeWord;

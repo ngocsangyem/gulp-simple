@@ -1,12 +1,13 @@
 // inject:jsComponentFile
-import HeaderIndex from '../components/header/index';
-import FooterIndex from '../components/footer/index';
+import AboutTestComponent from '../components/about-test/about-test.component';
+import FooterComponent from '../components/footer/footer.component';
+import HeaderComponent from '../components/header/header.component';
 // endinject
 
 class App {
 	constructor() {
-		HeaderIndex();
-		FooterIndex();
+		HeaderComponent();
+		FooterComponent();
 	}
 
 	static factory() {

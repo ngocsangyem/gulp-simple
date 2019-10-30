@@ -21,9 +21,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 					gulp.src(
 						[
 							fileInject,
-							`!${dirs.source}/${dirs.app}/${
-								dirs.component
-							}/**/*.test.js`
+							`!${dirs.source}/${dirs.app}/${dirs.component}/**/*.test.js`
 						],
 						{ read: false }
 					),
@@ -40,8 +38,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 								/\.[^.]*$/,
 								''
 							);
-							return `import ${dirName +
-								fileName} from '${pathRemoveExtension}';`;
+							return `import ${dirName}Component from '${pathRemoveExtension}';`;
 						}
 					}
 				)
