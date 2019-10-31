@@ -1,5 +1,4 @@
 import path from 'path';
-import series from 'stream-series';
 import Capitalize from './utils/capitalize';
 
 export default function(gulp, $, args, config, taskTarget, browserSync) {

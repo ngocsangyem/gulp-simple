@@ -4,7 +4,7 @@
 	"description": "The build tool for Front-end using Gulp4",
 	"main": "index.js",
 	"dependencies": {
-		"eva-icons": "^1.1.1",
+		"eva-icons": "^1.1.2",
 		"swiper": "^5.2.0"
 	},
 	"devDependencies": {
