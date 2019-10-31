@@ -1,13 +1,16 @@
-// inject:jsComponentFile
-import AboutTestComponent from '../components/about-test/about-test.component';
-import FooterComponent from '../components/footer/footer.component';
-import HeaderComponent from '../components/header/header.component';
-// endinject
+import {
+	HeaderComponent,
+	FooterComponent,
+	AboutComponent,
+	About1Component
+} from '../components/index';
 
 class App {
 	constructor() {
 		HeaderComponent();
 		FooterComponent();
+		AboutComponent();
+		About1Component();
 	}
 
 	static factory() {

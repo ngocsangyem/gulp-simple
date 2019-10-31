@@ -2,15 +2,18 @@ import path from 'path';
 
 export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dirs = config.directories;
-	const dest = `${dirs.source}/${dirs.app}/${dirs.css}`;
+	const dest = `${dirs.source}/${dirs.app}/${dirs.component}`;
 	const entries = config.entries;
-	const fileInject = `${dirs.source}/${dirs.app}/${
-		dirs.component
-	}/**/*.{sass,scss}`;
+	const fileInject = [
+		`${dirs.source}/${dirs.app}/${dirs.component}/**/*.{sass,scss}`,
+		`!${dirs.source}/${dirs.app}/${dirs.component}/index.{sass,scss}`
+	];
 
 	gulp.task('injectSass', () => {
 		return gulp
-			.src(`${dirs.source}/${dirs.app}/${dirs.css}/${entries.css}`)
+			.src([
+				`${dirs.source}/${dirs.app}/${dirs.component}/index.{sass,scss}`
+			])
 			.pipe(
 				$.plumber({
 					errorHandler: $.notify.onError(
@@ -28,7 +31,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 							/\.[^.]*$/,
 							''
 						);
-						return `@import ${pathRemoveExtension}`;
+						return `@import ./${pathRemoveExtension}`;
 					}
 				})
 			)
