@@ -7,9 +7,9 @@ const path = require('path');
 const colors = require('colors');
 const config = require('./config');
 const mkdirp = require('mkdirp');
-const Capitalize = require('./tasks/utils/capitalize');
-const RemoveExtension = require('./tasks/utils/remove-extension');
-const RemoveDash = require('./tasks/utils/remove-dash');
+const Capitalize = require('./gulp/helpers/capitalize');
+const RemoveExtension = require('./gulp/helpers/remove-extension');
+const RemoveDash = require('./gulp/helpers/remove-dash');
 
 function uniqueArray(arr) {
 	const objectTemp = {};

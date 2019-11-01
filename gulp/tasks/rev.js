@@ -1,0 +1,15 @@
+import gulp from 'gulp';
+
+import { plugins, args, config, taskTarget, browserSync } from '../utils';
+
+const dirs = config.directories;
+const dest = `${taskTarget}`;
+
+gulp.task('rev', () => {
+	return gulp
+		.src([`${taskTarget}/styles/*.css`, `${taskTarget}/scripts/*.js`])
+		.pipe(plugins.rev())
+		.pipe(gulp.dest(dest))
+		.pipe(plugins.rev.manifest('manifest.json'))
+		.pipe(gulp.dest(dest));
+});

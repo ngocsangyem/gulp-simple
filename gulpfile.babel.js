@@ -1,38 +1,14 @@
 import gulp from 'gulp';
 import path from 'path';
-import browserSyncLib from 'browser-sync';
-import cfg from './config';
-import minimist from 'minimist';
 import glob from 'glob';
-import gulpLoadPlugins from 'gulp-load-plugins';
+import { KarmaServer, args } from './gulp/utils';
 
-const defaultNotification = function(err) {
-	return {
-		subtitle: err.plugin,
-		message: err.message,
-		sound: 'Funk',
-		onLast: true
-	};
-};
-
-const args = minimist(process.argv.slice(2));
-const dirs = cfg.directories;
-const taskTarget = args.production ? dirs.destination : dirs.temporary;
-const config = Object.assign({}, cfg, defaultNotification);
-const $ = gulpLoadPlugins();
-
-// Create karma server
-const KarmaServer = require('karma').Server;
-
-// BrowserSynce init
-const browserSync = browserSyncLib.create();
-
-glob.sync('./tasks/**/*.js')
+glob.sync('./gulp/tasks/**/*.js')
 	.filter(function(file) {
 		return /\.(js)$/i.test(file);
 	})
 	.map(function(file) {
-		require(file)(gulp, $, args, config, taskTarget, browserSync);
+		require(file);
 	});
 
 gulp.task(
@@ -100,17 +76,20 @@ gulp.task(
 	])
 );
 
-gulp.task('lint', gulp.series('eslint'));
+// Default task
+// gulp.task('default', gulp.series('clean', 'build'));
 
-gulp.task('test', function(done) {
-	KarmaServer.start(
-		{
-			configFile: __dirname + '/karma.conf.js',
-			singleRun: !args.watch,
-			autoWatch: args.watch
-		},
-		function() {
-			done();
-		}
-	);
-});
+// Testing
+gulp.task(
+	'test',
+	gulp.series('eslint', done => {
+		new KarmaServer(
+			{
+				configFile: path.join(__dirname, '/karma.conf.js'),
+				singleRun: !args.watch,
+				autoWatch: args.watch
+			},
+			done
+		).start();
+	})
+);
