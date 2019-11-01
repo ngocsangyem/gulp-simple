@@ -46,7 +46,7 @@ function handleComponentName() {
 
 // If there is a component name
 if (componentName) {
-	const dirPath = `${dirs.source}/${dirs.app}/${dirs.component}/${componentName}/`; // full path to the created component folder
+	const dirPath = `${dirs.source}${dirs.app}${dirs.component}${componentName}/`; // full path to the created component folder
 
 	if (fs.existsSync(dirPath)) {
 		console.log(colors.yellow(`This component has existed`));
