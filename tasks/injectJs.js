@@ -4,15 +4,15 @@ import Capitalize from './utils/capitalize';
 export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dirs = config.directories;
 	const entries = config.entries;
-	const dest = `${dirs.source}/${dirs.app}/${dirs.component}`;
+	const dest = `${dirs.source}${dirs.app}${dirs.component}`;
 	const fileInject = [
-		`${dirs.source}/${dirs.app}/${dirs.component}/**/*.js`,
-		`!${dirs.source}/${dirs.app}/${dirs.component}/index.js`,
-		`!${dirs.source}/${dirs.app}/${dirs.component}/**/*.test.js`
+		`${dirs.source}${dirs.app}${dirs.component}**/*.js`,
+		`!${dirs.source}${dirs.app}${dirs.component}index.js`,
+		`!${dirs.source}${dirs.app}${dirs.component}**/*.test.js`
 	];
 	gulp.task('injectJs', () => {
 		return gulp
-			.src(`${dirs.source}/${dirs.app}/${dirs.component}/index.js`)
+			.src(`${dirs.source}${dirs.app}${dirs.component}index.js`)
 			.pipe(
 				$.plumber({
 					errorHandler: $.notify.onError(

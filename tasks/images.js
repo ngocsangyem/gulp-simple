@@ -7,9 +7,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 	gulp.task('images', () => {
 		return gulp
 			.src(
-				`${dirs.source}/${dirs.assets}/${
-					dirs.images
-				}/**/*.{jpg,jpeg,gif,svg,png}`
+				`${dirs.source}${dirs.assets}${dirs.images}**/*.{jpg,jpeg,gif,svg,png}`
 			)
 			.pipe($.if(!args.production, $.cached()))
 			.pipe(

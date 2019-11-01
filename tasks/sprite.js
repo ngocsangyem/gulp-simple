@@ -9,7 +9,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 
 	gulp.task('sprite', () => {
 		let spriteData = gulp
-			.src(`${dirs.source}/${dirs.assets}/${dirs.images}/sprite/*.png`)
+			.src(`${dirs.source}${dirs.assets}${dirs.images}sprite/*.png`)
 			.pipe(
 				spritesmith({
 					imgName: 'sprite.png',

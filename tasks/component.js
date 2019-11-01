@@ -3,7 +3,7 @@ import autoprefixer from 'autoprefixer';
 import gcmq from 'gulp-group-css-media-queries';
 import cssDeclarationSorter from 'css-declaration-sorter';
 
-export default function (gulp, $, args, config, taskTarget, browserSync) {
+export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dirs = config.directories;
 	const entries = config.entries;
 	const dest = `${taskTarget}/${dirs.component}`;
@@ -18,7 +18,7 @@ export default function (gulp, $, args, config, taskTarget, browserSync) {
 
 	gulp.task('componentSASS', () => {
 		return gulp
-			.src(`${dirs.source}/${dirs.app}/${dirs.component}/**/*.sass`)
+			.src(`${dirs.source}${dirs.app}${dirs.component}**/*.sass`)
 			.pipe(
 				$.plumber({
 					errorHandler: $.notify.onError(
@@ -33,20 +33,22 @@ export default function (gulp, $, args, config, taskTarget, browserSync) {
 					precision: 10
 				})
 			)
-			.on('error', function (err) {
+			.on('error', function(err) {
 				$.util.log(err);
 			})
 			.on('error', $.notify.onError(config.defaultNotification))
 			.pipe($.postcss(postCssPlugins))
 			.pipe(gcmq())
-			.pipe($.cssnano({
-				rebase: false
-			}))
-			.pipe(gulp.dest(dest))
+			.pipe(
+				$.cssnano({
+					rebase: false
+				})
+			)
+			.pipe(gulp.dest(dest));
 	});
 	gulp.task('componentPUG', () => {
 		return gulp
-			.src(`${dirs.source}/${dirs.app}/${dirs.component}/**/*.pug`)
+			.src(`${dirs.source}${dirs.app}${dirs.component}**/*.pug`)
 			.pipe(
 				$.plumber({
 					errorHandler: $.notify.onError(
@@ -59,18 +61,18 @@ export default function (gulp, $, args, config, taskTarget, browserSync) {
 					pretty: '\t'
 				})
 			)
-			.on('error', function (err) {
+			.on('error', function(err) {
 				$.util.log(err);
 			})
 			.on('error', $.notify.onError(config.defaultNotification))
-			.pipe(gulp.dest(dest))
+			.pipe(gulp.dest(dest));
 	});
 
 	gulp.task('componentSCRIPT', () => {
 		return gulp
 			.src([
-				`${dirs.source}/${dirs.app}/${dirs.component}/**/*.js`,
-				`!${dirs.source}/${dirs.app}/${dirs.component}/**/*.test.js`
+				`${dirs.source}${dirs.app}${dirs.component}**/*.js`,
+				`!${dirs.source}${dirs.app}${dirs.component}**/*.test.js`
 			])
 			.pipe(
 				$.plumber({
@@ -79,10 +81,12 @@ export default function (gulp, $, args, config, taskTarget, browserSync) {
 					)
 				})
 			)
-			.pipe($.babel({
-				presets: ['@babel/env']
-			}))
+			.pipe(
+				$.babel({
+					presets: ['@babel/env']
+				})
+			)
 			.pipe($.terser())
-			.pipe(gulp.dest(dest))
-	})
+			.pipe(gulp.dest(dest));
+	});
 }

@@ -8,7 +8,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 		// console.log(filePath)
 
 		return gulp
-			.src(`${dirs.source}/${dirs.assets}/${dirs.fonts}/**/*`)
+			.src(`${dirs.source}${dirs.assets}${dirs.fonts}**/*`)
 			.pipe(gulp.dest(dest));
 	});
 }

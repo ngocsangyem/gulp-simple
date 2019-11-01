@@ -10,7 +10,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 	gulp.task('pug:data', () => {
 		return gulp
 			.src([
-				`${dirs.source}/${dirs.app}/${dirs.component}/**/*.json`,
+				`${dirs.source}${dirs.app}${dirs.component}**/*.json`,
 				`./seo.json`
 			])
 			.pipe(
@@ -31,6 +31,6 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 					}
 				})
 			)
-			.pipe(gulp.dest(`${dirs.source}/${dirs.app}/data`));
+			.pipe(gulp.dest(`${dirs.source}${dirs.app}data`));
 	});
 }

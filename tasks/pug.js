@@ -9,8 +9,8 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 	gulp.task('pug', () => {
 		return gulp
 			.src([
-				`${dirs.source}/${dirs.app}/${dirs.views}/**/*.pug`,
-				`!${dirs.source}/${dirs.app}/${dirs.views}/{**/_*,**/_*/**}`
+				`${dirs.source}${dirs.app}${dirs.views}**/*.pug`,
+				`!${dirs.source}${dirs.app}${dirs.views}{**/_*,**/_*/**}`
 			])
 			.pipe(
 				$.plumber({
@@ -22,7 +22,9 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 			.pipe(
 				$.data(function(file) {
 					return JSON.parse(
-						fs.readFileSync('./src/app/data/data.json')
+						fs.readFileSync(
+							`./${dirs.source}${dirs.app}${dirs.data}${entries.dataJson}`
+						)
 					);
 				})
 			)

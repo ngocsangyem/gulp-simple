@@ -3,20 +3,22 @@
 	"baseUrl": "./",
 	"entries": {
 		"js": "app.js",
-		"css": "main.+(sass|scss)"
+		"css": "main.+(sass|scss)",
+		"dataJson": "data.json"
 	},
 	"directories": {
-		"source": "src",
-		"app": "app",
+		"source": "src/",
+		"app": "app/",
 		"destination": "build",
 		"temporary": "tmp",
-		"component": "components",
-		"css": "styles",
-		"assets": "assets",
-		"scripts": "scripts",
-		"views": "views",
-		"images": "img",
-		"fonts": "fonts"
+		"component": "components/",
+		"css": "styles/",
+		"assets": "assets/",
+		"scripts": "scripts/",
+		"views": "views/",
+		"images": "img/",
+		"fonts": "fonts/",
+		"data": "data/"
 	},
 	"author": {
 		"name": "yem",

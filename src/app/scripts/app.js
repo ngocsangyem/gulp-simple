@@ -1,22 +1,17 @@
-import {
-	HeaderComponent,
-	FooterComponent,
-	AboutComponent,
-	About1Component
-} from '../components/index';
+import { HeaderComponent, FooterComponent } from '../components/index';
 
 class App {
 	constructor() {
 		HeaderComponent();
 		FooterComponent();
-		AboutComponent();
-		About1Component();
 	}
 
-	static factory() {
+	static init() {
 		const app = new App();
 		return app;
 	}
 }
 
-App.factory();
+(function() {
+	App.init();
+})();

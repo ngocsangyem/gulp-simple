@@ -27,8 +27,8 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 		// Pug
 		gulp.watch(
 			[
-				`${dirs.source}/${dirs.app}/${dirs.component}/**/*.pug`,
-				`${dirs.source}/${dirs.app}/${dirs.views}/**/*.pug`,
+				`${dirs.source}${dirs.app}${dirs.component}**/*.pug`,
+				`${dirs.source}${dirs.app}${dirs.views}**/*.pug`,
 				'./seo.json'
 			],
 			gulp.series('pug:data', 'pug')
@@ -45,20 +45,20 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 		// Sass
 		gulp.watch(
 			[
-				`${dirs.source}/${dirs.app}/${dirs.component}/**/*.{sass,scss}`,
-				`${dirs.source}/${dirs.app}/${dirs.css}/**/*.{sass,scss}`
+				`${dirs.source}${dirs.app}${dirs.component}**/*.{sass,scss}`,
+				`${dirs.source}${dirs.app}${dirs.css}**/*.{sass,scss}`
 			],
 			gulp.series('sass')
 		);
 
 		// Inject tasks
 		gulp.watch(
-			[`${dirs.source}/${dirs.app}/${dirs.component}/**/*.{sass,scss}`],
+			[`${dirs.source}${dirs.app}${dirs.component}**/*.{sass,scss}`],
 			{ events: ['add'] },
 			gulp.series('injectSass')
 		);
 		gulp.watch(
-			[`${dirs.source}/${dirs.app}/${dirs.component}/**/*.js`],
+			[`${dirs.source}${dirs.app}${dirs.component}**/*.js`],
 			{ events: ['add'] },
 			gulp.series('injectJs')
 		);
@@ -68,14 +68,14 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 
 		// Fonts
 		gulp.watch(
-			[`${dirs.source}/${dirs.assets}/${dirs.fonts}/**/*`],
+			[`${dirs.source}${dirs.assets}${dirs.fonts}**/*`],
 			gulp.parallel('fonts')
 		);
 
 		// Json
 		gulp.watch(
 			[
-				`${dirs.source}/${dirs.app}/${dirs.component}/**/*.json`,
+				`${dirs.source}${dirs.app}${dirs.component}**/*.json`,
 				`./seo.json`
 			],
 			gulp.series('pug:data')
@@ -84,14 +84,14 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 		// Images
 		gulp.watch(
 			[
-				`${dirs.source}/${dirs.assets}/${dirs.images}/**/*.{jpg,jpeg,gif,svg,png}`
+				`${dirs.source}${dirs.assets}${dirs.images}**/*.{jpg,jpeg,gif,svg,png}`
 			],
 			gulp.parallel('images')
 		).on('unlink', function(path) {
 			let filePathInBuildDir = path
 				.replace(
-					`${dirs.source}/${dirs.assets}/${dirs.images}`,
-					`${taskTarget}/${dirs.images}`
+					`${dirs.source}${dirs.assets}${dirs.images}`,
+					`${taskTarget}${dirs.images}`
 				)
 				.replace(
 					'.+(jpg|jpeg|gif|svg|png)',

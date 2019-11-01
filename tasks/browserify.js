@@ -1,6 +1,5 @@
 // Thank you larsonjj
 
-import path from 'path';
 import glob from 'glob';
 import browserify from 'browserify';
 import envify from 'envify';
@@ -98,7 +97,7 @@ export default function(gulp, $, args, config, taskTarget, browserSync) {
 	// Browserify Task
 	gulp.task('browserify', done => {
 		return glob(
-			`./${dirs.source}/${dirs.app}/${dirs.scripts}/${entries.js}`,
+			`./${dirs.source}${dirs.app}${dirs.scripts}${entries.js}`,
 			function(err, files) {
 				if (err) {
 					done(err);

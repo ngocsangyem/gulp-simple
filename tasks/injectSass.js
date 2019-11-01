@@ -2,17 +2,17 @@ import path from 'path';
 
 export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dirs = config.directories;
-	const dest = `${dirs.source}/${dirs.app}/${dirs.component}`;
+	const dest = `${dirs.source}${dirs.app}${dirs.component}`;
 	const entries = config.entries;
 	const fileInject = [
-		`${dirs.source}/${dirs.app}/${dirs.component}/**/*.{sass,scss}`,
-		`!${dirs.source}/${dirs.app}/${dirs.component}/index.{sass,scss}`
+		`${dirs.source}${dirs.app}${dirs.component}**/*.{sass,scss}`,
+		`!${dirs.source}${dirs.app}${dirs.component}index.{sass,scss}`
 	];
 
 	gulp.task('injectSass', () => {
 		return gulp
 			.src([
-				`${dirs.source}/${dirs.app}/${dirs.component}/index.{sass,scss}`
+				`${dirs.source}${dirs.app}${dirs.component}index.{sass,scss}`
 			])
 			.pipe(
 				$.plumber({

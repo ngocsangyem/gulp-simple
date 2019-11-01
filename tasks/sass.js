@@ -3,7 +3,7 @@ import Fiber from 'fibers';
 import gcmq from 'gulp-group-css-media-queries';
 import cssDeclarationSorter from 'css-declaration-sorter';
 
-export default function (gulp, $, args, config, taskTarget, browserSync) {
+export default function(gulp, $, args, config, taskTarget, browserSync) {
 	const dirs = config.directories;
 	const entries = config.entries;
 	const dest = `${taskTarget}/${dirs.css}`;
@@ -18,7 +18,7 @@ export default function (gulp, $, args, config, taskTarget, browserSync) {
 
 	gulp.task('sass', () => {
 		return gulp
-			.src(`${dirs.source}/${dirs.app}/${dirs.css}/${entries.css}`)
+			.src(`${dirs.source}${dirs.app}${dirs.css}${entries.css}`)
 			.pipe(
 				$.plumber({
 					errorHandler: $.notify.onError(
@@ -26,9 +26,14 @@ export default function (gulp, $, args, config, taskTarget, browserSync) {
 					)
 				})
 			)
-			.pipe($.if(!args.production, $.sourcemaps.init({
-				loadMaps: true
-			})))
+			.pipe(
+				$.if(
+					!args.production,
+					$.sourcemaps.init({
+						loadMaps: true
+					})
+				)
+			)
 			.pipe(
 				$.sass({
 					fiber: Fiber,
@@ -36,15 +41,20 @@ export default function (gulp, $, args, config, taskTarget, browserSync) {
 					precision: 10
 				})
 			)
-			.on('error', function (err) {
+			.on('error', function(err) {
 				$.util.log(err);
 			})
 			.on('error', $.notify.onError(config.defaultNotification))
 			.pipe($.postcss(postCssPlugins))
 			.pipe($.if(!args.production, gcmq()))
-			.pipe($.if(args.production, $.cssnano({
-				rebase: false
-			})))
+			.pipe(
+				$.if(
+					args.production,
+					$.cssnano({
+						rebase: false
+					})
+				)
+			)
 			.pipe($.if(!args.production, $.sourcemaps.write('./')))
 			.pipe(gulp.dest(dest))
 			.pipe(
