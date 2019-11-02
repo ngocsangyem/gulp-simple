@@ -1,9 +1,11 @@
 import { HeaderComponent, FooterComponent } from '../components/index';
+import { ButtonPrimaryComponent } from '../shared/index';
 
 class App {
 	constructor() {
 		HeaderComponent();
 		FooterComponent();
+		ButtonPrimaryComponent();
 	}
 
 	static init() {
