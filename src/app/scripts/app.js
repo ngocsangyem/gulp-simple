@@ -1,11 +1,12 @@
 import { HeaderComponent, FooterComponent } from '../components/index';
-import { ButtonPrimaryComponent } from '../shared/index';
+import { ButtonPrimaryComponent, PopupSignUpComponent } from '../shared/index';
 
 class App {
 	constructor() {
 		HeaderComponent();
 		FooterComponent();
 		ButtonPrimaryComponent();
+		PopupSignUpComponent();
 	}
 
 	static init() {
