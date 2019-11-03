@@ -23,13 +23,13 @@ html(dir='ltr', lang=Seo.seo_lang, itemscope, itemtype="http://schema.org/WebSit
 		title #{title} - #{Seo.cfg_name}
 	body(class=process.argv.slice(3).indexOf('--production') < 0 ? 'kyanon-develop '+prefix+bodyClass+'-page' : prefix+bodyClass+'-page' || 'default')
 		<!-- ////////////// Header ////////////// -->
-		include ../../components/header/header.component.pug
+		include ../components/header/header.component.pug
 		<!-- ////////////// End Header ////////////// -->
 		<!-- ////////////// Begin Main ////////////// -->
 		main
 			block main
 		<!-- ////////////// End Main ////////////// -->
 		<!-- ////////////// Footer ////////////// -->
-		include ../../components/footer/footer.component.pug
+		include ../components/footer/footer.component.pug
 		include ./_includes/scripts
 		<!-- ////////////// End Footer ////////////// -->

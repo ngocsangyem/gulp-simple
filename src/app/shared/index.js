@@ -1,2 +1,17 @@
-export * from './components/button-primary/button-primary.component';
-export * from './popup/popup-sign-up/popup-sign-up.component';
+// Components
+import { ButtonPrimaryComponent } from './components/index';
+
+// Popups
+import { PopupSignUpComponent } from './popup/index';
+
+export class Shared {
+	constructor() {
+		ButtonPrimaryComponent();
+		PopupSignUpComponent();
+	}
+
+	static init() {
+		const shared = new Shared();
+		return shared;
+	}
+}

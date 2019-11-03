@@ -15,8 +15,8 @@ gulp.task(
 	'serve',
 	gulp.series([
 		'clean',
-		'injectSass',
-		'injectJs',
+		// 'injectSass',
+		// 'injectJs',
 		'pug:data',
 		gulp.parallel(
 			'sass',

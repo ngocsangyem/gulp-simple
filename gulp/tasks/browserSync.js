@@ -28,14 +28,17 @@ gulp.task('browserSync', () => {
 	// Pug
 	gulp.watch(
 		[
-			`${dirs.source}${dirs.app}${dirs.component}**/*.pug`,
-			`${dirs.source}${dirs.app}${dirs.views}**/*.pug`,
+			`${dirs.source}${dirs.app}${dirs.pages}**/*.+(pug|json)`,
+			`${dirs.source}${dirs.app}${dirs.shared}**/*.+(pug|json)`,
 			'./seo.json'
 		],
-		gulp.series('pug:data', 'pug')
+		gulp.series('pug')
 	).on('unlink', function(path) {
 		let filePathInBuildDir = path
-			.replace(`${dirs.source}/${dirs.app}/${dirs.views}`, taskTarget)
+			.replace(
+				`${dirs.source}${dirs.app}${dirs.pages}${dirs.views}**/*`,
+				taskTarget
+			)
 			.replace('.pug', '.html');
 		fs.unlink(filePathInBuildDir, err => {
 			if (err) throw err;
@@ -46,23 +49,24 @@ gulp.task('browserSync', () => {
 	// Sass
 	gulp.watch(
 		[
-			`${dirs.source}${dirs.app}${dirs.component}**/*.{sass,scss}`,
-			`${dirs.source}${dirs.app}${dirs.css}**/*.{sass,scss}`
+			`${dirs.source}${dirs.app}${dirs.pages}**/*.{sass,scss}`,
+			`${dirs.source}${dirs.app}${dirs.shared}**/*.{sass,scss}`,
+			`${dirs.source}${dirs.app}**/*.{sass,scss}`
 		],
 		gulp.series('sass')
 	);
 
 	// Inject tasks
-	gulp.watch(
-		[`${dirs.source}${dirs.app}${dirs.component}**/*.{sass,scss}`],
-		{ events: ['add'] },
-		gulp.series('injectSass')
-	);
-	gulp.watch(
-		[`${dirs.source}${dirs.app}${dirs.component}**/*.js`],
-		{ events: ['add'] },
-		gulp.series('injectJs')
-	);
+	// gulp.watch(
+	// 	[`${dirs.source}${dirs.app}${dirs.component}**/*.{sass,scss}`],
+	// 	{ events: ['add'] },
+	// 	gulp.series('injectSass')
+	// );
+	// gulp.watch(
+	// 	[`${dirs.source}${dirs.app}${dirs.component}**/*.js`],
+	// 	{ events: ['add'] },
+	// 	gulp.series('injectJs')
+	// );
 
 	// Concat files
 	gulp.watch(['./plugins.json'], gulp.parallel('concatCss', 'concatJs'));
@@ -75,7 +79,7 @@ gulp.task('browserSync', () => {
 
 	// Json
 	gulp.watch(
-		[`${dirs.source}${dirs.app}${dirs.component}**/*.json`, `./seo.json`],
+		[`${dirs.source}${dirs.app}**/*.json`, `./seo.json`],
 		gulp.series('pug:data')
 	);
 

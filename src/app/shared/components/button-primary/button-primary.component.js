@@ -1,5 +1,5 @@
 const ButtonPrimaryComponent = () => {
-	console.log('ButtonPrimaryComponent');
+	console.log('This is ButtonPrimaryComponent');
 };
 
 export { ButtonPrimaryComponent };

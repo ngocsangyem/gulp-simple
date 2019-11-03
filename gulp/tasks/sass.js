@@ -20,7 +20,7 @@ const postCssPlugins = [
 
 gulp.task('sass', () => {
 	return gulp
-		.src(`${dirs.source}${dirs.app}${dirs.css}${entries.css}`)
+		.src(`${dirs.source}${dirs.app}${entries.css}`)
 		.pipe(
 			plugins.plumber({
 				errorHandler: plugins.notify.onError(

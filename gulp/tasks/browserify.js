@@ -18,7 +18,7 @@ const entries = config.entries;
 let browserifyTask = (files, done) => {
 	return files.map(entry => {
 		// let dest = path.resolve(taskTarget);
-		let dest = `${taskTarget}`;
+		let dest = `${taskTarget}/${dirs.scripts}`;
 
 		// Options
 		let customOpts = {
@@ -66,10 +66,7 @@ let browserifyTask = (files, done) => {
 					plugins.rename(function(filepath) {
 						// Remove 'source' directory as well as prefixed folder underscores
 						// Ex: 'src/_scripts' --> '/scripts'
-						filepath.dirname = filepath.dirname
-							.replace(dirs.source, '')
-							.replace(dirs.app, '')
-							.replace('_', '');
+						filepath.dirname = '';
 					})
 				)
 				.pipe(
@@ -99,14 +96,14 @@ let browserifyTask = (files, done) => {
 
 // Browserify Task
 gulp.task('browserify', done => {
-	return glob(
-		`./${dirs.source}${dirs.app}${dirs.scripts}${entries.script}`,
-		function(err, files) {
-			if (err) {
-				throw new Error(err);
-			}
-
-			return browserifyTask(files, done);
+	return glob(`./${dirs.source}${dirs.app}${entries.script}`, function(
+		err,
+		files
+	) {
+		if (err) {
+			throw new Error(err);
 		}
-	);
+
+		return browserifyTask(files, done);
+	});
 });

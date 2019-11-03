@@ -2,7 +2,7 @@
 	"port": 9000,
 	"baseUrl": "./",
 	"entries": {
-		"script": "app.+(js|ts)",
+		"script": "main.+(js|ts)",
 		"css": "main.+(sass|scss)",
 		"dataJson": "data.json"
 	},
@@ -18,7 +18,9 @@
 		"views": "views/",
 		"images": "img/",
 		"fonts": "fonts/",
-		"data": "data/"
+		"data": "data/",
+		"pages": "pages/",
+		"shared": "shared/"
 	},
 	"author": {
 		"name": "yem",

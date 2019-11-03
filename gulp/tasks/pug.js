@@ -10,7 +10,7 @@ const dest = `${taskTarget}`;
 gulp.task('pug', () => {
 	return gulp
 		.src([
-			`${dirs.source}${dirs.app}${dirs.views}**/*.pug`,
+			`${dirs.source}${dirs.app}${dirs.pages}${dirs.views}**/*.pug`,
 			`!${dirs.source}${dirs.app}${dirs.views}{**/_*,**/_*/**}`
 		])
 		.pipe(
@@ -32,6 +32,12 @@ gulp.task('pug', () => {
 		.pipe(
 			plugins.pug({
 				pretty: '\t'
+			})
+		)
+		.pipe(
+			plugins.rename(function(path) {
+				path.basename = path.basename.replace(/\.[^.]*$/, '');
+				path.dirname = '';
 			})
 		)
 		.on('error', function(err) {
