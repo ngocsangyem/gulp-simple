@@ -19,39 +19,44 @@ const postCssPlugins = [
 ];
 
 gulp.task('componentSASS', () => {
-	return gulp
-		.src(`${dirs.source}${dirs.app}${dirs.component}**/*.sass`)
-		.pipe(
-			plugins.plumber({
-				errorHandler: plugins.notify.onError(
-					'Error: <%= error.message %>'
-				)
-			})
-		)
-		.pipe(
-			plugins.sass({
-				fiber: Fiber,
-				outputStyle: 'expanded',
-				precision: 10
-			})
-		)
-		.on('error', function(err) {
-			plugins.util.log(err);
-		})
-		.on('error', plugins.notify.onError(config.defaultNotification))
-		.pipe(plugins.postcss(postCssPlugins))
-		.pipe(gcmq())
-		.pipe(
-			plugins.cssnano({
-				rebase: false
-			})
-		)
-		.pipe(gulp.dest(dest));
+	return (
+		gulp
+			.src([
+				`${dirs.source}${dirs.app}${dirs.pages}${dirs.component}**/*.+(sass|scss)`,
+				`!${dirs.source}${dirs.app}${dirs.pages}${dirs.component}index.+(sass|scss)`
+			])
+			.pipe(
+				plugins.plumber({
+					errorHandler: plugins.notify.onError(
+						'Error: <%= error.message %>'
+					)
+				})
+			)
+			// .pipe(
+			// 	plugins.sass({
+			// 		fiber: Fiber,
+			// 		outputStyle: 'expanded',
+			// 		precision: 10
+			// 	})
+			// )
+			// .on('error', function(err) {
+			// 	plugins.util.log(err);
+			// })
+			.on('error', plugins.notify.onError(config.defaultNotification))
+			// .pipe(plugins.postcss(postCssPlugins))
+			// .pipe(gcmq())
+			// .pipe(
+			// 	plugins.cssnano({
+			// 		rebase: false
+			// 	})
+			// )
+			.pipe(gulp.dest(dest))
+	);
 });
 
 gulp.task('componentPUG', () => {
 	return gulp
-		.src(`${dirs.source}${dirs.app}${dirs.component}**/*.pug`)
+		.src(`${dirs.source}${dirs.app}${dirs.pages}${dirs.component}**/*.pug`)
 		.pipe(
 			plugins.plumber({
 				errorHandler: plugins.notify.onError(
@@ -72,23 +77,26 @@ gulp.task('componentPUG', () => {
 });
 
 gulp.task('componentSCRIPT', () => {
-	return gulp
-		.src([
-			`${dirs.source}${dirs.app}${dirs.component}**/*.js`,
-			`!${dirs.source}${dirs.app}${dirs.component}**/*.test.js`
-		])
-		.pipe(
-			plugins.plumber({
-				errorHandler: plugins.notify.onError(
-					'Error: <%= error.message %>'
-				)
-			})
-		)
-		.pipe(
-			plugins.babel({
-				presets: ['@babel/env']
-			})
-		)
-		.pipe(plugins.terser())
-		.pipe(gulp.dest(dest));
+	return (
+		gulp
+			.src([
+				`${dirs.source}${dirs.app}${dirs.pages}${dirs.component}**/*.+(js|ts)`,
+				`!${dirs.source}${dirs.app}${dirs.pages}${dirs.component}**/*.test.+(js|ts)`,
+				`!${dirs.source}${dirs.app}${dirs.pages}${dirs.component}index.+(js|ts)`
+			])
+			.pipe(
+				plugins.plumber({
+					errorHandler: plugins.notify.onError(
+						'Error: <%= error.message %>'
+					)
+				})
+			)
+			// .pipe(
+			// 	plugins.babel({
+			// 		presets: ['@babel/env']
+			// 	})
+			// )
+			// .pipe(plugins.terser())
+			.pipe(gulp.dest(dest))
+	);
 });
