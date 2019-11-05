@@ -1,5 +1,5 @@
-const ButtonPrimaryComponent = () => {
-	console.log('This is ButtonPrimaryComponent');
-};
-
-export { ButtonPrimaryComponent };
+export class ButtonPrimaryComponent {
+	constructor() {
+		console.log('This is ButtonPrimaryComponent');
+	}
+}

@@ -8,11 +8,11 @@
 		"swiper": "^5.2.0"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.6.4",
-		"@babel/plugin-proposal-class-properties": "^7.5.5",
-		"@babel/preset-env": "^7.6.3",
-		"@babel/register": "^7.6.2",
-		"autoprefixer": "^9.7.0",
+		"@babel/core": "^7.7.0",
+		"@babel/plugin-proposal-class-properties": "^7.7.0",
+		"@babel/preset-env": "^7.7.1",
+		"@babel/register": "^7.7.0",
+		"autoprefixer": "^9.7.1",
 		"babel-eslint": "^10.0.3",
 		"babel-plugin-add-module-exports": "^1.0.2",
 		"babelify": "^10.0.0",
@@ -82,9 +82,9 @@
 	"scripts": {
 		"start": "set NODE_ENV=development & gulp serve --development",
 		"build": "set NODE_ENV=production & gulp build --production",
-		"component": "set NODE_ENV=production & gulp component --production",
-		"clean-node": "rimraf node_modules",
-		"update": "ncu -u && npm i"
+		"build:components": "set NODE_ENV=production & gulp component --production",
+		"clean:node": "rimraf node_modules",
+		"update": "ncu && ncu -u && npm i"
 	},
 	"repository": {
 		"type": "git",

@@ -1,7 +1,7 @@
 /* ES6 module */
 
-const HeaderComponent = () => {
-	console.log('This is HeaderComponent');
-};
-
-export { HeaderComponent };
+export class HeaderComponent {
+	constructor() {
+		console.log('This is HeaderComponent');
+	}
+}

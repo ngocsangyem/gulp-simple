@@ -1,7 +1,7 @@
 /* ES6 module */
 
-const FooterComponent = () => {
-	console.log('This is FooterComponent');
-};
-
-export { FooterComponent };
+export class FooterComponent {
+	constructor() {
+		console.log('This is FooterComponent');
+	}
+}

@@ -6,8 +6,8 @@ import { PopupSignUpComponent } from './popup/index';
 
 export class Shared {
 	constructor() {
-		ButtonPrimaryComponent();
-		PopupSignUpComponent();
+		new ButtonPrimaryComponent();
+		new PopupSignUpComponent();
 	}
 
 	static init() {

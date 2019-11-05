@@ -6,9 +6,9 @@ import { IndexComponent } from './views/index';
 
 export class Pages {
 	constructor() {
-		HeaderComponent();
-		FooterComponent();
-		IndexComponent();
+		new HeaderComponent();
+		new FooterComponent();
+		new IndexComponent();
 	}
 
 	static init() {
