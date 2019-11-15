@@ -1,13 +1,15 @@
 // Components
-import { ButtonPrimaryComponent } from './components/index';
-
-// Popups
-import { PopupSignUpComponent } from './popup/index';
+import {
+	ButtonPrimaryComponent,
+	HeaderComponent,
+	FooterComponent
+} from './components/index';
 
 export class Shared {
 	constructor() {
+		new HeaderComponent();
+		new FooterComponent();
 		new ButtonPrimaryComponent();
-		new PopupSignUpComponent();
 	}
 
 	static init() {

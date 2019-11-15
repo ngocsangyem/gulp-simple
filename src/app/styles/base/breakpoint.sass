@@ -1,53 +1,82 @@
-$breakpoints: (xs: 320px,
-sm: 576px,
+//
+//  MEDIA QUERIES
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// A map of breakpoints.
+$breakpoints: (sm: 576px,
 md: 768px,
 lg: 992px,
 xl: 1200px)
 
-// mobile-first breakpoint mixin
-=breakpoint($breakpoint: md, $key: min, $orientation: false)
-	@if ($orientation)
-		@media (#{$key}-width: map-get($breakpoints, $breakpoint)) and (orientation : $orientation)
+
+//
+//  BREAKPOINT UP
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// +breakpoint-up(sm) {}
+=breakpoint-up($breakpoint)
+
+	// If the breakpoint exists in the map.
+	@if map-has-key($breakpoints, $breakpoint)
+		// Get the breakpoint value.
+		$breakpoint-value: map-get($breakpoints, $breakpoint);
+		// Write the media query.
+		@media (min-width: $breakpoint-value)
 			@content
+
+	// If the breakpoint doesn't exist in the map.
 	@else
-		@media (#{$key}-width: map-get($breakpoints, $breakpoint))
+		// Log a warning.
+		@warn 'Invalid breakpoint: #{$breakpoint}.'
+
+
+//
+//  BREAKPOINT DOWN
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// +breakpoint-down(sm) {}
+=breakpoint-down($breakpoint)
+
+	// If the breakpoint exists in the map.
+	@if map-has-key($breakpoints, $breakpoint)
+		// Get the breakpoint value.
+		$breakpoint-value: map-get($breakpoints, $breakpoint)
+		// Write the media query.
+		@media (max-width: ($breakpoint-value - 1))
 			@content
 
+	// If the breakpoint doesn't exist in the map.
+	@else
+		// Log a warning.
+		@warn 'Invalid breakpoint: #{$breakpoint}.'
 
 
-// .selector
-//   font-size: 1rem
+
+
+//
+//  BREAKPOINT BETWEEN
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// +breakpoint-between(sm, md) {}
+=breakpoint-between($lower, $upper)
+
+	// If both the lower and upper breakpoints exist in the map.
+	@if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper)
+		// Get the lower and upper breakpoints.
+		$lower-breakpoint: map-get($breakpoints, $lower)
+		$upper-breakpoint: map-get($breakpoints, $upper)
+		// Write the media query.
+		@media (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1))
+			@content
   
-//   +breakpoint()
-//     font-size: 2rem
-  
-//   +breakpoint(sm, max)
-//     font-size: 12px
-  
-//   +breakpoint(lg, min, landscape) {
-//     font-size: 40vh
+	// If one or both of the breakpoints don't exist.
+	@else
+		// If lower breakpoint is invalid.
+		@if (map-has-key($breakpoints, $lower) == false)
+			// Log a warning.
+			@warn 'Your lower breakpoint was invalid: #{$lower}.'
 
-
-// Out put
-
-// .selector {
-//   font-size: 1rem;
-// }
-
-// @media (min-width: 768px) {
-//   .selector {  
-//     font-size: 2rem;
-//   }
-// }
-
-// @media (max-width: 576px) {
-//   .selector {
-//     font-size: 12px; 
-//   }
-// }
-
-// @media (min-with: 992px) and (orientation: landscape) {
-//   .selector {
-//     font-size: 40vh;
-//   }
-// }
+		// If upper breakpoint is invalid.
+		@if (map-has-key($breakpoints, $upper) == false)
+			// Log a warning.
+			@warn 'Your upper breakpoint was invalid: #{$upper}.'
