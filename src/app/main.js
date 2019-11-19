@@ -1,14 +1,14 @@
 // Pages
-import { Pages } from './pages/index';
+import { Pages } from "./pages/index";
 // Shared
-import { Shared } from './shared/index';
+import { Shared } from "./shared/index";
 
 // Share
 
 class App {
 	constructor() {
 		Pages.init();
-		Shared.init();
+		// Shared.init();
 	}
 
 	static init() {

@@ -1,7 +1,6 @@
 // Components
-
 // Views
-import { IndexComponent } from './views/index';
+import { IndexComponent } from "./views/index";
 
 export class Pages {
 	constructor() {
