@@ -16,21 +16,9 @@ const WebpackConfig = {
 			// include all types of chunks
 			chunks: "all"
 		},
-		minimize: !args.production ? false : true,
-		minimizer: [
-			() => {
-				if (!args.production) {
-					return;
-				} else {
-					new TerserPlugin({
-						cache: true,
-						parallel: true,
-						extractComments: "all"
-					});
-				}
-			}
-		]
+		minimize: !args.production ? false : true
 	},
+	plugins: [],
 	module: {
 		rules: [
 			{
@@ -46,5 +34,15 @@ const WebpackConfig = {
 		]
 	}
 };
+
+if (args.production) {
+	WebpackConfig.plugins.push(
+		new TerserPlugin({
+			cache: true,
+			parallel: true,
+			extractComments: "all"
+		})
+	);
+}
 
 module.exports = WebpackConfig;

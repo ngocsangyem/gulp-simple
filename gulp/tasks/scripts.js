@@ -1,7 +1,5 @@
 import gulp from "gulp";
-import path from "path";
 import webpackstream from "webpack-stream";
-import webpack from "webpack";
 
 import { plugins, args, config, taskTarget, browserSync } from "../utils";
 
