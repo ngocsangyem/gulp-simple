@@ -1,13 +1,13 @@
-import fs from 'fs';
-import gulp from 'gulp';
+import fs from "fs";
+import gulp from "gulp";
 
-import { plugins, args, config, taskTarget, browserSync } from '../utils';
+import { plugins, args, config, taskTarget, browserSync } from "../utils";
 
 const dirs = config.directories;
 const entries = config.entries;
 const dest = `${taskTarget}`;
 
-gulp.task('pug', () => {
+gulp.task("pug", () => {
 	return gulp
 		.src([
 			`${dirs.source}${dirs.app}${dirs.pages}${dirs.views}**/*.pug`,
@@ -16,7 +16,7 @@ gulp.task('pug', () => {
 		.pipe(
 			plugins.plumber({
 				errorHandler: plugins.notify.onError(
-					'Error: <%= error.message %>'
+					"Error: <%= error.message %>"
 				)
 			})
 		)
@@ -31,19 +31,19 @@ gulp.task('pug', () => {
 		)
 		.pipe(
 			plugins.pug({
-				pretty: '\t'
+				pretty: "\t"
 			})
 		)
 		.pipe(
 			plugins.rename(function(path) {
-				path.basename = path.basename.replace(/\.[^.]*$/, '');
-				path.dirname = '';
+				path.basename = path.basename.replace(/\.[^.]*$/, "");
+				path.dirname = "";
 			})
 		)
-		.on('error', function(err) {
+		.on("error", function(err) {
 			plugins.util.log(err);
 		})
-		.on('error', plugins.notify.onError(config.defaultNotification))
+		.on("error", plugins.notify.onError(config.defaultNotification))
 		.pipe(gulp.dest(dest))
 		.pipe(
 			browserSync.reload({

@@ -3,7 +3,7 @@ import {
 	ButtonPrimaryComponent,
 	HeaderComponent,
 	FooterComponent
-} from './components/index';
+} from "./components/index";
 
 export class Shared {
 	constructor() {
