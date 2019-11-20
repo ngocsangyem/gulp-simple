@@ -2,7 +2,7 @@
 	"port": 9000,
 	"baseUrl": "./",
 	"entries": {
-		"script": "main.+(js|ts)",
+		"script": "main.js",
 		"css": "main.+(sass|scss)",
 		"dataJson": "data.json"
 	},

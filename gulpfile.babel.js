@@ -1,9 +1,9 @@
-import gulp from 'gulp';
-import path from 'path';
-import glob from 'glob';
-import { KarmaServer, args } from './gulp/utils';
+import gulp from "gulp";
+import path from "path";
+import glob from "glob";
+import { KarmaServer, args } from "./gulp/utils";
 
-glob.sync('./gulp/tasks/**/*.js')
+glob.sync("./gulp/tasks/**/*.js")
 	.filter(function(file) {
 		return /\.(js)$/i.test(file);
 	})
@@ -12,65 +12,66 @@ glob.sync('./gulp/tasks/**/*.js')
 	});
 
 gulp.task(
-	'serve',
+	"serve",
 	gulp.series([
-		'clean',
-		'pug:data',
+		"clean",
+		"pug:data",
 		gulp.parallel(
-			'sass',
-			'pug',
-			'browserify',
-			'fonts',
-			'images',
-			'concatCss',
-			'concatJs'
+			"sass",
+			"pug",
+			// 'browserify',
+			"fonts",
+			"images",
+			"concatCss",
+			"concatJs"
 		),
-		'browserSync'
+		"scripts",
+		"browserSync"
 	])
 );
 
 gulp.task(
-	'build',
+	"build",
 	gulp.series([
-		'clean',
+		"clean",
 		gulp.parallel(
-			'pug',
-			'sass',
-			'fonts',
-			'images',
-			'concatCss',
-			'concatJs',
-			'browserify'
+			"pug",
+			"sass",
+			"fonts",
+			"images",
+			"concatCss",
+			"concatJs",
+			"browserify"
 		),
-		'zip',
-		'rev',
-		'sitemap',
-		'author',
-		'size',
-		'done'
+		"zip",
+		"rev",
+		"sitemap",
+		"author",
+		"size",
+		"done"
 	])
 );
 
 gulp.task(
-	'component',
+	"component",
 	gulp.series([
-		'clean',
+		"clean",
 		gulp.parallel(
-			'pug',
-			'sass',
-			'fonts',
-			'images',
-			'concatCss',
-			'concatJs',
-			'browserify'
+			"pug",
+			"sass",
+			"fonts",
+			"images",
+			"concatCss",
+			"concatJs",
+			"browserify"
 		),
-		gulp.parallel('componentSASS', 'componentPUG', 'componentSCRIPT'),
-		'zip',
-		'rev',
-		'sitemap',
-		'author',
-		'size',
-		'done'
+		gulp.parallel("componentSASS", "componentPUG", "componentSCRIPT"),
+		"zip",
+		"rev",
+		"sitemap",
+		"author",
+		"size",
+		"done"
 	])
 );
 
@@ -79,11 +80,11 @@ gulp.task(
 
 // Testing
 gulp.task(
-	'test',
-	gulp.series('eslint', done => {
+	"test",
+	gulp.series("eslint", done => {
 		new KarmaServer(
 			{
-				configFile: path.join(__dirname, '/karma.conf.js'),
+				configFile: path.join(__dirname, "/karma.conf.js"),
 				singleRun: !args.watch,
 				autoWatch: args.watch
 			},
