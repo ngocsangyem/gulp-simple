@@ -1,7 +1,14 @@
 import fs from "fs";
 import gulp from "gulp";
 
-import { plugins, args, config, taskTarget, browserSync } from "../utils";
+import {
+	plugins,
+	args,
+	config,
+	taskTarget,
+	browserSync,
+	reportError
+} from "../utils";
 
 const dirs = config.directories;
 const entries = config.entries;
@@ -15,9 +22,7 @@ gulp.task("pug", () => {
 		])
 		.pipe(
 			plugins.plumber({
-				errorHandler: plugins.notify.onError(
-					"Error: <%= error.message %>"
-				)
+				errorHandler: reportError
 			})
 		)
 		.pipe(

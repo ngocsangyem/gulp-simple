@@ -4,7 +4,14 @@ import Fiber from "fibers";
 import gcmq from "gulp-group-css-media-queries";
 import cssDeclarationSorter from "css-declaration-sorter";
 
-import { plugins, args, config, taskTarget, browserSync } from "../utils";
+import {
+	plugins,
+	args,
+	config,
+	taskTarget,
+	browserSync,
+	reportError
+} from "../utils";
 
 const dirs = config.directories;
 const entries = config.entries;
@@ -23,9 +30,7 @@ gulp.task("sass", () => {
 		.src(`${dirs.source}${dirs.app}${entries.css}`)
 		.pipe(
 			plugins.plumber({
-				errorHandler: plugins.notify.onError(
-					"Error: <%= error.message %>"
-				)
+				errorHandler: reportError
 			})
 		)
 		.pipe(

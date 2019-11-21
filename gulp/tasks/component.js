@@ -1,8 +1,15 @@
-import gulp from 'gulp';
-import autoprefixer from 'autoprefixer';
-import cssDeclarationSorter from 'css-declaration-sorter';
+import gulp from "gulp";
+import autoprefixer from "autoprefixer";
+import cssDeclarationSorter from "css-declaration-sorter";
 
-import { plugins, args, config, taskTarget, browserSync } from '../utils';
+import {
+	plugins,
+	args,
+	config,
+	taskTarget,
+	browserSync,
+	reportError
+} from "../utils";
 
 const dirs = config.directories;
 const entries = config.entries;
@@ -12,11 +19,11 @@ const postCssPlugins = [
 		grid: true
 	}),
 	cssDeclarationSorter({
-		order: 'concentric-css'
+		order: "concentric-css"
 	})
 ];
 
-gulp.task('componentSASS', () => {
+gulp.task("componentSASS", () => {
 	return gulp
 		.src([
 			`${dirs.source}${dirs.app}${dirs.pages}${dirs.component}**/*.+(sass|scss)`,
@@ -26,16 +33,14 @@ gulp.task('componentSASS', () => {
 		])
 		.pipe(
 			plugins.plumber({
-				errorHandler: plugins.notify.onError(
-					'Error: <%= error.message %>'
-				)
+				errorHandler: reportError
 			})
 		)
-		.on('error', plugins.notify.onError(config.defaultNotification))
+		.on("error", plugins.notify.onError(config.defaultNotification))
 		.pipe(gulp.dest(dest));
 });
 
-gulp.task('componentPUG', () => {
+gulp.task("componentPUG", () => {
 	return gulp
 		.src([
 			`${dirs.source}${dirs.app}${dirs.pages}${dirs.component}**/*.pug`,
@@ -43,24 +48,22 @@ gulp.task('componentPUG', () => {
 		])
 		.pipe(
 			plugins.plumber({
-				errorHandler: plugins.notify.onError(
-					'Error: <%= error.message %>'
-				)
+				errorHandler: reportError
 			})
 		)
 		.pipe(
 			plugins.pug({
-				pretty: '\t'
+				pretty: "\t"
 			})
 		)
-		.on('error', function(err) {
+		.on("error", function(err) {
 			plugins.util.log(err);
 		})
-		.on('error', plugins.notify.onError(config.defaultNotification))
+		.on("error", plugins.notify.onError(config.defaultNotification))
 		.pipe(gulp.dest(dest));
 });
 
-gulp.task('componentSCRIPT', () => {
+gulp.task("componentSCRIPT", () => {
 	return gulp
 		.src([
 			`${dirs.source}${dirs.app}${dirs.pages}${dirs.component}**/*.+(js|ts)`,
@@ -72,9 +75,7 @@ gulp.task('componentSCRIPT', () => {
 		])
 		.pipe(
 			plugins.plumber({
-				errorHandler: plugins.notify.onError(
-					'Error: <%= error.message %>'
-				)
+				errorHandler: reportError
 			})
 		)
 		.pipe(gulp.dest(dest));
