@@ -90,7 +90,8 @@
 		"clean:build": "npx gulp clean",
 		"clean:node": "npx rimraf node_modules",
 		"update:package": "npm outdated && npx npm-check -u",
-		"format": "npx prettier --single-quote --write src/**/*.js"
+		"format": "npx prettier --single-quote --write src/**/*.js",
+		"test": "npx gulp test"
 	},
 	"repository": {
 		"type": "git",
