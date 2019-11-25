@@ -8,10 +8,10 @@
 		"swiper": "^5.2.1"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.7.2",
-		"@babel/plugin-proposal-class-properties": "^7.7.0",
-		"@babel/preset-env": "^7.7.1",
-		"@babel/register": "^7.7.0",
+		"@babel/core": "^7.7.4",
+		"@babel/plugin-proposal-class-properties": "^7.7.4",
+		"@babel/preset-env": "^7.7.4",
+		"@babel/register": "^7.7.4",
 		"autoprefixer": "^9.7.2",
 		"babel-eslint": "^10.0.3",
 		"babel-loader": "^8.0.6",
@@ -24,7 +24,7 @@
 		"css-declaration-sorter": "^4.0.1",
 		"del": "^5.1.0",
 		"envify": "^4.1.0",
-		"eslint": "^6.6.0",
+		"eslint": "^6.7.1",
 		"fibers": "^4.0.2",
 		"glob": "^7.1.6",
 		"glob-exec": "^0.1.1",
@@ -114,5 +114,17 @@
 	"bugs": {
 		"url": "https://github.com/ngocsangyem/gulp-simple/issues"
 	},
-	"homepage": "https://github.com/ngocsangyem/gulp-simple#readme"
+	"homepage": "https://github.com/ngocsangyem/gulp-simple#readme",
+	"componentOptions": {
+		"test": true,
+		"htmlOptions": "pug",
+		"cssOptions": "sass",
+		"jsOptions": "javascript",
+		"extensions": {
+			"html": "pug",
+			"script": "js",
+			"test": "test.js",
+			"css": "sass"
+		}
+	}
 }

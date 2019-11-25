@@ -8,6 +8,17 @@ const colors = require("colors");
 const config = require("./config");
 const mkdirp = require("mkdirp");
 const Capitalize = require("./gulp/helpers/capitalize");
+const packageJson = JSON.parse(fs.readFileSync("./package.json"));
+const componentExtensions = packageJson.componentOptions.extensions;
+const defaultExtensions = []; // default extensions
+const hasTesting = packageJson.componentOptions.test;
+
+for (const extension in componentExtensions) {
+	if (componentExtensions.hasOwnProperty(extension)) {
+		const ex = componentExtensions[extension];
+		defaultExtensions.push(ex);
+	}
+}
 
 function uniqueArray(arr) {
 	const objectTemp = {};
@@ -28,7 +39,6 @@ function fileExist(path) {
 }
 const dirs = config.directories;
 let componentName = process.argv[2];
-const defaultExtensions = ["sass", "pug", "json", "js", "test.js"]; // default extensions
 const extensions = uniqueArray(defaultExtensions.concat(process.argv.slice(3)));
 
 function handleComponentName() {
@@ -56,11 +66,13 @@ if (componentName) {
 			console.log(colors.red(`Cancel operation: ${err}`));
 		} else {
 			console.log("Created: " + colors.green(dirPath));
-			mkdirp(`${dirPath}test/`, err => {
-				if (err) {
-					console.log(colors.red(`Cancel operation: ${err}`));
-				}
-			});
+			if (hasTesting) {
+				mkdirp(`${dirPath}test/`, err => {
+					if (err) {
+						console.log(colors.red(`Cancel operation: ${err}`));
+					}
+				});
+			}
 			// We go around the array of extensions and create files if they have not yet been created.
 			extensions.forEach(extension => {
 				const filePath = `${dirPath +
