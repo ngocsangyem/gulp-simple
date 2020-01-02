@@ -27,8 +27,8 @@ gulp.task("browserSync", () => {
 		gulp.watch(
 			[
 				`${dirs.source}${dirs.app}${dirs.pages}**/*.+(pug|json)`,
-				`${dirs.source}${dirs.app}${dirs.shared}**/*.+(pug|json)`,
-				"./seo.json"
+				`${dirs.source}${dirs.app}${dirs.component}**/*.+(pug|json)`,
+				`${dirs.source}${dirs.app}seo.json`
 			],
 			gulp.series("pug:data", "pug")
 		).on("unlink", function(path) {
@@ -48,7 +48,7 @@ gulp.task("browserSync", () => {
 		gulp.watch(
 			[
 				`${dirs.source}${dirs.app}${dirs.pages}**/*.{sass,scss}`,
-				`${dirs.source}${dirs.app}${dirs.shared}**/*.{sass,scss}`,
+				`${dirs.source}${dirs.app}${dirs.component}**/*.{sass,scss}`,
 				`${dirs.source}${dirs.app}**/*.{sass,scss}`
 			],
 			gulp.series("sass")
@@ -58,7 +58,7 @@ gulp.task("browserSync", () => {
 			[
 				`${dirs.source}${dirs.app}main.js`,
 				`${dirs.source}${dirs.app}${dirs.pages}**/*.js`,
-				`${dirs.source}${dirs.app}${dirs.shared}**/*.js`
+				`${dirs.source}${dirs.app}${dirs.component}**/*.js`
 			],
 			gulp.series("scripts")
 		);

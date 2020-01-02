@@ -1,14 +1,13 @@
+// Components
+import { Components } from "./components/index";
+
 // Pages
 import { Pages } from "./pages/index";
-// Shared
-import { Shared } from "./shared/index";
-
-// Share
 
 class App {
 	constructor() {
+		Components.init();
 		Pages.init();
-		// Shared.init();
 	}
 
 	static init() {

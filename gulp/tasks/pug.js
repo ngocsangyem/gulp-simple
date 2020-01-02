@@ -17,8 +17,8 @@ const dest = `${taskTarget}`;
 gulp.task("pug", () => {
 	return gulp
 		.src([
-			`${dirs.source}${dirs.app}${dirs.pages}${dirs.views}**/*.pug`,
-			`!${dirs.source}${dirs.app}${dirs.views}{**/_*,**/_*/**}`
+			`${dirs.source}${dirs.app}${dirs.pages}**/*.pug`,
+			`!${dirs.source}${dirs.app}${dirs.pages}{**/_*,**/_*/**}`
 		])
 		.pipe(
 			plugins.plumber({

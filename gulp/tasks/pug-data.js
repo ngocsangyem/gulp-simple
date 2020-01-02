@@ -1,24 +1,25 @@
-import gulp from 'gulp';
-import path from 'path';
-import merge from 'gulp-merge-json';
+import gulp from "gulp";
+import path from "path";
+import merge from "gulp-merge-json";
 
-import { plugins, args, config, taskTarget, browserSync } from '../utils';
+import { plugins, args, config, taskTarget, browserSync } from "../utils";
 
-import RemoveExtension from '../helpers/remove-extension';
-import CapitalizeWord from '../helpers/capitalize';
+import RemoveExtension from "../helpers/remove-extension";
+import CapitalizeWord from "../helpers/capitalize";
 
 const dirs = config.directories;
 const dest = path.join(taskTarget);
 
-gulp.task('pug:data', () => {
+gulp.task("pug:data", () => {
 	return gulp
 		.src([
 			`${dirs.source}${dirs.app}${dirs.component}**/*.json`,
-			`./seo.json`
+			`${dirs.source}${dirs.app}${dirs.pages}**/*.json`,
+			`${dirs.source}${dirs.app}seo.json`
 		])
 		.pipe(
 			merge({
-				fileName: 'data.json',
+				fileName: "data.json",
 				edit: (json, file) => {
 					// Extract the filename and strip the extension
 					const filename = path.basename(file.path),

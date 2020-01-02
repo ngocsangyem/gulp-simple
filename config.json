@@ -19,8 +19,7 @@
 		"images": "img/",
 		"fonts": "fonts/",
 		"data": "data/",
-		"pages": "pages/",
-		"shared": "shared/"
+		"pages": "pages/"
 	},
 	"author": {
 		"name": "yem",

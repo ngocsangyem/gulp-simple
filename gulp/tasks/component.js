@@ -26,10 +26,10 @@ const postCssPlugins = [
 gulp.task("componentSASS", () => {
 	return gulp
 		.src([
-			`${dirs.source}${dirs.app}${dirs.pages}${dirs.component}**/*.+(sass|scss)`,
-			`!${dirs.source}${dirs.app}${dirs.pages}${dirs.component}index.+(sass|scss)`,
-			`${dirs.source}${dirs.app}${dirs.shared}${dirs.component}**/*.+(sass|scss)`,
-			`!${dirs.source}${dirs.app}${dirs.shared}${dirs.component}index.+(sass|scss)`
+			`${dirs.source}${dirs.app}${dirs.pages}**/*.+(sass|scss)`,
+			`!${dirs.source}${dirs.app}${dirs.pages}index.+(sass|scss)`,
+			`${dirs.source}${dirs.app}${dirs.component}**/*.+(sass|scss)`,
+			`!${dirs.source}${dirs.app}${dirs.component}index.+(sass|scss)`
 		])
 		.pipe(
 			plugins.plumber({
@@ -43,8 +43,8 @@ gulp.task("componentSASS", () => {
 gulp.task("componentPUG", () => {
 	return gulp
 		.src([
-			`${dirs.source}${dirs.app}${dirs.pages}${dirs.component}**/*.pug`,
-			`${dirs.source}${dirs.app}${dirs.shared}${dirs.component}**/*.pug`
+			`${dirs.source}${dirs.app}${dirs.pages}**/*.pug`,
+			`${dirs.source}${dirs.app}${dirs.component}**/*.pug`
 		])
 		.pipe(
 			plugins.plumber({
@@ -66,12 +66,12 @@ gulp.task("componentPUG", () => {
 gulp.task("componentSCRIPT", () => {
 	return gulp
 		.src([
-			`${dirs.source}${dirs.app}${dirs.pages}${dirs.component}**/*.+(js|ts)`,
-			`!${dirs.source}${dirs.app}${dirs.pages}${dirs.component}**/*.test.+(js|ts)`,
-			`!${dirs.source}${dirs.app}${dirs.pages}${dirs.component}index.+(js|ts)`,
-			`${dirs.source}${dirs.app}${dirs.shared}${dirs.component}**/*.+(js|ts)`,
-			`!${dirs.source}${dirs.app}${dirs.shared}${dirs.component}**/*.test.+(js|ts)`,
-			`!${dirs.source}${dirs.app}${dirs.shared}${dirs.component}index.+(js|ts)`
+			`${dirs.source}${dirs.app}${dirs.pages}**/*.+(js|ts)`,
+			`!${dirs.source}${dirs.app}${dirs.pages}**/*.test.+(js|ts)`,
+			`!${dirs.source}${dirs.app}${dirs.pages}index.+(js|ts)`,
+			`${dirs.source}${dirs.app}${dirs.component}**/*.+(js|ts)`,
+			`!${dirs.source}${dirs.app}${dirs.component}**/*.test.+(js|ts)`,
+			`!${dirs.source}${dirs.app}${dirs.component}index.+(js|ts)`
 		])
 		.pipe(
 			plugins.plumber({
