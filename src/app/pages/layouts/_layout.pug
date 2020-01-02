@@ -18,18 +18,9 @@ html(dir='ltr', lang=Seo.seo_lang, itemscope, itemtype="http://schema.org/WebSit
 			include ./_includes/seo
 		//- if process.argv.slice(3).indexOf('--production') > -1
 		//- 	include ../_include/_favicon
-		<!-- ////////////// CSS Include ////////////// -->
 		include ./_includes/css
 		title #{title} - #{Seo.cfg_name}
 	body(class=process.argv.slice(3).indexOf('--production') < 0 ? 'kyanon-develop '+prefix+bodyClass+'-page' : prefix+bodyClass+'-page' || 'default')
-		<!-- ////////////// Header ////////////// -->
-		include ../../shared/components/header/header.component.pug
-		<!-- ////////////// End Header ////////////// -->
-		<!-- ////////////// Begin Main ////////////// -->
 		main
 			block main
-		<!-- ////////////// End Main ////////////// -->
-		<!-- ////////////// Footer ////////////// -->
-		include ../../shared/components/footer/footer.component.pug
 		include ./_includes/scripts
-		<!-- ////////////// End Footer ////////////// -->

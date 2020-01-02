@@ -4,11 +4,12 @@ import merge from "gulp-merge-json";
 
 import { plugins, args, config, taskTarget, browserSync } from "../utils";
 
-import RemoveExtension from "../helpers/remove-extension";
-import CapitalizeWord from "../helpers/capitalize";
+import { RemoveExtension } from "../helpers/remove-extension";
+import { CapitalizeWord } from "../helpers/capitalize";
 
 const dirs = config.directories;
 const dest = path.join(taskTarget);
+const entries = config.directories.entries;
 
 gulp.task("pug:data", () => {
 	return gulp
@@ -19,7 +20,7 @@ gulp.task("pug:data", () => {
 		])
 		.pipe(
 			merge({
-				fileName: "data.json",
+				fileName: entries.data,
 				edit: (json, file) => {
 					// Extract the filename and strip the extension
 					const filename = path.basename(file.path),

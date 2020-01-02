@@ -7,7 +7,7 @@ const entries = config.entries;
 
 const WebpackConfig = {
 	mode: !args.production ? "development" : "production",
-	devtool: !args.production ? "cheap-eval-source-map" : false,
+	devtool: !args.production ? "source-map" : false,
 	output: {
 		filename: "[name].js"
 	},

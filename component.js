@@ -2,12 +2,13 @@
 "use strict";
 // Component file generator
 
-const fs = require("fs");
-const path = require("path");
-const colors = require("colors");
-const config = require("./config");
-const mkdirp = require("mkdirp");
-const Capitalize = require("./gulp/helpers/capitalize");
+import fs from "fs";
+import path from "path";
+import colors from "colors";
+import config from "/config";
+import mkdirp from "kdirp";
+import { Capitalize } from "./gulp/helpers/capitalize";
+
 const packageJson = JSON.parse(fs.readFileSync("./package.json"));
 const componentExtensions = packageJson.componentOptions.extensions;
 const defaultExtensions = []; // default extensions

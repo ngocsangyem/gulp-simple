@@ -11,7 +11,7 @@ import {
 } from "../utils";
 
 const dirs = config.directories;
-const entries = config.entries;
+const entries = config.directories.entries;
 const dest = `${taskTarget}`;
 
 gulp.task("pug", () => {
@@ -29,7 +29,7 @@ gulp.task("pug", () => {
 			plugins.data(function(file) {
 				return JSON.parse(
 					fs.readFileSync(
-						`./${dirs.source}${dirs.app}${dirs.data}${entries.dataJson}`
+						`./${dirs.source}${dirs.app}${dirs.data}${entries.data}`
 					)
 				);
 			})

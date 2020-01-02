@@ -14,7 +14,7 @@ import {
 } from "../utils";
 
 const dirs = config.directories;
-const entries = config.entries;
+const entries = config.directories.entries;
 const dest = `${taskTarget}/${dirs.css}`;
 const postCssPlugins = [
 	autoprefixer({

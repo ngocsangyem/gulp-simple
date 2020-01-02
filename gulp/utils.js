@@ -5,7 +5,7 @@ import gutil from "gulp-util";
 import gulpLoadPlugins from "gulp-load-plugins";
 import notify from "gulp-notify";
 
-import cfg from "../config";
+import AppConfig from "./config";
 
 // Load all gulp plugins based on their names
 // EX: gulp-copy -> copy
@@ -14,8 +14,8 @@ export const plugins = gulpLoadPlugins();
 // Create karma server
 export const KarmaServer = require("karma").Server;
 
-// Get package.json custom configuration
-export const config = Object.assign({}, cfg);
+// Get config.js custom configuration
+export const config = Object.assign({}, AppConfig);
 
 // Gather arguments passed to gulp commands
 export const args = minimist(process.argv.slice(2));

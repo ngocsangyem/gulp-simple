@@ -6,7 +6,7 @@ import { plugins, args, config, taskTarget, browserSync } from "../utils";
 import webpackConfig from "../webpack.config";
 
 const dirs = config.directories;
-const entries = config.entries;
+const entries = config.directories.entries;
 
 gulp.task("scripts", () => {
 	return gulp
