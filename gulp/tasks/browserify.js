@@ -1,16 +1,16 @@
 // Thank you larsonjj
 
-import gulp from "gulp";
-import glob from "glob";
-import browserify from "browserify";
-import envify from "envify";
-import babelify from "babelify";
-import watchify from "watchify";
-import _ from "lodash";
-import vsource from "vinyl-source-stream";
-import buffer from "vinyl-buffer";
+const gulp = require("gulp");
+const glob = require("glob");
+const browserify = require("browserify");
+const envify = require("envify");
+const babelify = require("babelify");
+const watchify = require("watchify");
+const _ = require("lodash");
+const vsource = require("vinyl-source-stream");
+const buffer = require("vinyl-buffer");
 
-import { plugins, args, config, taskTarget, browserSync } from "../utils";
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
 const dirs = config.directories;
 const entries = config.directories.entries;

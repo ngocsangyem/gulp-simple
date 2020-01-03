@@ -1,7 +1,7 @@
-import gulp from "gulp";
-import path from "path";
-import glob from "glob";
-import { KarmaServer, args } from "./gulp/utils";
+const gulp = require("gulp");
+const path = require("path");
+const glob = require("glob");
+const { KarmaServer, args } = require("./gulp/utils");
 
 glob.sync("./gulp/tasks/**/*.js")
 	.filter(function(file) {
@@ -74,9 +74,6 @@ gulp.task(
 		"done"
 	])
 );
-
-// Default task
-// gulp.task('default', gulp.series('clean', 'build'));
 
 // Testing
 gulp.task(

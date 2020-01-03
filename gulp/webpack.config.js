@@ -1,6 +1,6 @@
-import { args, config } from "./utils";
-import path from "path";
-import TerserPlugin from "terser-webpack-plugin";
+const { args, config } = require("./utils");
+const path = require("path");
+const TerserPlugin = require("terser-webpack-plugin");
 
 const dirs = config.directories;
 const entries = config.entries;

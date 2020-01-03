@@ -1,4 +1,4 @@
-export default {
+module.exports = {
 	port: 9000,
 	baseUrl: "./",
 
@@ -13,16 +13,16 @@ export default {
 	build: {
 		autoprefixer: ["last 3 versions", "ie 10", "ie 11"],
 		babel: true,
-		imagemin: ["png", "jpg", "svg", "gif"],
 		sourcemaps: ["js", "css"],
+		imagemin: ["png", "jpg", "svg", "gif"],
 		author: {
-			name: "ngocsangyem",
-			version: "v1.0.0",
+			name: "",
+			version: "",
 			link: "",
 			lincense: "MIT",
-			coding: "Coding by yem",
-			phone: "XXXXXXXXXX",
-			email: "yem@email.com"
+			coding: "",
+			phone: "",
+			email: ""
 		}
 	},
 
@@ -47,34 +47,9 @@ export default {
 		}
 	},
 
-	createComponent: {},
+	createComponent: {
+		b: [".js", ".sass", ".pug", ".json"]
+	},
 
-	addContent: {},
-
-	optimization: {
-		jpg: {
-			progressive: true,
-			arithmetic: false
-		},
-
-		png: {
-			optimizationLevel: 5, // 0-7
-			bitDepthReduction: true,
-			colorTypeReduction: true,
-			paletteReduction: true
-		},
-
-		gif: {
-			optimizationLevel: 1, // 1-3
-			interlaced: true
-		},
-
-		svg: [
-			{ cleanupIDs: false },
-			{ removeViewBox: false },
-			{ mergePaths: false }
-		],
-
-		ignore: []
-	}
+	addContent: {}
 };

@@ -1,20 +1,20 @@
-import gulp from 'gulp';
-import buffer from 'vinyl-buffer';
-import merge from 'merge-stream';
-import spritesmith from 'gulp.spritesmith';
+const gulp = require("gulp");
+const buffer = require("vinyl-buffer");
+const merge = require("merge-stream");
+const spritesmith = require("gulp.spritesmith");
 
-import { plugins, args, config, taskTarget, browserSync } from '../utils';
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
 const dirs = config.directories;
 const dest = `${taskTarget}/${dirs.images}/sprite`;
 
-gulp.task('sprite', () => {
+gulp.task("sprite", () => {
 	let spriteData = gulp
 		.src(`${dirs.source}${dirs.assets}${dirs.images}sprite/*.png`)
 		.pipe(
 			spritesmith({
-				imgName: 'sprite.png',
-				cssName: 'sprite.css'
+				imgName: "sprite.png",
+				cssName: "sprite.css"
 			})
 		);
 	// Pipe image stream through image optimizer and onto disk

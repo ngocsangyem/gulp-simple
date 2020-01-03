@@ -1,9 +1,9 @@
-import gulp from "gulp";
-import fs from "fs";
-import strip from "gulp-strip-comments";
-import stripCssComments from "gulp-strip-css-comments";
+const gulp = require("gulp");
+const fs = require("fs");
+const strip = require("gulp-strip-comments");
+const stripCssComments = require("gulp-strip-css-comments");
 
-import { plugins, args, config, taskTarget, browserSync } from "../utils";
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
 const dirs = config.directories;
 const url = JSON.parse(fs.readFileSync("./plugins.json"));

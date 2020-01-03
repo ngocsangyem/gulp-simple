@@ -1,5 +1,5 @@
-import gulp from "gulp";
-import { plugins, args, config, taskTarget, browserSync } from "../utils";
+const gulp = require("gulp");
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
 const auth = config.build.author;
 const dest = `${taskTarget}`;

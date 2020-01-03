@@ -1,35 +1,35 @@
-import browserSyncLib from "browser-sync";
-import minimist from "minimist";
+const browserSyncLib = require("browser-sync");
+const minimist = require("minimist");
 
-import gutil from "gulp-util";
-import gulpLoadPlugins from "gulp-load-plugins";
-import notify from "gulp-notify";
+const gutil = require("gulp-util");
+const gulpLoadPlugins = require("gulp-load-plugins");
+const notify = require("gulp-notify");
 
-import AppConfig from "./config";
+const appConfig = require("./config");
 
 // Load all gulp plugins based on their names
 // EX: gulp-copy -> copy
-export const plugins = gulpLoadPlugins();
+const plugins = gulpLoadPlugins();
 
 // Create karma server
-export const KarmaServer = require("karma").Server;
+const KarmaServer = require("karma").Server;
 
 // Get config.js custom configuration
-export const config = Object.assign({}, AppConfig);
+const config = Object.assign({}, appConfig);
 
 // Gather arguments passed to gulp commands
-export const args = minimist(process.argv.slice(2));
+const args = minimist(process.argv.slice(2));
 
 // Alias config directories
-export const dirs = config.directories;
+const dirs = config.directories;
 
 // Determine gulp task target destinations
-export const taskTarget = args.production ? dirs.destination : dirs.temporary;
+const taskTarget = args.production ? dirs.destination : dirs.temporary;
 
 // Create a new browserSync instance
-export const browserSync = browserSyncLib.create();
+const browserSync = browserSyncLib.create();
 
-export const reportError = function(error) {
+const reportError = function(error) {
 	// [log]
 	//console.log(error);
 
@@ -73,4 +73,14 @@ export const reportError = function(error) {
 	// Prevent the 'watch' task from stopping
 
 	this.emit("end");
+};
+
+module.exports = {
+	plugins,
+	KarmaServer,
+	config,
+	args,
+	taskTarget,
+	browserSync,
+	reportError
 };

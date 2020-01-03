@@ -1,20 +1,20 @@
-import gulp from 'gulp';
-import colors from 'colors';
+const gulp = require("gulp");
+const colors = require("colors");
 
-import { plugins, args, config, taskTarget, browserSync } from '../utils';
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
 let banner = [
-	' ',
-	'/////////////////////////////////////',
-	'// ngocsangyem',
-	'/////////////////////////////////////',
-	' '
-].join('\n');
+	" ",
+	"/////////////////////////////////////",
+	"// ngocsangyem",
+	"/////////////////////////////////////",
+	" "
+].join("\n");
 
-gulp.task('done', done => {
+gulp.task("done", done => {
 	return console.log(
-		colors.rainbow('\nCongratulations!\n'),
+		colors.rainbow("\nCongratulations!\n"),
 		colors.green(banner),
-		colors.magenta('\nBuild Finished! Press Ctrl+C to exit.')
+		colors.magenta("\nBuild Finished! Press Ctrl+C to exit.")
 	);
 });

@@ -1,15 +1,15 @@
-import gulp from "gulp";
-import autoprefixer from "autoprefixer";
-import cssDeclarationSorter from "css-declaration-sorter";
+const gulp = require("gulp");
+const autoprefixer = require("autoprefixer");
+const cssDeclarationSorter = require("css-declaration-sorter");
 
-import {
+const {
 	plugins,
 	args,
 	config,
 	taskTarget,
 	browserSync,
 	reportError
-} from "../utils";
+} = require("../utils");
 
 const dirs = config.directories;
 const entries = config.directories.entries;

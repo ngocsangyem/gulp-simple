@@ -1,11 +1,11 @@
-import gulp from 'gulp';
-import path from 'path';
+const gulp = require("gulp");
+const path = require("path");
 
-import { plugins, args, config, taskTarget, browserSync } from '../utils';
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
-gulp.task('zip', () => {
+gulp.task("zip", () => {
 	return gulp
 		.src(`${taskTarget}/**/*`)
 		.pipe(plugins.zip(`${taskTarget}.zip`))
-		.pipe(gulp.dest('./'));
+		.pipe(gulp.dest("./"));
 });

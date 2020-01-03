@@ -1,11 +1,11 @@
-import gulp from 'gulp';
+const gulp = require("gulp");
 
-import { plugins, args, config, taskTarget, browserSync } from '../utils';
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
 const dirs = config.directories;
 const dest = `${taskTarget}/${dirs.fonts}`;
 
-gulp.task('fonts', () => {
+gulp.task("fonts", () => {
 	// console.log(filePath)
 
 	return gulp

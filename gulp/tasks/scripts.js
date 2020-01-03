@@ -1,9 +1,9 @@
-import gulp from "gulp";
-import webpackstream from "webpack-stream";
+const gulp = require("gulp");
+const webpackstream = require("webpack-stream");
 
-import { plugins, args, config, taskTarget, browserSync } from "../utils";
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
-import webpackConfig from "../webpack.config";
+const webpackConfig = require("../webpack.config");
 
 const dirs = config.directories;
 const entries = config.directories.entries;

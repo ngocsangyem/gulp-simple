@@ -1,7 +1,7 @@
-import gulp from "gulp";
-import path from "path";
-import fs from "fs";
-import { plugins, args, config, taskTarget, browserSync } from "../utils";
+const gulp = require("gulp");
+const path = require("path");
+const fs = require("fs");
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
 const dirs = config.directories;
 const dest = path.join(taskTarget);

@@ -1,11 +1,11 @@
-import gulp from 'gulp';
+const gulp = require("gulp");
 
-import { plugins, args, config, taskTarget, browserSync } from '../utils';
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
 const dirs = config.directories;
 const dest = `${taskTarget}`;
 
-gulp.task('size', () => {
+gulp.task("size", () => {
 	let sz = plugins.size({
 		gzip: true
 	});
@@ -16,7 +16,7 @@ gulp.task('size', () => {
 		.pipe(
 			plugins.sizereport({
 				gzip: true,
-				'*': {
+				"*": {
 					maxSize: 100000
 				}
 			})

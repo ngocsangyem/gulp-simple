@@ -1,14 +1,14 @@
-import fs from "fs";
-import gulp from "gulp";
+const fs = require("fs");
+const gulp = require("gulp");
 
-import {
+const {
 	plugins,
 	args,
 	config,
 	taskTarget,
 	browserSync,
 	reportError
-} from "../utils";
+} = require("../utils");
 
 const dirs = config.directories;
 const entries = config.directories.entries;

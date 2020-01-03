@@ -1,16 +1,16 @@
-import path from 'path';
-import del from 'del';
-import gulp from 'gulp';
+const path = require("path");
+const del = require("del");
+const gulp = require("gulp");
 
-import { plugins, args, config, taskTarget, browserSync } from '../utils';
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
 const dirs = config.directories;
 
 // Clean
-gulp.task('clean', () =>
+gulp.task("clean", () =>
 	del([
 		path.join(dirs.destination),
 		path.join(dirs.temporary),
-		path.join(dirs.destination + '.zip')
+		path.join(dirs.destination + ".zip")
 	])
 );

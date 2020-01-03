@@ -1,11 +1,11 @@
-import gulp from "gulp";
-import path from "path";
-import merge from "gulp-merge-json";
+const gulp = require("gulp");
+const path = require("path");
+const merge = require("gulp-merge-json");
 
-import { plugins, args, config, taskTarget, browserSync } from "../utils";
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
-import { RemoveExtension } from "../helpers/remove-extension";
-import { CapitalizeWord } from "../helpers/capitalize";
+const { RemoveExtension } = require("../helpers/remove-extension");
+const { CapitalizeWord } = require("../helpers/capitalize");
 
 const dirs = config.directories;
 const dest = path.join(taskTarget);
