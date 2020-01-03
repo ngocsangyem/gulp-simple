@@ -146,10 +146,12 @@ try {
 
 	// Merge addContent
 
+	const dependency = `// Dependency of [name]Component\n\nmodule.exports = {\n\n\tnodes: [],\n\n\tmodules: [],\n\n}\n`
+
 	const addContent = {
-		deps: `module.exports = {\n\n\tnodes: [],\n\n\tmodules: [],\n\n}\n`,
-		json: '{\n\t"key": "value"\n}',
-		css: ".[name]"
+		dependency,
+		json: '{}',
+		sass: ".[name]"
 	};
 
 	config.addContent = Object.assign(addContent, config.addContent);

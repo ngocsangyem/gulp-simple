@@ -6,6 +6,9 @@ const { reportError } = require("../utils");
 const { isDirectory, isFile } = require("./is");
 const BEM = require("./bem");
 
+const prefix = "Component";
+const extensionPrefix = ".component";
+
 module.exports = {
 	sep: Array(16).join("-"),
 	message: "",
@@ -38,7 +41,7 @@ module.exports = {
 		} catch (error) {
 			console.log("Create main folder fail", error);
 			// notify.onError("Error")(e);
-			reportError;
+			return reportError;
 		}
 	},
 
@@ -62,27 +65,28 @@ module.exports = {
 		return this.addFile(file, content);
 	},
 
-	addNode(node, extra) {
+	addNode(node, extensions) {
 		const component = BEM.getBlock(node);
 		const directory = paths.component(component);
+		const testDirectory = paths.component(component + '/test');
 
 		if (!fs.existsSync(directory)) {
 			this.addDirectory(directory);
 		}
 
-		extra = Array.isArray(extra) ? extra : [extra];
+		extensions = Array.isArray(extensions) ? extensions : [extensions];
 
-		extra.forEach(item => {
-			if (!item || !item.trim() || typeof item !== "string") return;
+		extensions.forEach(extension => {
+			if (!extension || !extension.trim() || typeof extension !== "string") return;
 
-			item = item.trim().toLowerCase();
+			extension = extension.trim().toLowerCase();
 
-			const isFile = item[0] === "." || path.extname(item);
+			const isFile = extension[0] === "." || path.extname(extension);
 
 			if (!isFile) {
 				let prev = directory;
 
-				return item.split(path.sep).forEach(dir => {
+				return extension.split(path.sep).forEach(dir => {
 					if (!dir || !dir.trim() || typeof dir !== "string") return;
 
 					const where = path.join(prev, dir);
@@ -93,21 +97,28 @@ module.exports = {
 				});
 			}
 
-			let extname = path.extname(item) || item;
-			let name =
-				path.basename(item, extname) ||
-				(extname === ".json" ? "data" : node);
+			let extname = extension !== 'dependency.js' ? extension : path.extname(extension);
+			let file;
+			let name = extension !== 'dependency.js' ? path.basename(extension, extname) || node : node;
+            console.log('TCL: addNode -> name', name)
 			let content = (
 				(config.addContent && config.addContent[extname.slice(1)]) ||
 				""
 			).replace(/\[name\]/g, name);
-			let file = path.join(directory, name + extname);
 
-			if (name + extname === "dependency.js")
-				content =
-					(config.addContent && config.addContent.dependency) || "";
-
-			return this.addFile(file, content);
+			if (extension !== '.test.js' && extension !== 'dependency.js') {
+				file = path.join(directory, name + extensionPrefix + extname);
+				return this.addFile(file, content);
+			} else if (extension == '.test.js') {
+				content = ( (config.addContent && config.addContent[extname.replace(extname, 'test')]) || "").replace(/\[name\]/g, name);
+				file = path.join(testDirectory, name + extensionPrefix + extname);
+				this.addDirectory(testDirectory);
+				return this.addFile(file, content);
+			} else if(extension == 'dependency.js') {
+				content = ((config.addContent && config.addContent.dependency) || "").replace(/\[name\]/g, name);
+				file = path.join(directory, extension);
+				return this.addFile(file, content);
+			}
 		});
 	},
 
@@ -176,9 +187,9 @@ module.exports = {
 						return this.addNode(name, extra);
 					});
 				}
-			} catch (e) {
-				console.log(e);
-				notify.onError("Error")(e);
+			} catch (error) {
+				console.log(error);
+				return reportError;
 			}
 		}
 

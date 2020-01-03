@@ -48,7 +48,7 @@ module.exports = {
 	},
 
 	createComponent: {
-		b: [".js", ".sass", ".pug", ".json"]
+		b: [".js", ".sass", ".pug", ".json", ".test.js", 'dependency.js']
 	},
 
 	addContent: {}
