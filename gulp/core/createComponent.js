@@ -1,9 +1,10 @@
 const fs = require("fs");
 const path = require("path");
+const colors = require("colors");
 
 const { paths, config } = require("./index");
 const { reportError } = require("../utils");
-const { isDirectory, isFile } = require("./is");
+const { ReplaceName } = require("../helpers/replace-name");
 const BEM = require("./bem");
 
 const prefix = "Component";
@@ -20,7 +21,16 @@ module.exports = {
 	setItems(argv) {
 		let items = argv.slice(this.type === "page" ? 3 : 2);
 
-		this.items = items.filter((el, i) => items.indexOf(el) === i);
+		this.items = items.filter(
+			(el, i) => items.indexOf(el) === i && !el.includes("--")
+		);
+	},
+
+	setOptions(argv) {
+		return {
+			custom: argv.includes("--custom") || false,
+			noTemplate: argv.includes("--noTemplate") || false
+		};
 	},
 
 	checkDirs() {
@@ -56,19 +66,19 @@ module.exports = {
 	addPage(name) {
 		const extname = path.extname(name) || config.component.templates;
 		const basename = path.basename(name, extname);
-		const file = paths.pages(basename + extname);
-		const content = (
-			(config.addContent && config.addContent.page) ||
-			""
-		).replace(/\[name\]/g, basename);
+		const file = paths.page(basename + extname);
+		const content = ReplaceName(
+			(config.addContent && config.addContent.page) || "",
+			basename
+		);
 
 		return this.addFile(file, content);
 	},
 
-	addNode(node, extensions) {
+	addComponent(node, extensions, type) {
 		const component = BEM.getBlock(node);
-		const directory = paths.component(component);
-		const testDirectory = paths.component(component + '/test');
+		const directory = this.setDirection(component, type);
+		const testDirectory = this.setDirection(component + "/test", type);
 
 		if (!fs.existsSync(directory)) {
 			this.addDirectory(directory);
@@ -77,7 +87,14 @@ module.exports = {
 		extensions = Array.isArray(extensions) ? extensions : [extensions];
 
 		extensions.forEach(extension => {
-			if (!extension || !extension.trim() || typeof extension !== "string") return;
+			if (
+				!extension ||
+				!extension.trim() ||
+				typeof extension !== "string"
+			) {
+				console.log(colors.red("Extension must be string"));
+				return;
+			}
 
 			extension = extension.trim().toLowerCase();
 
@@ -97,29 +114,57 @@ module.exports = {
 				});
 			}
 
-			let extname = extension !== 'dependency.js' ? extension : path.extname(extension);
+			let extname =
+				extension !== "dependency.js"
+					? extension
+					: path.extname(extension);
 			let file;
-			let name = extension !== 'dependency.js' ? path.basename(extension, extname) || node : node;
-            console.log('TCL: addNode -> name', name)
-			let content = (
+			let content;
+			let name =
+				extension !== "dependency.js"
+					? path.basename(extension, extname) || node
+					: node;
+			content = ReplaceName(
 				(config.addContent && config.addContent[extname.slice(1)]) ||
-				""
-			).replace(/\[name\]/g, name);
+					"",
+				name
+			);
 
-			if (extension !== '.test.js' && extension !== 'dependency.js') {
+			if (extension !== ".test.js" && extension !== "dependency.js") {
 				file = path.join(directory, name + extensionPrefix + extname);
 				return this.addFile(file, content);
-			} else if (extension == '.test.js') {
-				content = ( (config.addContent && config.addContent[extname.replace(extname, 'test')]) || "").replace(/\[name\]/g, name);
-				file = path.join(testDirectory, name + extensionPrefix + extname);
+			} else if (extension == ".test.js") {
+				content = ReplaceName(
+					(config.addContent &&
+						config.addContent[extname.replace(extname, "test")]) ||
+						"",
+					name
+				);
+				file = path.join(
+					testDirectory,
+					name + extensionPrefix + extname
+				);
 				this.addDirectory(testDirectory);
 				return this.addFile(file, content);
-			} else if(extension == 'dependency.js') {
-				content = ((config.addContent && config.addContent.dependency) || "").replace(/\[name\]/g, name);
+			} else if (extension == "dependency.js") {
+				content = ReplaceName(
+					(config.addContent && config.addContent.dependency) || "",
+					name
+				);
 				file = path.join(directory, extension);
 				return this.addFile(file, content);
 			}
 		});
+	},
+
+	setDirection(direction, type) {
+		if (type === "component" && !this.options.custom) {
+			return paths.component(direction);
+		} else if (type === "page" && !this.options.custom) {
+			return paths.page(direction);
+		} else if (this.options.custom) {
+			return paths.app(direction);
+		}
 	},
 
 	addDirectory(dir) {
@@ -156,10 +201,10 @@ module.exports = {
 	},
 
 	parseArguments(argv, showMessage = true) {
+		this.options = this.setOptions(argv);
 		this.setType(argv);
 		this.setItems(argv);
 		this.checkDirs();
-
 		if (this.items.length === 0) {
 			this.status = false;
 			this.message = `\x1b[41mFAIL\x1b[0m: You must write a \x1b[36m${this.type}\x1b[0m name!`;
@@ -173,10 +218,6 @@ module.exports = {
 
 						name = name.trim().toLowerCase();
 
-						if (this.type === "page") {
-							return this.addPage(`${name}Component`);
-						}
-
 						if (
 							config.createComponent &&
 							config.createComponent[more]
@@ -184,7 +225,17 @@ module.exports = {
 							extra = config.createComponent[more];
 						}
 
-						return this.addNode(name, extra);
+						if (this.type === "page") {
+							if (config.component.page.type === "component") {
+								return this.addComponent(name, extra, "page");
+							} else if (
+								config.component.page.type === "single"
+							) {
+								return this.addPage(name);
+							}
+						}
+
+						return this.addComponent(name, extra, "component");
 					});
 				}
 			} catch (error) {
@@ -193,9 +244,10 @@ module.exports = {
 			}
 		}
 
-		if (this.message && showMessage)
+		if (this.message && showMessage) {
 			console.log(
 				`\x1b[1mTry add ${this.type}\x1b[0m:\n${this.sep}\n${this.message}\n${this.sep}\n`
 			);
+		}
 	}
 };

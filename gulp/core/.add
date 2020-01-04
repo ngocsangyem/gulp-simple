@@ -1,2 +1,0 @@
-
-require( './createComponent.js' ).parseArguments( process.argv )

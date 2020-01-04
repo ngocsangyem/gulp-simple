@@ -1,0 +1,2 @@
+
+require( './gulp/core/createComponent.js' ).parseArguments( process.argv );

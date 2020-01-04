@@ -84,7 +84,7 @@
 	},
 	"scripts": {
 		"start": "set NODE_ENV=development & gulp serve --open --development",
-		"add": "node ./gulp/core/.add",
+		"add": "node .add",
 		"build": "set NODE_ENV=production & gulp build --production",
 		"build:components": "set NODE_ENV=production & gulp component --production",
 		"serve:prod": "set NODE_ENV=production npx gulp serve --production",
