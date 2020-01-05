@@ -2,15 +2,17 @@ const path = require("path");
 const del = require("del");
 const gulp = require("gulp");
 
-const { plugins, args, config, taskTarget, browserSync } = require("../utils");
+const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
 
-const dirs = config.directories;
+const dirs = cfg.directories;
+const dirsPro = dirs.production;
+const dirsDev = dirs.development;
 
 // Clean
 gulp.task("clean", () =>
 	del([
-		path.join(dirs.destination),
-		path.join(dirs.temporary),
-		path.join(dirs.destination + ".zip")
+		path.join(dirsPro.destination),
+		path.join(dirsDev.temporary),
+		path.join(dirsPro.destination + ".zip")
 	])
 );

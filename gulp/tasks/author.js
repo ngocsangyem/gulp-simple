@@ -1,7 +1,7 @@
 const gulp = require("gulp");
-const { plugins, args, config, taskTarget, browserSync } = require("../utils");
+const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
 
-const auth = config.build.author;
+const auth = cfg.build.author;
 const dest = `${taskTarget}`;
 
 let banner = [

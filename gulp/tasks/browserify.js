@@ -10,15 +10,17 @@ const _ = require("lodash");
 const vsource = require("vinyl-source-stream");
 const buffer = require("vinyl-buffer");
 
-const { plugins, args, config, taskTarget, browserSync } = require("../utils");
+const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
 
-const dirs = config.directories;
-const entries = config.directories.entries;
+const dirs = cfg.directories;
+const dirsPro = dirs.production;
+const dirsDev = dirs.development;
+const entries = cfg.directories.entries;
 
 let browserifyTask = (files, done) => {
 	return files.map(entry => {
 		// let dest = path.resolve(taskTarget);
-		let dest = `${taskTarget}/${dirs.scripts}`;
+		let dest = `${taskTarget}/${dirsPro.script}`;
 
 		// Options
 		let customOpts = {
@@ -96,7 +98,7 @@ let browserifyTask = (files, done) => {
 
 // Browserify Task
 gulp.task("browserify", done => {
-	return glob(`./${dirs.source}${dirs.app}${entries.script}`, function(
+	return glob(`./${dirsDev.source}${dirsDev.app}${entries.script}`, function(
 		err,
 		files
 	) {

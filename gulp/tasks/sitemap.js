@@ -1,11 +1,15 @@
 const gulp = require("gulp");
 const path = require("path");
 const fs = require("fs");
-const { plugins, args, config, taskTarget, browserSync } = require("../utils");
+const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
 
-const dirs = config.directories;
+const dirs = cfg.directories;
+const dirsPro = dirs.production;
+const dirsDev = dirs.development;
 const dest = path.join(taskTarget);
-const SEO = JSON.parse(fs.readFileSync(`${dirs.source}${dirs.app}seo.json`));
+const SEO = JSON.parse(
+	fs.readFileSync(`${dirsDev.source}${dirsDev.app}seo.json`)
+);
 
 gulp.task("sitemap", () => {
 	return gulp

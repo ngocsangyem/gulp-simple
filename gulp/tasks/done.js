@@ -1,7 +1,7 @@
 const gulp = require("gulp");
 const colors = require("colors");
 
-const { plugins, args, config, taskTarget, browserSync } = require("../utils");
+const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
 
 let banner = [
 	" ",

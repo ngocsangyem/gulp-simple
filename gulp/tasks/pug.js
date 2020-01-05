@@ -4,21 +4,22 @@ const gulp = require("gulp");
 const {
 	plugins,
 	args,
-	config,
+	cfg,
 	taskTarget,
 	browserSync,
 	reportError
 } = require("../utils");
 
-const dirs = config.directories;
-const entries = config.directories.entries;
+const dirs = cfg.directories;
+const dirsDev = dirs.development;
+const entries = cfg.directories.entries;
 const dest = `${taskTarget}`;
 
 gulp.task("pug", () => {
 	return gulp
 		.src([
-			`${dirs.source}${dirs.app}${dirs.pages}**/*.pug`,
-			`!${dirs.source}${dirs.app}${dirs.pages}{**/_*,**/_*/**}`
+			`${dirsDev.source}${dirsDev.app}${dirsDev.pages}**/*.pug`,
+			`!${dirsDev.source}${dirsDev.app}${dirsDev.pages}{**/_*,**/_*/**}`
 		])
 		.pipe(
 			plugins.plumber({
@@ -29,7 +30,7 @@ gulp.task("pug", () => {
 			plugins.data(function(file) {
 				return JSON.parse(
 					fs.readFileSync(
-						`./${dirs.source}${dirs.app}${dirs.data}${entries.data}`
+						`./${dirsDev.source}${dirsDev.app}${dirsDev.data}${entries.data}`
 					)
 				);
 			})
@@ -48,7 +49,7 @@ gulp.task("pug", () => {
 		.on("error", function(err) {
 			plugins.util.log(err);
 		})
-		.on("error", plugins.notify.onError(config.defaultNotification))
+		.on("error", plugins.notify.onError(cfg.defaultNotification))
 		.pipe(gulp.dest(dest))
 		.pipe(
 			browserSync.reload({

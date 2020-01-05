@@ -28,22 +28,30 @@ module.exports = {
 
 	directories: {
 		base: "./",
-		source: "src/",
-		app: "app/",
-		destination: "build/",
-		temporary: "tmp/",
-		component: "components/",
-		style: "styles/",
-		assets: "assets/",
-		script: "scripts/",
-		image: "img/",
-		fonts: "fonts/",
-		data: "data/",
-		pages: "pages/",
 		entries: {
 			script: "main.js",
 			css: "main.+(sass|scss)",
 			data: "data.json"
+		},
+		development: {
+			source: "src/",
+			app: "app/",
+			temporary: "tmp/",
+			component: "components/",
+			style: "styles/",
+			assets: "assets/",
+			script: "scripts/",
+			image: "img/",
+			fonts: "fonts/",
+			data: "data/",
+			pages: "pages/"
+		},
+		production: {
+			destination: "build/",
+			style: "styles/",
+			script: "scripts/",
+			fonts: "fonts/",
+			image: "img/"
 		}
 	},
 

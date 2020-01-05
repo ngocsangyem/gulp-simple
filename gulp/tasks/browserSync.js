@@ -1,21 +1,23 @@
 const gulp = require("gulp");
 const fs = require("fs");
 
-const { plugins, args, config, taskTarget, browserSync } = require("../utils");
+const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
 
-const dirs = config.directories;
+const dirs = cfg.directories;
+const dirsPro = dirs.production;
+const dirsDev = dirs.development;
 
 gulp.task("browserSync", () => {
 	browserSync.init({
 		open: args.open ? "local" : false,
-		port: config.port || 3000,
+		port: cfg.port || 3000,
 		server: {
 			baseDir: taskTarget,
 			routes: (() => {
 				let routes = {};
 
 				// Map base URL to routes
-				routes[config.baseUrl] = taskTarget;
+				routes[cfg.baseUrl] = taskTarget;
 
 				return routes;
 			})()
@@ -26,15 +28,16 @@ gulp.task("browserSync", () => {
 		// Pug
 		gulp.watch(
 			[
-				`${dirs.source}${dirs.app}${dirs.pages}**/*.+(pug|json)`,
-				`${dirs.source}${dirs.app}${dirs.component}**/*.+(pug|json)`,
-				`${dirs.source}${dirs.app}seo.json`
+				`${dirsDev.source}${dirsDev.app}${dirsDev.pages}**/*.+(pug|json)`,
+				`${dirsDev.source}${dirsDev.app}${dirsDev.component}**/*.+(pug|json)`,
+				`${dirsDev.source}${dirsDev.app}seo.json`
 			],
 			gulp.series("pug:data", "pug")
 		).on("unlink", function(path) {
+			console.log("TCL: path", path);
 			let filePathInBuildDir = path
 				.replace(
-					`${dirs.source}${dirs.app}${dirs.pages}${dirs.views}**/*`,
+					`${dirsDev.source}${dirsDev.app}${dirsDev.pages}${dirs.views}**/*`,
 					taskTarget
 				)
 				.replace(".pug", ".html");
@@ -47,18 +50,18 @@ gulp.task("browserSync", () => {
 		// Sass
 		gulp.watch(
 			[
-				`${dirs.source}${dirs.app}${dirs.pages}**/*.{sass,scss}`,
-				`${dirs.source}${dirs.app}${dirs.component}**/*.{sass,scss}`,
-				`${dirs.source}${dirs.app}**/*.{sass,scss}`
+				`${dirsDev.source}${dirsDev.app}${dirsDev.pages}**/*.{sass,scss}`,
+				`${dirsDev.source}${dirsDev.app}${dirsDev.component}**/*.{sass,scss}`,
+				`${dirsDev.source}${dirsDev.app}**/*.{sass,scss}`
 			],
 			gulp.series("sass")
 		);
 
 		gulp.watch(
 			[
-				`${dirs.source}${dirs.app}main.js`,
-				`${dirs.source}${dirs.app}${dirs.pages}**/*.js`,
-				`${dirs.source}${dirs.app}${dirs.component}**/*.js`
+				`${dirsDev.source}${dirsDev.app}main.js`,
+				`${dirsDev.source}${dirsDev.app}${dirsDev.pages}**/*.js`,
+				`${dirsDev.source}${dirsDev.app}${dirsDev.component}**/*.js`
 			],
 			gulp.series("scripts")
 		);
@@ -68,21 +71,21 @@ gulp.task("browserSync", () => {
 
 		// Fonts
 		gulp.watch(
-			[`${dirs.source}${dirs.assets}${dirs.fonts}**/*`],
+			[`${dirsDev.source}${dirsDev.assets}${dirsDev.fonts}**/*`],
 			gulp.parallel("fonts")
 		);
 
 		// Images
 		gulp.watch(
 			[
-				`${dirs.source}${dirs.assets}${dirs.images}**/*.{jpg,jpeg,gif,svg,png}`
+				`${dirsDev.source}${dirsDev.assets}${dirsDev.image}**/*.{jpg,jpeg,gif,svg,png}`
 			],
 			gulp.parallel("images")
 		).on("unlink", function(path) {
 			let filePathInBuildDir = path
 				.replace(
-					`${dirs.source}${dirs.assets}${dirs.images}`,
-					`${taskTarget}${dirs.images}`
+					`${dirsDev.source}${dirsDev.assets}${dirsDev.image}`,
+					`${taskTarget}${dirsPro.image}`
 				)
 				.replace(
 					".+(jpg|jpeg|gif|svg|png)",

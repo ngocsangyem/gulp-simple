@@ -5,15 +5,17 @@ const cssDeclarationSorter = require("css-declaration-sorter");
 const {
 	plugins,
 	args,
-	config,
+	cfg,
 	taskTarget,
 	browserSync,
 	reportError
 } = require("../utils");
 
-const dirs = config.directories;
-const entries = config.directories.entries;
-const dest = `${taskTarget}/${dirs.component}`;
+const dirs = cfg.directories;
+const dirsPro = dirs.production;
+const dirsDev = dirs.development;
+const entries = cfg.directories.entries;
+const dest = `${taskTarget}/${dirsPro.component}`;
 const postCssPlugins = [
 	autoprefixer({
 		grid: true
@@ -26,25 +28,25 @@ const postCssPlugins = [
 gulp.task("componentSASS", () => {
 	return gulp
 		.src([
-			`${dirs.source}${dirs.app}${dirs.pages}**/*.+(sass|scss)`,
-			`!${dirs.source}${dirs.app}${dirs.pages}index.+(sass|scss)`,
-			`${dirs.source}${dirs.app}${dirs.component}**/*.+(sass|scss)`,
-			`!${dirs.source}${dirs.app}${dirs.component}index.+(sass|scss)`
+			`${dirsDev.source}${dirsDev.app}${dirsDev.pages}**/*.+(sass|scss)`,
+			`!${dirsDev.source}${dirsDev.app}${dirsDev.pages}index.+(sass|scss)`,
+			`${dirsDev.source}${dirsDev.app}${dirsDev.component}**/*.+(sass|scss)`,
+			`!${dirsDev.source}${dirsDev.app}${dirsDev.component}index.+(sass|scss)`
 		])
 		.pipe(
 			plugins.plumber({
 				errorHandler: reportError
 			})
 		)
-		.on("error", plugins.notify.onError(config.defaultNotification))
+		.on("error", plugins.notify.onError(cfg.defaultNotification))
 		.pipe(gulp.dest(dest));
 });
 
 gulp.task("componentPUG", () => {
 	return gulp
 		.src([
-			`${dirs.source}${dirs.app}${dirs.pages}**/*.pug`,
-			`${dirs.source}${dirs.app}${dirs.component}**/*.pug`
+			`${dirsDev.source}${dirsDev.app}${dirsDev.pages}**/*.pug`,
+			`${dirsDev.source}${dirsDev.app}${dirsDev.component}**/*.pug`
 		])
 		.pipe(
 			plugins.plumber({
@@ -59,19 +61,19 @@ gulp.task("componentPUG", () => {
 		.on("error", function(err) {
 			plugins.util.log(err);
 		})
-		.on("error", plugins.notify.onError(config.defaultNotification))
+		.on("error", plugins.notify.onError(cfg.defaultNotification))
 		.pipe(gulp.dest(dest));
 });
 
 gulp.task("componentSCRIPT", () => {
 	return gulp
 		.src([
-			`${dirs.source}${dirs.app}${dirs.pages}**/*.+(js|ts)`,
-			`!${dirs.source}${dirs.app}${dirs.pages}**/*.test.+(js|ts)`,
-			`!${dirs.source}${dirs.app}${dirs.pages}index.+(js|ts)`,
-			`${dirs.source}${dirs.app}${dirs.component}**/*.+(js|ts)`,
-			`!${dirs.source}${dirs.app}${dirs.component}**/*.test.+(js|ts)`,
-			`!${dirs.source}${dirs.app}${dirs.component}index.+(js|ts)`
+			`${dirsDev.source}${dirsDev.app}${dirsDev.pages}**/*.+(js|ts)`,
+			`!${dirsDev.source}${dirsDev.app}${dirsDev.pages}**/*.test.+(js|ts)`,
+			`!${dirsDev.source}${dirsDev.app}${dirsDev.pages}index.+(js|ts)`,
+			`${dirsDev.source}${dirsDev.app}${dirsDev.component}**/*.+(js|ts)`,
+			`!${dirsDev.source}${dirsDev.app}${dirsDev.component}**/*.test.+(js|ts)`,
+			`!${dirsDev.source}${dirsDev.app}${dirsDev.component}index.+(js|ts)`
 		])
 		.pipe(
 			plugins.plumber({

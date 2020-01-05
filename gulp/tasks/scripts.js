@@ -1,16 +1,18 @@
 const gulp = require("gulp");
 const webpackstream = require("webpack-stream");
 
-const { plugins, args, config, taskTarget, browserSync } = require("../utils");
+const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
 
-const webpackConfig = require("../webpack.config");
+const webpackcfg = require("../webpack.config");
 
-const dirs = config.directories;
-const entries = config.directories.entries;
+const dirs = cfg.directories;
+const dirsPro = dirs.production;
+const dirsDev = dirs.development;
+const entries = cfg.directories.entries;
 
 gulp.task("scripts", () => {
 	return gulp
-		.src(`${dirs.source}${dirs.app}${entries.script}`)
-		.pipe(webpackstream(webpackConfig))
-		.pipe(gulp.dest(`${taskTarget}/${dirs.scripts}`));
+		.src(`${dirsDev.source}${dirsDev.app}${entries.script}`)
+		.pipe(webpackstream(webpackcfg))
+		.pipe(gulp.dest(`${taskTarget}/${dirsPro.script}`));
 });

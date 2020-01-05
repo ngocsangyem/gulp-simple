@@ -41,7 +41,7 @@ gulp.task(
 			"images",
 			"concatCss",
 			"concatJs",
-			"browserify"
+			"scripts"
 		),
 		"zip",
 		"rev",

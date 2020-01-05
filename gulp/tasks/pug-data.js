@@ -2,21 +2,21 @@ const gulp = require("gulp");
 const path = require("path");
 const merge = require("gulp-merge-json");
 
-const { plugins, args, config, taskTarget, browserSync } = require("../utils");
+const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
 
 const { RemoveExtension } = require("../helpers/remove-extension");
 const { CapitalizeWord } = require("../helpers/capitalize");
 
-const dirs = config.directories;
-const dest = path.join(taskTarget);
-const entries = config.directories.entries;
+const dirs = cfg.directories;
+const dirsDev = dirs.development;
+const entries = cfg.directories.entries;
 
 gulp.task("pug:data", () => {
 	return gulp
 		.src([
-			`${dirs.source}${dirs.app}${dirs.component}**/*.json`,
-			`${dirs.source}${dirs.app}${dirs.pages}**/*.json`,
-			`${dirs.source}${dirs.app}seo.json`
+			`${dirsDev.source}${dirsDev.app}${dirsDev.component}**/*.json`,
+			`${dirsDev.source}${dirsDev.app}${dirsDev.pages}**/*.json`,
+			`${dirsDev.source}${dirsDev.app}seo.json`
 		])
 		.pipe(
 			merge({
@@ -34,5 +34,5 @@ gulp.task("pug:data", () => {
 				}
 			})
 		)
-		.pipe(gulp.dest(`${dirs.source}${dirs.app}data`));
+		.pipe(gulp.dest(`${dirsDev.source}${dirsDev.app}data`));
 });

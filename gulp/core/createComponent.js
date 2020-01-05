@@ -92,7 +92,11 @@ module.exports = {
 				!extension.trim() ||
 				typeof extension !== "string"
 			) {
-				console.log(colors.red("Extension must be string"));
+				console.log(
+					colors.red(
+						"Extension must be string. Ex: .js, .sass, .scss, etc"
+					)
+				);
 				return;
 			}
 
@@ -245,9 +249,7 @@ module.exports = {
 		}
 
 		if (this.message && showMessage) {
-			console.log(
-				`\x1b[1mTry add ${this.type}\x1b[0m:\n${this.sep}\n${this.message}\n${this.sep}\n`
-			);
+			console.log(this.message);
 		}
 	}
 };

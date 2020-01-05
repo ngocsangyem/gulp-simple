@@ -3,14 +3,16 @@ const buffer = require("vinyl-buffer");
 const merge = require("merge-stream");
 const spritesmith = require("gulp.spritesmith");
 
-const { plugins, args, config, taskTarget, browserSync } = require("../utils");
+const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
 
-const dirs = config.directories;
-const dest = `${taskTarget}/${dirs.images}/sprite`;
+const dirs = cfg.directories;
+const dirsPro = dirs.production;
+const dirsDev = dirs.development;
+const dest = `${taskTarget}/${dirsPro.image}/sprite`;
 
 gulp.task("sprite", () => {
 	let spriteData = gulp
-		.src(`${dirs.source}${dirs.assets}${dirs.images}sprite/*.png`)
+		.src(`${dirsDev.source}${dirsDev.assets}${dirsDev.image}sprite/*.png`)
 		.pipe(
 			spritesmith({
 				imgName: "sprite.png",

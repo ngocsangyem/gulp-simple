@@ -1,7 +1,7 @@
 const gulp = require("gulp");
 const path = require("path");
 
-const { plugins, args, config, taskTarget, browserSync } = require("../utils");
+const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
 
 gulp.task("zip", () => {
 	return gulp

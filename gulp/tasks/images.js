@@ -1,14 +1,16 @@
 const gulp = require("gulp");
 
-const { plugins, args, config, taskTarget, browserSync } = require("../utils");
+const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
 
-const dirs = config.directories;
-const dest = `${taskTarget}/${dirs.images}`;
+const dirs = cfg.directories;
+const dirsPro = dirs.production;
+const dirsDev = dirs.development;
+const dest = `${taskTarget}/${dirsPro.image}`;
 
 gulp.task("images", () => {
 	return gulp
 		.src(
-			`${dirs.source}${dirs.assets}${dirs.images}**/*.{jpg,jpeg,gif,svg,png}`
+			`${dirsDev.source}${dirsDev.assets}${dirsDev.image}**/*.{jpg,jpeg,gif,svg,png}`
 		)
 		.pipe(plugins.if(!args.production, plugins.cached()))
 		.pipe(

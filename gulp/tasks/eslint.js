@@ -1,15 +1,16 @@
 const gulp = require("gulp");
 
-const { plugins, args, config, taskTarget, browserSync } = require("../utils");
+const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
 
-const dirs = config.directories;
+const dirs = cfg.directories;
+const dirsDev = dirs.development;
 
 gulp.task("eslint", () => {
-	gulp.src(`${dirs.source}**/*.js`)
+	gulp.src(`${dirsDev.source}**/*.js`)
 		.pipe(browserSync.reload({ stream: true, once: true }))
 		.pipe(
 			plugins.eslint({
-				configFile: "./eslintrc.json"
+				cfgFile: "./eslintrc.json"
 			})
 		)
 		.pipe(plugins.eslint.format())

@@ -2,10 +2,13 @@ const fs = require("fs");
 const path = require("path");
 const notify = require("gulp-notify");
 const { isFile, isDirectory } = require("./is");
-const { taskTarget, reportError } = require("../utils");
+const { taskTarget, reportError, args } = require("../utils");
+const appConfig = require("../config");
 
 const root = path.resolve(__dirname, "..");
 const root2 = path.resolve(__dirname, "../..");
+const environment = process.env.NODE_ENV || "development";
+const target = environment === "production" ? "build" : "tmp";
 
 const paths = {
 	slashNormalize(str) {
@@ -45,14 +48,23 @@ const paths = {
 		return path.join(this._dist, ...arguments);
 	},
 
+	styles() {
+		return path.join(this._styles, ...arguments);
+	},
+
+	scripts() {
+		return path.join(this.scripts, ...arguments);
+	},
+
 	_root: root,
 	_root2: root2,
 	_app: path.join(root2, "src", "app"),
 	_component: path.join(root2, "src", "app", "components"),
 	_page: path.join(root2, "src", "app", "pages"),
-	_style: path.join(root2, "src", "app", "styles"),
 	_assets: path.join(root2, "src", "assets"),
-	_dist: path.join(root2, taskTarget)
+	_dist: path.join(root2, target),
+	_styles: path.join(root2, target, appConfig.directories.production.style),
+	_scripts: path.join(root2, target, appConfig.directories.production.script)
 };
 
 try {
@@ -115,11 +127,14 @@ try {
 
 	// Merge build
 	const build = {
+		HTMLRoot: "./",
 		autoprefixer: ["last 3 versions"],
 		babel: true,
 		sourcemaps: [],
 		imagemin: [],
 		addVersions: true,
+		bundleName: "app",
+		bundles: [],
 		author: {
 			name: "ngocsangyem",
 			version: "v1.0.0",
@@ -185,22 +200,30 @@ try {
 
 	const directories = {
 		base: "./",
-		source: "src/",
-		app: "app/",
-		destination: "build/",
-		temporary: "tmp/",
-		component: "components/",
-		style: "styles/",
-		assets: "assets/",
-		script: "scripts/",
-		image: "img/",
-		fonts: "fonts/",
-		data: "data/",
-		pages: "pages/",
 		entries: {
 			script: "main.js",
 			css: "main.+(sass|scss)",
 			data: "data.json"
+		},
+		development: {
+			source: "src/",
+			app: "app/",
+			temporary: "tmp/",
+			component: "components/",
+			style: "styles/",
+			assets: "assets/",
+			script: "scripts/",
+			image: "img/",
+			fonts: "fonts/",
+			data: "data/",
+			pages: "pages/"
+		},
+		production: {
+			destination: "build/",
+			style: "styles/",
+			script: "scripts/",
+			fonts: "fonts/",
+			image: "img/"
 		}
 	};
 
@@ -247,4 +270,4 @@ try {
 	config.componentProtect = [].concat(config.componentProtect);
 }
 
-module.exports = { paths, config };
+module.exports = { paths, config, environment };
