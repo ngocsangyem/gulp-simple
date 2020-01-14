@@ -9,8 +9,8 @@ const dirs = cfg.directories;
 const dirsPro = dirs.production;
 const dirsDev = dirs.development;
 const url = JSON.parse(fs.readFileSync("./plugins.json"));
-const destJs = `${taskTarget}/${dirsPro.scripts}`;
-const destCss = `${taskTarget}/${dirsPro.css}`;
+const destJs = `${taskTarget}/${dirsPro.script}`;
+const destCss = `${taskTarget}/${dirsPro.style}`;
 
 gulp.task("concatJs", () => {
 	return gulp

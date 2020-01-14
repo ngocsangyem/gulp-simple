@@ -1,5 +1,6 @@
 const fs = require("fs");
 const gulp = require("gulp");
+const through2 = require("through2");
 
 const {
 	plugins,
@@ -51,6 +52,11 @@ gulp.task("pug", () => {
 		})
 		.on("error", plugins.notify.onError(cfg.defaultNotification))
 		.pipe(gulp.dest(dest))
+		.pipe(
+			plugins.fn(function(file, enc) {
+				console.log("Hello " + file.path);
+			})
+		)
 		.pipe(
 			browserSync.reload({
 				stream: true

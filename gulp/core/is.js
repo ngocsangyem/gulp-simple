@@ -33,11 +33,4 @@ const isExternal = str => {
 	);
 };
 
-const isExist = path => {
-	if (fs.existsSync(path)) {
-		return true;
-	}
-	return false;
-};
-
 module.exports = { isFile, isDirectory, isExternal };
