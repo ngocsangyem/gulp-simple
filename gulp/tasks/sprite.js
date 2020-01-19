@@ -3,9 +3,9 @@ const buffer = require("vinyl-buffer");
 const merge = require("merge-stream");
 const spritesmith = require("gulp.spritesmith");
 
-const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
-const dirs = cfg.directories;
+const dirs = config.directories;
 const dirsPro = dirs.production;
 const dirsDev = dirs.development;
 const dest = `${taskTarget}/${dirsPro.image}/sprite`;

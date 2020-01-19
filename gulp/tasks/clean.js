@@ -2,9 +2,9 @@ const path = require("path");
 const del = require("del");
 const gulp = require("gulp");
 
-const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
-const dirs = cfg.directories;
+const dirs = config.directories;
 const dirsPro = dirs.production;
 const dirsDev = dirs.development;
 

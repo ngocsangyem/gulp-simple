@@ -6,6 +6,7 @@ const checkFile = require("./checkFile");
 const { isExternal } = require("./is");
 const { args } = require("../utils");
 const colors = require("colors");
+const { isDev } = require("../utils");
 
 /**
  * Check a modules from component dependency.
@@ -66,7 +67,9 @@ module.exports = function(component, type, page, deps, extnames, imports) {
 					if (!checkFilter) return;
 				}
 
-				if (!checkFile(file, component, item, args.development)) return;
+				if (!checkFile(file, component, item, isDev)) {
+					return;
+				}
 
 				if (imports.indexOf(file) === -1) {
 					imports.push(file);
@@ -106,7 +109,9 @@ module.exports = function(component, type, page, deps, extnames, imports) {
 					const name = path.basename(file);
 					const extname = path.extname(file);
 
-					if (!checkFile(file, block, item, args.development)) return;
+					if (!checkFile(file, block, item, isDev)) {
+						return;
+					}
 
 					if (extname === ".js" && scripts.indexOf(name) === -1) {
 						scripts.push(name);

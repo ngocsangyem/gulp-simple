@@ -1,23 +1,23 @@
 const gulp = require("gulp");
 const fs = require("fs");
 
-const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
-const dirs = cfg.directories;
+const dirs = config.directories;
 const dirsPro = dirs.production;
 const dirsDev = dirs.development;
 
 gulp.task("browserSync", () => {
 	browserSync.init({
 		open: args.open ? "local" : false,
-		port: cfg.port || 3000,
+		port: config.port || 3000,
 		server: {
 			baseDir: taskTarget,
 			routes: (() => {
 				let routes = {};
 
 				// Map base URL to routes
-				routes[cfg.baseUrl] = taskTarget;
+				routes[config.baseUrl] = taskTarget;
 
 				return routes;
 			})()

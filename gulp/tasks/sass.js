@@ -7,16 +7,16 @@ const cssDeclarationSorter = require("css-declaration-sorter");
 const {
 	plugins,
 	args,
-	cfg,
+	config,
 	taskTarget,
 	browserSync,
 	reportError
 } = require("../utils");
 
-const dirs = cfg.directories;
+const dirs = config.directories;
 const dirsPro = dirs.production;
 const dirsDev = dirs.development;
-const entries = cfg.directories.entries;
+const entries = config.directories.entries;
 const dest = `${taskTarget}/${dirsPro.style}`;
 const postCssPlugins = [
 	autoprefixer({
@@ -53,7 +53,7 @@ gulp.task("sass", () => {
 		.on("error", function(err) {
 			plugins.util.log(err);
 		})
-		.on("error", plugins.notify.onError(cfg.defaultNotification))
+		.on("error", plugins.notify.onError(config.defaultNotification))
 		.pipe(plugins.postcss(postCssPlugins))
 		.pipe(plugins.if(!args.production, gcmq()))
 		.pipe(

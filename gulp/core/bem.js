@@ -1,5 +1,5 @@
 module.exports = {
-	isBlock(cls) {
+	isComponent(cls) {
 		return !this.isElement(cls) && !this.isModifier(cls); // {Boolean}
 	},
 
@@ -11,7 +11,7 @@ module.exports = {
 		return /([a-z\d])(_|--)([a-z\d])/i.test(cls); // {Boolean}
 	},
 
-	getBlock(cls) {
+	getComponent(cls) {
 		if (typeof cls !== "string") return "";
 		return this.delModifier(cls).split("__")[0]; // {String}
 	},

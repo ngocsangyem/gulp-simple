@@ -7,7 +7,6 @@ const { reportError } = require("../utils");
 const { ReplaceName } = require("../helpers/replace-name");
 const BEM = require("./bem");
 
-const prefix = "Component";
 const extensionPrefix = ".component";
 
 module.exports = {
@@ -76,7 +75,7 @@ module.exports = {
 	},
 
 	addComponent(node, extensions, type) {
-		const component = BEM.getBlock(node);
+		const component = BEM.getComponent(node);
 		const directory = this.setDirection(component, type);
 		const testDirectory = this.setDirection(component + "/test", type);
 
@@ -119,13 +118,13 @@ module.exports = {
 			}
 
 			let extname =
-				extension !== "dependency.js"
+				extension !== "dependencies.js"
 					? extension
 					: path.extname(extension);
 			let file;
 			let content;
 			let name =
-				extension !== "dependency.js"
+				extension !== "dependencies.js"
 					? path.basename(extension, extname) || node
 					: node;
 			content = ReplaceName(
@@ -134,7 +133,7 @@ module.exports = {
 				name
 			);
 
-			if (extension !== ".test.js" && extension !== "dependency.js") {
+			if (extension !== ".test.js" && extension !== "dependencies.js") {
 				file = path.join(directory, name + extensionPrefix + extname);
 				return this.addFile(file, content);
 			} else if (extension == ".test.js") {
@@ -150,7 +149,7 @@ module.exports = {
 				);
 				this.addDirectory(testDirectory);
 				return this.addFile(file, content);
-			} else if (extension == "dependency.js") {
+			} else if (extension == "dependencies.js") {
 				content = ReplaceName(
 					(config.addContent && config.addContent.dependency) || "",
 					name

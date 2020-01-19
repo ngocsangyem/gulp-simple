@@ -2,14 +2,14 @@ const gulp = require("gulp");
 const path = require("path");
 const merge = require("gulp-merge-json");
 
-const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
 const { RemoveExtension } = require("../helpers/remove-extension");
 const { CapitalizeWord } = require("../helpers/capitalize");
 
-const dirs = cfg.directories;
+const dirs = config.directories;
 const dirsDev = dirs.development;
-const entries = cfg.directories.entries;
+const entries = config.directories.entries;
 
 gulp.task("pug:data", () => {
 	return gulp

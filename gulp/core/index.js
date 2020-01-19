@@ -1,8 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const notify = require("gulp-notify");
-const { isFile, isDirectory } = require("./is");
-const { taskTarget, reportError, args } = require("../utils");
 const appConfig = require("../config");
 
 const root = path.resolve(__dirname, "..");
@@ -81,8 +79,7 @@ try {
 	}
 } catch (error) {
 	console.log("Add main dirs fail", error);
-	// notify.onError("Error")(error);
-	reportError;
+	notify.onError("Error")(error);
 }
 
 // Read config
@@ -97,8 +94,7 @@ try {
 	}
 } catch (error) {
 	console.log("Find config file fail", error);
-	// notify.onError("Error")(error);
-	reportError;
+	notify.onError("Error")(error);
 } finally {
 	// Merge extnames
 	const component = {

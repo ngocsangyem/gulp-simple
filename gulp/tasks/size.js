@@ -1,6 +1,6 @@
 const gulp = require("gulp");
 
-const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
 const dest = `${taskTarget}`;
 

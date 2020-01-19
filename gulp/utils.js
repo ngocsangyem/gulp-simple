@@ -5,7 +5,7 @@ const gutil = require("gulp-util");
 const gulpLoadPlugins = require("gulp-load-plugins");
 const notify = require("gulp-notify");
 
-const config = require("./config");
+const { config, paths } = require("./core/index");
 
 // Load all gulp plugins based on their names
 // EX: gulp-copy -> copy
@@ -15,13 +15,13 @@ const plugins = gulpLoadPlugins();
 const KarmaServer = require("karma").Server;
 
 // Get config.js custom configuration
-const cfg = Object.assign({}, config);
+// const cfg = Object.assign({}, config);
 
 // Gather arguments passed to gulp commands
 const args = minimist(process.argv.slice(2));
 
 // Alias config directories
-const dirs = cfg.directories;
+const dirs = config.directories;
 
 // Determine gulp task target destinations
 const taskTarget = args.production
@@ -30,6 +30,10 @@ const taskTarget = args.production
 
 // Create a new browserSync instance
 const browserSync = browserSyncLib.create();
+
+const isDev = args.development;
+
+const store = {};
 
 const reportError = function(error) {
 	// [log]
@@ -80,9 +84,12 @@ const reportError = function(error) {
 module.exports = {
 	plugins,
 	KarmaServer,
-	cfg,
+	config,
 	args,
 	taskTarget,
 	browserSync,
-	reportError
+	reportError,
+	store,
+	isDev,
+	paths
 };

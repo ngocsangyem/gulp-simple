@@ -1,9 +1,6 @@
-const { args, cfg } = require("./utils");
+const { args } = require("./utils");
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
-
-const dirs = cfg.directories;
-const entries = cfg.entries;
 
 const WebpackConfig = {
 	mode: !args.production ? "development" : "production",

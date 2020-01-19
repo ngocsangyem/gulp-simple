@@ -1,8 +1,8 @@
 const gulp = require("gulp");
 
-const { plugins, args, cfg, taskTarget, browserSync } = require("../utils");
+const { plugins, args, config, taskTarget, browserSync } = require("../utils");
 
-const dirs = cfg.directories;
+const dirs = config.directories;
 const dest = `${taskTarget}`;
 
 gulp.task("rev", () => {

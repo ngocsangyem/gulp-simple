@@ -5,15 +5,15 @@ const through2 = require("through2");
 const {
 	plugins,
 	args,
-	cfg,
+	config,
 	taskTarget,
 	browserSync,
 	reportError
 } = require("../utils");
 
-const dirs = cfg.directories;
+const dirs = config.directories;
 const dirsDev = dirs.development;
-const entries = cfg.directories.entries;
+const entries = config.directories.entries;
 const dest = `${taskTarget}`;
 
 gulp.task("pug", () => {
@@ -41,6 +41,7 @@ gulp.task("pug", () => {
 				pretty: "\t"
 			})
 		)
+
 		.pipe(
 			plugins.rename(function(path) {
 				path.basename = path.basename.replace(/\.[^.]*$/, "");
@@ -50,13 +51,9 @@ gulp.task("pug", () => {
 		.on("error", function(err) {
 			plugins.util.log(err);
 		})
-		.on("error", plugins.notify.onError(cfg.defaultNotification))
+		.on("error", plugins.notify.onError(config.defaultNotification))
 		.pipe(gulp.dest(dest))
-		.pipe(
-			plugins.fn(function(file, enc) {
-				console.log("Hello " + file.path);
-			})
-		)
+
 		.pipe(
 			browserSync.reload({
 				stream: true
