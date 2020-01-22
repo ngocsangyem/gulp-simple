@@ -1,9 +1,6 @@
 const fs = require("fs");
 const gulp = require("gulp");
 
-const pipe = require("../core/pipe");
-const parseHTML = require("../core/parseHTML");
-
 const {
 	plugins,
 	args,
@@ -14,14 +11,6 @@ const {
 	paths,
 	store
 } = require("../utils");
-
-function parse() {
-	if (!store.pages) {
-		store.pages = {};
-	}
-
-	return pipe(parseHTML, this, "parseHTML");
-}
 
 const dirs = config.directories;
 const dirsDev = dirs.development;
@@ -53,7 +42,6 @@ gulp.task("pug", () => {
 				pretty: "\t"
 			})
 		)
-		.pipe(parse())
 		.pipe(
 			plugins.rename(function(path) {
 				path.basename = path.basename.replace(/\.[^.]*$/, "");
@@ -64,7 +52,6 @@ gulp.task("pug", () => {
 			plugins.util.log(err);
 		})
 		.on("error", plugins.notify.onError(config.defaultNotification))
-		.pipe(pipe(parse()))
 		.pipe(gulp.dest(dest))
 
 		.pipe(
