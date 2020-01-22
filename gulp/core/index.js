@@ -8,86 +8,12 @@ const root2 = path.resolve(__dirname, "../..");
 const environment = process.env.NODE_ENV || "development";
 const target = environment === "production" ? "build" : "tmp";
 
-const paths = {
-	slashNormalize(str) {
-		const isExtendedLengthPath = /^\\\\\?\\/.test(str);
-		const hasNonAscii = /[^\u0000-\u0080]+/.test(str);
-
-		if (isExtendedLengthPath || hasNonAscii) return str;
-
-		return str.replace(/\\/g, "/");
-	},
-
-	root() {
-		return path.join(this._root, ...arguments);
-	},
-
-	app() {
-		return path.join(this._app, ...arguments);
-	},
-
-	component() {
-		return path.join(this._component, ...arguments);
-	},
-
-	page() {
-		return path.join(this._page, ...arguments);
-	},
-
-	style() {
-		return path.join(this._style, ...arguments);
-	},
-
-	assets() {
-		return path.join(this._assets, ...arguments);
-	},
-
-	dist() {
-		return path.join(this._dist, ...arguments);
-	},
-
-	styles() {
-		return path.join(this._styles, ...arguments);
-	},
-
-	scripts() {
-		return path.join(this.scripts, ...arguments);
-	},
-
-	_root: root,
-	_root2: root2,
-	_app: path.join(root2, "src", "app"),
-	_component: path.join(root2, "src", "app", "components"),
-	_page: path.join(root2, "src", "app", "pages"),
-	_assets: path.join(root2, "src", "assets"),
-	_dist: path.join(root2, target),
-	_styles: path.join(root2, target, appConfig.directories.production.style),
-	_scripts: path.join(root2, target, appConfig.directories.production.script)
-};
-
-try {
-	if (!fs.existsSync(paths._app)) {
-		fs.mkdirSync(paths._app);
-	}
-
-	if (!fs.existsSync(paths._component)) {
-		fs.mkdirSync(paths._component);
-	}
-
-	if (!fs.existsSync(paths._page)) {
-		fs.mkdirSync(paths._page);
-	}
-} catch (error) {
-	console.log("Add main dirs fail", error);
-	notify.onError("Error")(error);
-}
-
 // Read config
 
 let config = {};
 
 try {
-	const appConfig = paths.root("config.js");
+	const appConfig = "../config.js";
 
 	if (fs.existsSync(appConfig)) {
 		config = require(appConfig);
@@ -264,6 +190,76 @@ try {
 	// Protect
 
 	config.componentProtect = [].concat(config.componentProtect);
+}
+
+const paths = {
+	slashNormalize(str) {
+		const isExtendedLengthPath = /^\\\\\?\\/.test(str);
+		const hasNonAscii = /[^\u0000-\u0080]+/.test(str);
+
+		if (isExtendedLengthPath || hasNonAscii) return str;
+
+		return str.replace(/\\/g, "/");
+	},
+
+	root() {
+		return path.join(this._root, ...arguments);
+	},
+
+	app() {
+		return path.join(this._app, ...arguments);
+	},
+
+	component() {
+		return path.join(this._component, ...arguments);
+	},
+
+	page() {
+		return path.join(this._page, ...arguments);
+	},
+
+	assets() {
+		return path.join(this._assets, ...arguments);
+	},
+
+	dist() {
+		return path.join(this._dist, ...arguments);
+	},
+
+	styles() {
+		return path.join(this._styles, ...arguments);
+	},
+
+	scripts() {
+		return path.join(this.scripts, ...arguments);
+	},
+
+	_root: root,
+	_root2: root2,
+	_app: path.join(root2, "src", "app"),
+	_component: path.join(root2, "src", "app", "components"),
+	_page: path.join(root2, "src", "app", "pages"),
+	_assets: path.join(root2, "src", "assets"),
+	_dist: path.join(root2, target),
+	_styles: path.join(root2, target, config.directories.production.style),
+	_scripts: path.join(root2, target, config.directories.production.script)
+};
+
+try {
+	if (!fs.existsSync(paths._app)) {
+		fs.mkdirSync(paths._app);
+	}
+
+	if (!fs.existsSync(paths._component)) {
+		fs.mkdirSync(paths._component);
+	}
+
+	if (!fs.existsSync(paths._page)) {
+		fs.mkdirSync(paths._page);
+	}
+} catch (error) {
+	console.log("Add main dirs fail", error);
+	notify.onError("Error")(error);
 }
 
 module.exports = { paths, config, environment };

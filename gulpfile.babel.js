@@ -25,6 +25,7 @@ gulp.task(
 			"concatCss",
 			"concatJs"
 		),
+		"inject",
 		"scripts",
 		"browserSync"
 	])
