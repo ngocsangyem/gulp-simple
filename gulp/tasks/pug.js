@@ -1,5 +1,6 @@
 const fs = require("fs");
 const gulp = require("gulp");
+const path = require("path");
 
 const {
 	plugins,
@@ -11,6 +12,8 @@ const {
 	paths,
 	store
 } = require("../utils");
+
+const parseHTML = require("../core/parseHTML");
 
 const dirs = config.directories;
 const dirsDev = dirs.development;
@@ -26,6 +29,14 @@ gulp.task("pug", () => {
 		.pipe(
 			plugins.plumber({
 				errorHandler: reportError
+			})
+		)
+		.pipe(
+			plugins.fn((file, enc) => {
+				if (!store.pages) {
+					store.pages = {};
+				}
+				parseHTML(file);
 			})
 		)
 		.pipe(

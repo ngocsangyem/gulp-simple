@@ -10,7 +10,8 @@ const {
 	config,
 	taskTarget,
 	browserSync,
-	reportError
+	reportError,
+	store
 } = require("../utils");
 
 const dirs = config.directories;
@@ -63,6 +64,11 @@ gulp.task("sass", () => {
 					rebase: false
 				})
 			)
+		)
+		.pipe(
+			plugins.fn((file, enc) => {
+				console.log("sass store", store);
+			})
 		)
 		.pipe(plugins.if(!args.production, plugins.sourcemaps.write("./")))
 		.pipe(gulp.dest(dest))

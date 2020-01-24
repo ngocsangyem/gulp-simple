@@ -19,7 +19,6 @@ gulp.task(
 		gulp.parallel(
 			"sass",
 			"pug",
-			// 'browserify',
 			"fonts",
 			"images",
 			"concatCss",
