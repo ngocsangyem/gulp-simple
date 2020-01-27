@@ -2,9 +2,16 @@ const fs = require("fs");
 const path = require("path");
 const colors = require("colors");
 
-const { paths, config } = require("./index");
-const { reportError } = require("../utils");
-const { ReplaceName } = require("../helpers/replace-name");
+const {
+	paths,
+	config
+} = require("./index");
+const {
+	reportError
+} = require("../utils");
+const {
+	ReplaceName
+} = require("../helpers/replace-name");
 const BEM = require("./bem");
 
 const extensionPrefix = ".component";
@@ -118,29 +125,29 @@ module.exports = {
 			}
 
 			let extname =
-				extension !== "dependencies.js"
-					? extension
-					: path.extname(extension);
+				extension !== "deps.js" ?
+				extension :
+				path.extname(extension);
 			let file;
 			let content;
 			let name =
-				extension !== "dependencies.js"
-					? path.basename(extension, extname) || node
-					: node;
+				extension !== "deps.js" ?
+				path.basename(extension, extname) || node :
+				node;
 			content = ReplaceName(
 				(config.addContent && config.addContent[extname.slice(1)]) ||
-					"",
+				"",
 				name
 			);
 
-			if (extension !== ".test.js" && extension !== "dependencies.js") {
+			if (extension !== ".test.js" && extension !== "deps.js") {
 				file = path.join(directory, name + extensionPrefix + extname);
 				return this.addFile(file, content);
 			} else if (extension == ".test.js") {
 				content = ReplaceName(
 					(config.addContent &&
 						config.addContent[extname.replace(extname, "test")]) ||
-						"",
+					"",
 					name
 				);
 				file = path.join(
@@ -149,7 +156,7 @@ module.exports = {
 				);
 				this.addDirectory(testDirectory);
 				return this.addFile(file, content);
-			} else if (extension == "dependencies.js") {
+			} else if (extension == "deps.js") {
 				content = ReplaceName(
 					(config.addContent && config.addContent.dependency) || "",
 					name

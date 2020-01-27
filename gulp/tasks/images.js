@@ -1,6 +1,12 @@
 const gulp = require("gulp");
 
-const { plugins, args, config, taskTarget, browserSync } = require("../utils");
+const {
+	plugins,
+	args,
+	config,
+	taskTarget,
+	browserSync
+} = require("../utils");
 
 const dirs = config.directories;
 const dirsPro = dirs.production;
@@ -16,15 +22,7 @@ gulp.task("images", () => {
 		.pipe(
 			plugins.if(
 				args.production,
-				plugins.imagemin(
-					[plugins.imagemin.jpegtran({ progressive: true })],
-					{
-						verbose: true,
-						interlaced: true,
-						progressive: true,
-						optimizationLevel: 5
-					}
-				)
+				plugins.imagemin()
 			)
 		)
 		.pipe(gulp.dest(dest));

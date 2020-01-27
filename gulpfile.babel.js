@@ -1,13 +1,16 @@
 const gulp = require("gulp");
 const path = require("path");
 const glob = require("glob");
-const { KarmaServer, args } = require("./gulp/utils");
+const {
+	KarmaServer,
+	args
+} = require("./gulp/utils");
 
 glob.sync("./gulp/tasks/**/*.js")
-	.filter(function(file) {
+	.filter(function (file) {
 		return /\.(js)$/i.test(file);
 	})
-	.map(function(file) {
+	.map(function (file) {
 		require(file);
 	});
 
@@ -16,6 +19,7 @@ gulp.task(
 	gulp.series([
 		"clean",
 		"pug:data",
+		"pug",
 		gulp.parallel(
 			"sass",
 			"pug",
@@ -33,8 +37,8 @@ gulp.task(
 	"build",
 	gulp.series([
 		"clean",
+		"pug",
 		gulp.parallel(
-			"pug",
 			"sass",
 			"fonts",
 			"images",
@@ -55,8 +59,8 @@ gulp.task(
 	"component",
 	gulp.series([
 		"clean",
+		"pug",
 		gulp.parallel(
-			"pug",
 			"sass",
 			"fonts",
 			"images",
@@ -78,8 +82,7 @@ gulp.task(
 gulp.task(
 	"test",
 	gulp.series("eslint", done => {
-		new KarmaServer(
-			{
+		new KarmaServer({
 				configFile: path.join(__dirname, "/karma.conf.js"),
 				singleRun: !args.watch,
 				autoWatch: args.watch

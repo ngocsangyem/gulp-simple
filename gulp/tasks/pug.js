@@ -13,12 +13,20 @@ const {
 	store
 } = require("../utils");
 
+const pipe = require('../core/pipe')
 const parseHTML = require("../core/parseHTML");
 
 const dirs = config.directories;
 const dirsDev = dirs.development;
 const entries = config.directories.entries;
 const dest = `${taskTarget}`;
+
+function parse() {
+	if (!store.pages) {
+		store.pages = {};
+	}
+	return pipe(parseHTML, this, 'parseHTML')
+}
 
 gulp.task("pug", () => {
 	return gulp
@@ -31,16 +39,9 @@ gulp.task("pug", () => {
 				errorHandler: reportError
 			})
 		)
+		.pipe(parse())
 		.pipe(
-			plugins.fn((file, enc) => {
-				if (!store.pages) {
-					store.pages = {};
-				}
-				parseHTML(file);
-			})
-		)
-		.pipe(
-			plugins.data(function(file) {
+			plugins.data(function (file) {
 				return JSON.parse(
 					fs.readFileSync(
 						`./${dirsDev.source}${dirsDev.app}${dirsDev.data}${entries.data}`
@@ -54,12 +55,12 @@ gulp.task("pug", () => {
 			})
 		)
 		.pipe(
-			plugins.rename(function(path) {
+			plugins.rename(function (path) {
 				path.basename = path.basename.replace(/\.[^.]*$/, "");
 				path.dirname = "";
 			})
 		)
-		.on("error", function(err) {
+		.on("error", function (err) {
 			plugins.util.log(err);
 		})
 		.on("error", plugins.notify.onError(config.defaultNotification))

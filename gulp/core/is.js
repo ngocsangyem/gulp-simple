@@ -1,5 +1,13 @@
 const fs = require("fs");
 
+/**
+ * Check some.
+ *
+ * @param {String}
+ *
+ * @return {Boolean}
+ */
+
 const isDirectory = directoryPath => {
 	let stats = false;
 
@@ -33,4 +41,8 @@ const isExternal = str => {
 	);
 };
 
-module.exports = { isFile, isDirectory, isExternal };
+module.exports = {
+	isFile,
+	isDirectory,
+	isExternal
+};

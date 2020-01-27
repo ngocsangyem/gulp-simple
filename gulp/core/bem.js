@@ -1,3 +1,11 @@
+/**
+ * Check class on BEM notation.
+ *
+ * @param {String} cls
+ *
+ * @return {Boolean} or {String}
+ */
+
 module.exports = {
 	isComponent(cls) {
 		return !this.isElement(cls) && !this.isModifier(cls); // {Boolean}
