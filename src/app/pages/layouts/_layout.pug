@@ -14,13 +14,15 @@ html(dir='ltr', lang=Seo.seo_lang, itemscope, itemtype="http://schema.org/WebSit
 		meta(name='theme-color', content=Seo.mobile_color)
 		meta(name='msapplication-navbutton-color', content=Seo.mobile_color)
 		meta(name='apple-mobile-web-app-status-bar-style', content=Seo.mobile_color)
-		if process.argv.slice(3).indexOf('--production') > -1
-			include ./_includes/seo
+		//- if process.argv.slice(3).indexOf('--production') > -1
+		//- 	include ./_includes/seo
 		//- if process.argv.slice(3).indexOf('--production') > -1
 		//- 	include ../_include/_favicon
-		include ./_includes/css
+		//- include ./_includes/css
+		// Inject:styles
 		title #{title} - #{Seo.cfg_name}
 	body(class=process.argv.slice(3).indexOf('--production') < 0 ? 'kyanon-develop '+prefix+bodyClass+'-page' : prefix+bodyClass+'-page' || 'default')
 		main
 			block main
-		include ./_includes/scripts
+		// Inject:scripts
+		//- include ./_includes/scripts

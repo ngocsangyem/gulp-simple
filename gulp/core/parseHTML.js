@@ -24,17 +24,5 @@ module.exports = function (file) {
 		});
 		getComponent(file, page);
 
-		for (const key in store.pages) {
-			if (store.pages.hasOwnProperty(key)) {
-				const element = store.pages[key];
-				for (const k in element.dependencies) {
-					if (element.dependencies.hasOwnProperty(k)) {
-						const el = element.dependencies[k];
-						console.log('modules', el.modules);
-					}
-				}
-			}
-		}
-
 	}
 };

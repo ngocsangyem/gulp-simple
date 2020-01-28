@@ -15,6 +15,7 @@ module.exports = {
 		babel: true,
 		sourcemaps: ["js", "css"],
 		imagemin: ["png", "jpg", "svg", "gif"],
+		bundles: ['js', 'css'],
 		author: {
 			name: "",
 			version: "",

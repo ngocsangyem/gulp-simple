@@ -26,9 +26,10 @@ gulp.task(
 			"fonts",
 			"images",
 			"concatCss",
-			"concatJs"
+			"concatJs",
+			"scripts",
 		),
-		"scripts",
+		"inject",
 		"browserSync"
 	])
 );
@@ -46,6 +47,7 @@ gulp.task(
 			"concatJs",
 			"scripts"
 		),
+		"inject",
 		"zip",
 		"rev",
 		"sitemap",
@@ -66,9 +68,10 @@ gulp.task(
 			"images",
 			"concatCss",
 			"concatJs",
-			"browserify"
+			"scripts",
 		),
 		gulp.parallel("componentSASS", "componentPUG", "componentSCRIPT"),
+		"inject",
 		"zip",
 		"rev",
 		"sitemap",

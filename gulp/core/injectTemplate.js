@@ -22,7 +22,6 @@ const {
  */
 
 module.exports = function (code, page) {
-	console.log("TCL: page", page)
 	const bundleName = config.build.bundleName;
 	const withGap = /(\s+)?(<!--(\s+)?GAP:([\w]+)(\s+)?-->)/gi;
 	const comment = /(\s+)?(<!--(\s+)?Inject:([\w]+)(\s+)?-->)/gi;
@@ -61,7 +60,7 @@ module.exports = function (code, page) {
 			if (/@defer/gi.test(src)) attrs += ' defer';
 
 			if (!isExternal(src)) {
-				src = isDev ? `${config.build.HTMLRoot}${config.directories.development.script}/${src}` : `${config.build.HTMLRoot}${config.directories.production.script}/${src}`;
+				src = isDev ? `${config.build.HTMLRoot}${config.directories.development.script}${src}` : `${config.build.HTMLRoot}${config.directories.production.script}${src}`;
 			}
 
 			script = script.replace('[src]', src.replace(pattern, '') + (isExternal(src) ? '' : version)).replace('[attr]', attrs);
@@ -78,7 +77,7 @@ module.exports = function (code, page) {
 			let style = '<link rel="stylesheet" href="[href]">';
 
 			if (!isExternal(href)) {
-				href = isDev ? `${config.build.HTMLRoot}${config.directories.development.style}/${href}` : `${config.build.HTMLRoot}${config.directories.production.style}/${href}`;
+				href = isDev ? `${config.build.HTMLRoot}${config.directories.development.style}${href}` : `${config.build.HTMLRoot}${config.directories.production.style}${href}`;
 			}
 
 			style = style.replace('[href]', href.replace(pattern, '') + (isExternal(href) ? '' : version))

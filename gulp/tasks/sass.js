@@ -51,7 +51,7 @@ gulp.task("sass", () => {
 				precision: 10
 			})
 		)
-		.on("error", function(err) {
+		.on("error", function (err) {
 			plugins.util.log(err);
 		})
 		.on("error", plugins.notify.onError(config.defaultNotification))
@@ -67,7 +67,7 @@ gulp.task("sass", () => {
 		)
 		.pipe(
 			plugins.fn((file, enc) => {
-				console.log("sass store", store);
+				// console.log("sass store", store);
 			})
 		)
 		.pipe(plugins.if(!args.production, plugins.sourcemaps.write("./")))
