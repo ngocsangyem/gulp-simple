@@ -109,10 +109,9 @@ try {
 		sass: sassTemplate,
 		pug: componentTemplate,
 		test: testTemplate,
-		js:
-			component.javascriptSyntax === "class"
-				? jsTemplateClass
-				: jsTemplateFunction,
+		js: component.javascriptSyntax === "class" ?
+			jsTemplateClass :
+			jsTemplateFunction,
 		page: pageTemplate
 	};
 
@@ -145,7 +144,8 @@ try {
 			style: "styles/",
 			script: "scripts/",
 			fonts: "fonts/",
-			image: "img/"
+			image: "img/",
+			assets: "assets/",
 		}
 	};
 
@@ -168,10 +168,15 @@ try {
 			optimizationLevel: 1,
 			interlaced: true
 		},
-		svg: [
-			{ cleanupIDs: false },
-			{ removeViewBox: false },
-			{ mergePaths: false }
+		svg: [{
+				cleanupIDs: false
+			},
+			{
+				removeViewBox: false
+			},
+			{
+				mergePaths: false
+			}
 		]
 	};
 
@@ -262,4 +267,8 @@ try {
 	notify.onError("Error")(error);
 }
 
-module.exports = { paths, config, environment };
+module.exports = {
+	paths,
+	config,
+	environment
+};
