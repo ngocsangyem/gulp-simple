@@ -29,7 +29,7 @@ gulp.task(
 			"concatJs",
 			"scripts",
 		),
-		"inject",
+		// "inject",
 		"browserSync"
 	])
 );
@@ -47,7 +47,7 @@ gulp.task(
 			"concatJs",
 			"scripts"
 		),
-		"inject",
+		// "inject",
 		"zip",
 		"rev",
 		"sitemap",
@@ -71,7 +71,7 @@ gulp.task(
 			"scripts",
 		),
 		gulp.parallel("componentSASS", "componentPUG", "componentSCRIPT"),
-		"inject",
+		// "inject",
 		"zip",
 		"rev",
 		"sitemap",
