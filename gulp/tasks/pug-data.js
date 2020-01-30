@@ -2,10 +2,20 @@ const gulp = require("gulp");
 const path = require("path");
 const merge = require("gulp-merge-json");
 
-const { plugins, args, config, taskTarget, browserSync } = require("../utils");
+const {
+	plugins,
+	args,
+	config,
+	taskTarget,
+	browserSync
+} = require("../utils");
 
-const { RemoveExtension } = require("../helpers/remove-extension");
-const { CapitalizeWord } = require("../helpers/capitalize");
+const {
+	removeExtension
+} = require("../helpers/remove-extension");
+const {
+	capitalizeWord
+} = require("../helpers/capitalize");
 
 const dirs = config.directories;
 const dirsDev = dirs.development;
@@ -24,7 +34,7 @@ gulp.task("pug:data", () => {
 				edit: (json, file) => {
 					// Extract the filename and strip the extension
 					const filename = path.basename(file.path),
-						primaryKey = RemoveExtension(CapitalizeWord(filename));
+						primaryKey = removeExtension(capitalizeWord(filename));
 
 					// Set the filename as the primary key for our JSON data
 					const data = {};

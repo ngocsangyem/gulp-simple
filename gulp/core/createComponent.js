@@ -10,7 +10,7 @@ const {
 	reportError
 } = require("../utils");
 const {
-	ReplaceName
+	replaceName
 } = require("../helpers/replace-name");
 const BEM = require("./bem");
 
@@ -73,7 +73,7 @@ module.exports = {
 		const extname = path.extname(name) || config.component.templates;
 		const basename = path.basename(name, extname);
 		const file = paths.page(basename + extname);
-		const content = ReplaceName(
+		const content = replaceName(
 			(config.addContent && config.addContent.page) || "",
 			basename
 		);
@@ -134,7 +134,7 @@ module.exports = {
 				extension !== "deps.js" ?
 				path.basename(extension, extname) || node :
 				node;
-			content = ReplaceName(
+			content = replaceName(
 				(config.addContent && config.addContent[extname.slice(1)]) ||
 				"",
 				name
@@ -144,7 +144,7 @@ module.exports = {
 				file = path.join(directory, name + extensionPrefix + extname);
 				return this.addFile(file, content);
 			} else if (extension == ".test.js") {
-				content = ReplaceName(
+				content = replaceName(
 					(config.addContent &&
 						config.addContent[extname.replace(extname, "test")]) ||
 					"",
@@ -157,7 +157,7 @@ module.exports = {
 				this.addDirectory(testDirectory);
 				return this.addFile(file, content);
 			} else if (extension == "deps.js") {
-				content = ReplaceName(
+				content = replaceName(
 					(config.addContent && config.addContent.dependency) || "",
 					name
 				);

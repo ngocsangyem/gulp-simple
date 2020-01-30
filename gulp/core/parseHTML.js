@@ -5,14 +5,14 @@ const {
 } = require("../utils");
 
 const {
-	RemoveExtension
+	removeExtension
 } = require("../helpers/remove-extension");
 
 const getComponent = require("./getComponent");
 
 module.exports = function (file) {
 	const fileName = path.basename(file.path);
-	const pageName = RemoveExtension(fileName);
+	const pageName = removeExtension(fileName);
 
 	if (!store.pages[pageName]) {
 		const page = (store.pages[pageName] = {

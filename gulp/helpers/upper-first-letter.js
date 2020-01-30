@@ -1,5 +1,7 @@
-const UpperFirstLetter = word => {
+const upperFirstLetter = word => {
 	return word.charAt(0).toUpperCase() + word.slice(1);
 };
 
-module.exports = { UpperFirstLetter };
+module.exports = {
+	upperFirstLetter
+};

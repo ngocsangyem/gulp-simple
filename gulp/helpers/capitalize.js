@@ -1,11 +1,11 @@
-const RemoveVietnamese = require("./remove-vietnamese");
+const removeVietnamese = require("./remove-vietnamese");
 
-const CapitalizeWord = word => {
+const capitalizeWord = word => {
 	if (typeof word !== "string") return "";
 	if (word.includes("-")) {
 		return transformWordWithMinus(word);
 	} else if (word.includes(" ")) {
-		const removeWhiteSpace = RemoveVietnamese(word);
+		const removeWhiteSpace = removeVietnamese(word);
 		return transformWordWithMinus(removeWhiteSpace);
 	} else {
 		return word[0].toUpperCase() + word.slice(1).toLowerCase();
@@ -20,4 +20,6 @@ const transformWordWithMinus = word => {
 		.join("");
 };
 
-module.exports = {CapitalizeWord}
+module.exports = {
+	capitalizeWord
+}

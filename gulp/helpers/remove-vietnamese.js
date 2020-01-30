@@ -1,4 +1,4 @@
-const RemoveVietnamese = word => {
+const removeVietnamese = word => {
 	if (typeof word !== "string") return "";
 	let wordTranform = word.toLowerCase().replace(/\s+/g, "-");
 	const non_asciis = {
@@ -25,4 +25,6 @@ const RemoveVietnamese = word => {
 	return wordTranform;
 };
 
-module.exports = {RemoveVietnamese}
+module.exports = {
+	removeVietnamese
+}

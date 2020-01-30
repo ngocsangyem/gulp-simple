@@ -1,11 +1,17 @@
-const { CapitalizeWord } = require("./capitalize.js");
-const { UpperFirstLetter } = require("./upper-first-letter");
+const {
+	capitalizeWord
+} = require("./capitalize.js");
+const {
+	upperFirstLetter
+} = require("./upper-first-letter");
 
-const ReplaceName = (string, name) => {
+const replaceName = (string, name) => {
 	return string
-		.replace(/\[capitalize-name\]/g, CapitalizeWord(name))
+		.replace(/\[capitalize-name\]/g, capitalizeWord(name))
 		.replace(/\[name\]/g, name)
-		.replace(/\[upper-first-name\]/g, UpperFirstLetter(name));
+		.replace(/\[upper-first-name\]/g, upperFirstLetter(name));
 };
 
-module.exports = { ReplaceName };
+module.exports = {
+	replaceName
+};
