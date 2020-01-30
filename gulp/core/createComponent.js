@@ -6,19 +6,15 @@ const {
 	paths,
 	config
 } = require("./index");
-const {
-	reportError
-} = require("../utils");
+const BEM = require("./bem");
+
 const {
 	replaceName
 } = require("../helpers/replace-name");
-const BEM = require("./bem");
-
-const extensionPrefix = ".component";
 
 module.exports = {
-	sep: Array(16).join("-"),
-	message: "",
+	message: '',
+	extensionPrefix: ".component",
 
 	setType(argv) {
 		this.type = argv[2] === "page" ? argv[2] : "node";
@@ -27,15 +23,28 @@ module.exports = {
 	setItems(argv) {
 		let items = argv.slice(this.type === "page" ? 3 : 2);
 
-		this.items = items.filter(
-			(el, i) => items.indexOf(el) === i && !el.includes("--")
-		);
+		this.items = items.filter((el, i) => items.indexOf(el) === i);
 	},
 
-	setOptions(argv) {
-		return {
-			custom: argv.includes("--custom") || false,
-			noTemplate: argv.includes("--noTemplate") || false
+	setOptions() {
+		let option;
+
+		this.items.some(el => {
+			if (el[0] === '--') {
+				return option = el;
+			}
+
+			return false;
+		});
+
+		if (option) {
+			this.items = this.items.slice(0, this.items.indexOf(option));
+			option = option.slice(1);
+		}
+
+		this.options = {
+			custom: option === '--custom' || false,
+			noTemplate: option === '--noTemplate' || false
 		};
 	},
 
@@ -56,16 +65,15 @@ module.exports = {
 			}
 		} catch (error) {
 			console.log("Create main folder fail", error);
-			// notify.onError("Error")(e);
-			return reportError;
 		}
 	},
 
 	addMessage(str) {
-		if (typeof str !== "string") return;
+		if (typeof str !== "string") {
+			return;
+		}
 
 		const newLine = this.message === "" ? "" : "\n";
-
 		this.message += newLine + str;
 	},
 
@@ -100,7 +108,7 @@ module.exports = {
 			) {
 				console.log(
 					colors.red(
-						"Extension must be string. Ex: .js, .sass, .scss, etc"
+						"Need extension to generate component \n Ex: header[.js,.sass,.pug]"
 					)
 				);
 				return;
@@ -141,7 +149,7 @@ module.exports = {
 			);
 
 			if (extension !== ".test.js" && extension !== "deps.js") {
-				file = path.join(directory, name + extensionPrefix + extname);
+				file = path.join(directory, name + this.extensionPrefix + extname);
 				return this.addFile(file, content);
 			} else if (extension == ".test.js") {
 				content = replaceName(
@@ -152,7 +160,7 @@ module.exports = {
 				);
 				file = path.join(
 					testDirectory,
-					name + extensionPrefix + extname
+					name + this.extensionPrefix + extname
 				);
 				this.addDirectory(testDirectory);
 				return this.addFile(file, content);
@@ -168,9 +176,9 @@ module.exports = {
 	},
 
 	setDirection(direction, type) {
-		if (type === "component" && !this.options.custom) {
+		if (type === "component") {
 			return paths.component(direction);
-		} else if (type === "page" && !this.options.custom) {
+		} else if (type === "page") {
 			return paths.page(direction);
 		} else if (this.options.custom) {
 			return paths.app(direction);
@@ -203,7 +211,7 @@ module.exports = {
 			);
 		}
 
-		fs.writeFileSync(file, content, "utf8");
+		fs.writeFileSync(file, `${this.options.noTemplate ? '' : content}`, "utf8");
 
 		this.addMessage(
 			`\x1b[42mGOOD\x1b[0m: ${what} "\x1b[36m${where}\x1b[0m" successfully created!`
@@ -214,6 +222,7 @@ module.exports = {
 		this.options = this.setOptions(argv);
 		this.setType(argv);
 		this.setItems(argv);
+		this.setOptions(argv)
 		this.checkDirs();
 		if (this.items.length === 0) {
 			this.status = false;
@@ -250,7 +259,6 @@ module.exports = {
 				}
 			} catch (error) {
 				console.log(error);
-				return reportError;
 			}
 		}
 
@@ -258,4 +266,5 @@ module.exports = {
 			console.log(this.message);
 		}
 	}
-};
+
+}
