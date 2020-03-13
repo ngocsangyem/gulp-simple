@@ -15,7 +15,7 @@ module.exports = {
 		babel: true,
 		sourcemaps: ["js", "css"],
 		imagemin: ["png", "jpg", "svg", "gif"],
-		bundles: ['js', 'css'],
+		bundles: ["js", "css"],
 		author: {
 			name: "",
 			version: "",
@@ -57,7 +57,7 @@ module.exports = {
 	},
 
 	createComponent: {
-		b: [".js", ".sass", ".pug", ".json"]
+		b: [".js", ".sass", ".pug", ".json", ".test.js"]
 	},
 
 	addContent: {}

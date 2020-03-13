@@ -2,18 +2,13 @@ const fs = require("fs");
 const path = require("path");
 const colors = require("colors");
 
-const {
-	paths,
-	config
-} = require("./index");
+const { paths, config } = require("./index");
 const BEM = require("./bem");
 
-const {
-	replaceName
-} = require("../helpers/replace-name");
+const { replaceName } = require("../helpers/replace-name");
 
 module.exports = {
-	message: '',
+	message: "",
 	extensionPrefix: ".component",
 
 	setType(argv) {
@@ -30,8 +25,8 @@ module.exports = {
 		let option;
 
 		this.items.some(el => {
-			if (el[0] === '--') {
-				return option = el;
+			if (el[0] === "--") {
+				return (option = el);
 			}
 
 			return false;
@@ -43,8 +38,8 @@ module.exports = {
 		}
 
 		this.options = {
-			custom: option === '--custom' || false,
-			noTemplate: option === '--noTemplate' || false
+			custom: option === "--custom" || false,
+			noTemplate: option === "--noTemplate" || false
 		};
 	},
 
@@ -133,31 +128,37 @@ module.exports = {
 			}
 
 			let extname =
-				extension !== "deps.js" ?
-				extension :
-				path.extname(extension);
+				extension !== "deps.js" ? extension : path.extname(extension);
 			let file;
 			let content;
 			let name =
-				extension !== "deps.js" ?
-				path.basename(extension, extname) || node :
-				node;
-			content = replaceName(
-				(config.addContent && config.addContent[extname.slice(1)]) ||
-				"",
+				extension !== "deps.js"
+					? path.basename(extension, extname) || node
+					: node;
+			content = this.replacePrefix(
+				config.addContent[extname.slice(1)],
 				name
 			);
-
+			if (extension == ".pug" && type === "page") {
+				content = this.replacePrefix(config.addContent.page, name);
+				file = path.join(
+					directory,
+					name + this.extensionPrefix + extname
+				);
+				return this.addFile(file, content);
+			}
 			if (extension !== ".test.js" && extension !== "deps.js") {
-				file = path.join(directory, name + this.extensionPrefix + extname);
+				file = path.join(
+					directory,
+					name + this.extensionPrefix + extname
+				);
 				return this.addFile(file, content);
 			} else if (extension == ".test.js") {
-				content = replaceName(
-					(config.addContent &&
-						config.addContent[extname.replace(extname, "test")]) ||
-					"",
+				content = this.replacePrefix(
+					config.addContent[extname.replace(extname, "test")],
 					name
 				);
+
 				file = path.join(
 					testDirectory,
 					name + this.extensionPrefix + extname
@@ -165,14 +166,18 @@ module.exports = {
 				this.addDirectory(testDirectory);
 				return this.addFile(file, content);
 			} else if (extension == "deps.js") {
-				content = replaceName(
-					(config.addContent && config.addContent.dependency) || "",
+				content = this.replacePrefix(
+					config.addContent.dependency,
 					name
 				);
 				file = path.join(directory, extension);
 				return this.addFile(file, content);
 			}
 		});
+	},
+
+	replacePrefix(condition, name) {
+		return replaceName((config.addContent && condition) || "", name);
 	},
 
 	setDirection(direction, type) {
@@ -186,7 +191,10 @@ module.exports = {
 	},
 
 	addDirectory(dir) {
-		const where = path.relative(paths._component, dir).replace("..", "");
+		const where =
+			this.type === "page"
+				? path.relative(paths._page, dir).replace("..", "")
+				: path.relative(paths._component, dir).replace("..", "");
 
 		if (fs.existsSync(dir)) {
 			return this.addMessage(
@@ -202,7 +210,10 @@ module.exports = {
 	},
 
 	addFile(file, content) {
-		const where = path.relative(paths._component, file).replace("..", "");
+		const where =
+			this.type === "page"
+				? path.relative(paths._page, file).replace("..", "")
+				: path.relative(paths._component, file).replace("..", "");
 		const what = this.type === "page" ? "Page" : "File";
 
 		if (fs.existsSync(file)) {
@@ -211,7 +222,11 @@ module.exports = {
 			);
 		}
 
-		fs.writeFileSync(file, `${this.options.noTemplate ? '' : content}`, "utf8");
+		fs.writeFileSync(
+			file,
+			`${!!this.options && this.options.noTemplate ? "" : content}`,
+			"utf8"
+		);
 
 		this.addMessage(
 			`\x1b[42mGOOD\x1b[0m: ${what} "\x1b[36m${where}\x1b[0m" successfully created!`
@@ -219,10 +234,11 @@ module.exports = {
 	},
 
 	parseArguments(argv, showMessage = true) {
-		this.options = this.setOptions(argv);
 		this.setType(argv);
+		console.log("type:", this.type);
 		this.setItems(argv);
-		this.setOptions(argv)
+		this.setOptions(argv);
+		this.options = this.setOptions(argv);
 		this.checkDirs();
 		if (this.items.length === 0) {
 			this.status = false;
@@ -266,5 +282,4 @@ module.exports = {
 			console.log(this.message);
 		}
 	}
-
-}
+};

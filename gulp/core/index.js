@@ -1,8 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 const notify = require("gulp-notify");
-const appConfig = require("../config");
 
+const { isFile } = require("./is");
 const root = path.resolve(__dirname, "..");
 const root2 = path.resolve(__dirname, "../..");
 const environment = process.env.NODE_ENV || "development";
@@ -13,10 +13,10 @@ const target = environment === "production" ? "build" : "tmp";
 let config = {};
 
 try {
-	const appConfig = "../config.js";
+	const appConfig = "./gulp/config.js";
 
-	if (fs.existsSync(appConfig)) {
-		config = require(appConfig);
+	if (isFile(appConfig)) {
+		config = require("../config.js");
 	}
 } catch (error) {
 	console.log("Find config file fail", error);
@@ -109,13 +109,22 @@ try {
 		sass: sassTemplate,
 		pug: componentTemplate,
 		test: testTemplate,
-		js: component.javascriptSyntax === "class" ?
-			jsTemplateClass :
-			jsTemplateFunction,
+		js:
+			component.javascriptSyntax === "class"
+				? jsTemplateClass
+				: jsTemplateFunction,
 		page: pageTemplate
 	};
 
 	config.addContent = Object.assign(addContent, config.addContent);
+
+	// // Merge createComponent
+
+	// const createComponent = {};
+	// config.createComponent = Object.assign(
+	// 	createComponent,
+	// 	config.createComponentt
+	// );
 
 	// Merge dist
 
@@ -145,7 +154,7 @@ try {
 			script: "scripts/",
 			fonts: "fonts/",
 			image: "img/",
-			assets: "assets/",
+			assets: "assets/"
 		}
 	};
 
@@ -168,7 +177,8 @@ try {
 			optimizationLevel: 1,
 			interlaced: true
 		},
-		svg: [{
+		svg: [
+			{
 				cleanupIDs: false
 			},
 			{
@@ -195,6 +205,8 @@ try {
 	// Protect
 
 	config.componentProtect = [].concat(config.componentProtect);
+
+	// console.log("--config--", config);
 }
 
 const paths = {
