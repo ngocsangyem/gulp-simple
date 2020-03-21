@@ -5,7 +5,7 @@ const gutil = require("gulp-util");
 const gulpLoadPlugins = require("gulp-load-plugins");
 const notify = require("gulp-notify");
 
-const { config, paths } = require("./core/index");
+const { config } = require("./index");
 
 // Load all gulp plugins based on their names
 // EX: gulp-copy -> copy
@@ -89,7 +89,5 @@ module.exports = {
 	taskTarget,
 	browserSync,
 	reportError,
-	store,
-	isDev,
-	paths
+	isDev
 };

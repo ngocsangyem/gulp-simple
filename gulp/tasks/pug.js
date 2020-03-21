@@ -13,9 +13,6 @@ const {
 	store
 } = require("../utils");
 
-const pipe = require("../core/pipe");
-const parseHTML = require("../core/parseHTML");
-
 const dirs = config.directories;
 const dirsDev = dirs.development;
 const entries = config.directories.entries;

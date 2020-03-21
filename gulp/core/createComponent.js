@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const colors = require("colors");
 
-const { paths, config } = require("./index");
+const { config, paths } = require("../index");
 const BEM = require("./bem");
 
 const { replaceName } = require("../helpers/replace-name");
@@ -235,7 +235,6 @@ module.exports = {
 
 	parseArguments(argv, showMessage = true) {
 		this.setType(argv);
-		console.log("type:", this.type);
 		this.setItems(argv);
 		this.setOptions(argv);
 		this.options = this.setOptions(argv);
