@@ -4,7 +4,7 @@ const webpack = require("webpack");
 
 const { config, taskTarget } = require("../utils");
 
-const webpackconfig = require("../../webpack.config");
+const webpackconfig = require("../../webpack/webpack.config");
 
 const dirs = config.directories;
 const dirsPro = dirs.production;

@@ -7,7 +7,7 @@ module.exports = {
 		script: ".js",
 		style: ".sass",
 		test: true,
-		data: true
+		data: true,
 	},
 
 	build: {
@@ -23,8 +23,8 @@ module.exports = {
 			lincense: "MIT",
 			coding: "",
 			phone: "",
-			email: ""
-		}
+			email: "",
+		},
 	},
 
 	directories: {
@@ -32,7 +32,7 @@ module.exports = {
 		entries: {
 			script: "main.js",
 			css: "main.+(sass|scss)",
-			data: "data.json"
+			data: "data.json",
 		},
 		development: {
 			source: "src/",
@@ -45,20 +45,20 @@ module.exports = {
 			image: "img/",
 			fonts: "fonts/",
 			data: "data/",
-			pages: "pages/"
+			pages: "pages/",
 		},
 		production: {
 			destination: "build/",
 			style: "styles/",
 			script: "scripts/",
 			fonts: "fonts/",
-			image: "img/"
-		}
+			image: "img/",
+		},
 	},
 
 	createComponent: {
-		b: [".js", ".sass", ".pug", ".json", ".test.js"]
+		b: [".js", ".sass", ".pug", ".json"],
 	},
 
-	addContent: {}
+	addContent: {},
 };

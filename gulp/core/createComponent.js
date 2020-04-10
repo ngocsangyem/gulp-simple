@@ -24,7 +24,7 @@ module.exports = {
 	setOptions() {
 		let option;
 
-		this.items.some(el => {
+		this.items.some((el) => {
 			if (el[0] === "--") {
 				return (option = el);
 			}
@@ -39,7 +39,7 @@ module.exports = {
 
 		this.options = {
 			custom: option === "--custom" || false,
-			noTemplate: option === "--noTemplate" || false
+			noTemplate: option === "--noTemplate" || false,
 		};
 	},
 
@@ -95,7 +95,7 @@ module.exports = {
 
 		extensions = Array.isArray(extensions) ? extensions : [extensions];
 
-		extensions.forEach(extension => {
+		extensions.forEach((extension) => {
 			if (
 				!extension ||
 				!extension.trim() ||
@@ -116,7 +116,7 @@ module.exports = {
 			if (!isFile) {
 				let prev = directory;
 
-				return extension.split(path.sep).forEach(dir => {
+				return extension.split(path.sep).forEach((dir) => {
 					if (!dir || !dir.trim() || typeof dir !== "string") return;
 
 					const where = path.join(prev, dir);
@@ -139,6 +139,7 @@ module.exports = {
 				config.addContent[extname.slice(1)],
 				name
 			);
+			console.log("addComponent -> content", content);
 			if (extension == ".pug" && type === "page") {
 				content = this.replacePrefix(config.addContent.page, name);
 				file = path.join(
@@ -245,7 +246,7 @@ module.exports = {
 		} else {
 			try {
 				if (this.items) {
-					this.items.forEach(item => {
+					this.items.forEach((item) => {
 						let name = item.split("[")[0];
 						let more = (item.split("[")[1] || "").replace("]", "");
 						let extra = more.split(",");
@@ -280,5 +281,5 @@ module.exports = {
 		if (this.message && showMessage) {
 			console.log(this.message);
 		}
-	}
+	},
 };

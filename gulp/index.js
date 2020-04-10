@@ -31,8 +31,8 @@ try {
 		data: true,
 		javascriptSyntax: "class",
 		page: {
-			type: "component"
-		}
+			type: "component",
+		},
 	};
 
 	config.component = Object.assign(component, config.component);
@@ -64,8 +64,8 @@ try {
 			lincense: "MIT",
 			coding: "Coding by ngocsangyem",
 			phone: "XXXXXXXXXX",
-			email: "yem@email.com"
-		}
+			email: "yem@email.com",
+		},
 	};
 
 	config.build = Object.assign(build, config.build);
@@ -79,7 +79,7 @@ try {
 
 	config.build.imagemin = []
 		.concat(config.build.imagemin)
-		.filter(el => ["png", "jpg", "svg", "gif"].includes(el));
+		.filter((el) => ["png", "jpg", "svg", "gif"].includes(el));
 
 	if (config.build.imagemin.includes("jpg")) {
 		config.build.imagemin.push("jpeg");
@@ -91,7 +91,8 @@ try {
 
 	const jsonTemplate = "{}";
 
-	const sassTemplate = ".[name]";
+	const sassTemplate = "@import ../../styles/includes\n\n.[name]";
+	const scssTemplate = "@import '../../styles/includes';\n\n.[name]";
 
 	const componentTemplate = `mixin [name](data)\n\t- data = data || {}\n\t- data.class = data.class || ''\n\t- data.content = data.content || 'Some content here'\n\n\t.content(class=data.class)&attributes(attributes)\n\t\tif block\n\t\t\tblock\n\t\telse\n\t\t\t!= data.content`;
 
@@ -106,14 +107,14 @@ try {
 	const addContent = {
 		dependency: dependencyTemplate,
 		json: jsonTemplate,
-		sass: sassTemplate,
+		sass: component.style === ".sass" ? sassTemplate : scssTemplate,
 		pug: componentTemplate,
 		test: testTemplate,
 		js:
 			component.javascriptSyntax === "class"
 				? jsTemplateClass
 				: jsTemplateFunction,
-		page: pageTemplate
+		page: pageTemplate,
 	};
 
 	config.addContent = Object.assign(addContent, config.addContent);
@@ -133,7 +134,7 @@ try {
 		entries: {
 			script: "main.js",
 			css: "main.+(sass|scss)",
-			data: "data.json"
+			data: "data.json",
 		},
 		development: {
 			source: "src/",
@@ -146,7 +147,7 @@ try {
 			image: "img/",
 			fonts: "fonts/",
 			data: "data/",
-			pages: "pages/"
+			pages: "pages/",
 		},
 		production: {
 			destination: "build/",
@@ -154,8 +155,8 @@ try {
 			script: "scripts/",
 			fonts: "fonts/",
 			image: "img/",
-			assets: "assets/"
-		}
+			assets: "assets/",
+		},
 	};
 
 	config.directories = Object.assign(directories, config.directories);
@@ -165,29 +166,29 @@ try {
 	const optimization = {
 		jpg: {
 			progressive: true,
-			arithmetic: false
+			arithmetic: false,
 		},
 		png: {
 			optimizationLevel: 5,
 			bitDepthReduction: true,
 			colorTypeReduction: true,
-			paletteReduction: true
+			paletteReduction: true,
 		},
 		gif: {
 			optimizationLevel: 1,
-			interlaced: true
+			interlaced: true,
 		},
 		svg: [
 			{
-				cleanupIDs: false
+				cleanupIDs: false,
 			},
 			{
-				removeViewBox: false
+				removeViewBox: false,
 			},
 			{
-				mergePaths: false
-			}
-		]
+				mergePaths: false,
+			},
+		],
 	};
 
 	if (!config.optimization) {
@@ -199,7 +200,7 @@ try {
 		png: Object.assign(optimization.png, config.optimization.png),
 		gif: Object.assign(optimization.gif, config.optimization.gif),
 		svg: [].concat(config.optimization.svg || optimization.svg),
-		ignore: [].concat(config.optimization.ignore).filter(el => !!el)
+		ignore: [].concat(config.optimization.ignore).filter((el) => !!el),
 	};
 
 	// Protect
@@ -257,10 +258,10 @@ const paths = {
 	_assets: path.join(root, "src", "assets"),
 	_dist: path.join(root, target),
 	_styles: path.join(root, target, config.directories.production.style),
-	_scripts: path.join(root, target, config.directories.production.script)
+	_scripts: path.join(root, target, config.directories.production.script),
 };
 
 module.exports = {
 	config,
-	paths
+	paths,
 };
