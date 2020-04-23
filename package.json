@@ -78,7 +78,6 @@
 		"ncu": "^0.2.1",
 		"plugin-error": "^1.0.1",
 		"pug-lint": "^2.6.0",
-		"slick-carousel": "^1.8.1",
 		"stylelint": "^13.0.0",
 		"terser-webpack-plugin": "^2.3.2",
 		"through2": "^3.0.1",
