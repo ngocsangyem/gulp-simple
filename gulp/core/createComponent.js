@@ -1,22 +1,22 @@
-const fs = require("fs");
-const path = require("path");
-const colors = require("colors");
+const fs = require('fs');
+const path = require('path');
+const colors = require('colors');
 
-const { config, paths } = require("../index");
-const BEM = require("./bem");
+const { config, paths } = require('../index');
+const BEM = require('./bem');
 
-const { replaceName } = require("../helpers/replace-name");
+const { replaceName } = require('../helpers/replace-name');
 
 module.exports = {
-	message: "",
-	extensionPrefix: ".component",
+	message: '',
+	extensionPrefix: '.component',
 
 	setType(argv) {
-		this.type = argv[2] === "page" ? argv[2] : "node";
+		this.type = argv[2] === 'page' ? argv[2] : 'node';
 	},
 
 	setItems(argv) {
-		let items = argv.slice(this.type === "page" ? 3 : 2);
+		let items = argv.slice(this.type === 'page' ? 3 : 2);
 
 		this.items = items.filter((el, i) => items.indexOf(el) === i);
 	},
@@ -25,7 +25,7 @@ module.exports = {
 		let option;
 
 		this.items.some((el) => {
-			if (el[0] === "--") {
+			if (el[0] === '--') {
 				return (option = el);
 			}
 
@@ -38,8 +38,8 @@ module.exports = {
 		}
 
 		this.options = {
-			custom: option === "--custom" || false,
-			noTemplate: option === "--noTemplate" || false,
+			custom: option === '--custom' || false,
+			noTemplate: option === '--noTemplate' || false,
 		};
 	},
 
@@ -59,16 +59,16 @@ module.exports = {
 				fs.mkdirSync(component);
 			}
 		} catch (error) {
-			console.log("Create main folder fail", error);
+			console.log('Create main folder fail', error);
 		}
 	},
 
 	addMessage(str) {
-		if (typeof str !== "string") {
+		if (typeof str !== 'string') {
 			return;
 		}
 
-		const newLine = this.message === "" ? "" : "\n";
+		const newLine = this.message === '' ? '' : '\n';
 		this.message += newLine + str;
 	},
 
@@ -77,7 +77,7 @@ module.exports = {
 		const basename = path.basename(name, extname);
 		const file = paths.page(basename + extname);
 		const content = replaceName(
-			(config.addContent && config.addContent.page) || "",
+			(config.addContent && config.addContent.page) || '',
 			basename
 		);
 
@@ -87,7 +87,7 @@ module.exports = {
 	addComponent(node, extensions, type) {
 		const component = BEM.getComponent(node);
 		const directory = this.setDirection(component, type);
-		const testDirectory = this.setDirection(component + "/test", type);
+		const testDirectory = this.setDirection(component + '/test', type);
 
 		if (!fs.existsSync(directory)) {
 			this.addDirectory(directory);
@@ -99,11 +99,11 @@ module.exports = {
 			if (
 				!extension ||
 				!extension.trim() ||
-				typeof extension !== "string"
+				typeof extension !== 'string'
 			) {
 				console.log(
 					colors.red(
-						"Need extension to generate component \n Ex: header[.js,.sass,.pug]"
+						'Need extension to generate component \n Ex: header[.js,.sass,.pug]'
 					)
 				);
 				return;
@@ -111,13 +111,13 @@ module.exports = {
 
 			extension = extension.trim().toLowerCase();
 
-			const isFile = extension[0] === "." || path.extname(extension);
+			const isFile = extension[0] === '.' || path.extname(extension);
 
 			if (!isFile) {
 				let prev = directory;
 
 				return extension.split(path.sep).forEach((dir) => {
-					if (!dir || !dir.trim() || typeof dir !== "string") return;
+					if (!dir || !dir.trim() || typeof dir !== 'string') return;
 
 					const where = path.join(prev, dir);
 
@@ -128,19 +128,18 @@ module.exports = {
 			}
 
 			let extname =
-				extension !== "deps.js" ? extension : path.extname(extension);
+				extension !== 'deps.js' ? extension : path.extname(extension);
 			let file;
 			let content;
 			let name =
-				extension !== "deps.js"
+				extension !== 'deps.js'
 					? path.basename(extension, extname) || node
 					: node;
 			content = this.replacePrefix(
 				config.addContent[extname.slice(1)],
 				name
 			);
-			console.log("addComponent -> content", content);
-			if (extension == ".pug" && type === "page") {
+			if (extension == '.pug' && type === 'page') {
 				content = this.replacePrefix(config.addContent.page, name);
 				file = path.join(
 					directory,
@@ -148,15 +147,15 @@ module.exports = {
 				);
 				return this.addFile(file, content);
 			}
-			if (extension !== ".test.js" && extension !== "deps.js") {
+			if (extension !== '.test.js' && extension !== 'deps.js') {
 				file = path.join(
 					directory,
 					name + this.extensionPrefix + extname
 				);
 				return this.addFile(file, content);
-			} else if (extension == ".test.js") {
+			} else if (extension == '.test.js') {
 				content = this.replacePrefix(
-					config.addContent[extname.replace(extname, "test")],
+					config.addContent[extname.replace(extname, 'test')],
 					name
 				);
 
@@ -166,7 +165,7 @@ module.exports = {
 				);
 				this.addDirectory(testDirectory);
 				return this.addFile(file, content);
-			} else if (extension == "deps.js") {
+			} else if (extension == 'deps.js') {
 				content = this.replacePrefix(
 					config.addContent.dependency,
 					name
@@ -178,13 +177,13 @@ module.exports = {
 	},
 
 	replacePrefix(condition, name) {
-		return replaceName((config.addContent && condition) || "", name);
+		return replaceName((config.addContent && condition) || '', name);
 	},
 
 	setDirection(direction, type) {
-		if (type === "component") {
+		if (type === 'component') {
 			return paths.component(direction);
-		} else if (type === "page") {
+		} else if (type === 'page') {
 			return paths.page(direction);
 		} else if (this.options.custom) {
 			return paths.app(direction);
@@ -193,9 +192,9 @@ module.exports = {
 
 	addDirectory(dir) {
 		const where =
-			this.type === "page"
-				? path.relative(paths._page, dir).replace("..", "")
-				: path.relative(paths._component, dir).replace("..", "");
+			this.type === 'page'
+				? path.relative(paths._page, dir).replace('..', '')
+				: path.relative(paths._component, dir).replace('..', '');
 
 		if (fs.existsSync(dir)) {
 			return this.addMessage(
@@ -212,10 +211,10 @@ module.exports = {
 
 	addFile(file, content) {
 		const where =
-			this.type === "page"
-				? path.relative(paths._page, file).replace("..", "")
-				: path.relative(paths._component, file).replace("..", "");
-		const what = this.type === "page" ? "Page" : "File";
+			this.type === 'page'
+				? path.relative(paths._page, file).replace('..', '')
+				: path.relative(paths._component, file).replace('..', '');
+		const what = this.type === 'page' ? 'Page' : 'File';
 
 		if (fs.existsSync(file)) {
 			return this.addMessage(
@@ -225,8 +224,8 @@ module.exports = {
 
 		fs.writeFileSync(
 			file,
-			`${!!this.options && this.options.noTemplate ? "" : content}`,
-			"utf8"
+			`${!!this.options && this.options.noTemplate ? '' : content}`,
+			'utf8'
 		);
 
 		this.addMessage(
@@ -247,9 +246,9 @@ module.exports = {
 			try {
 				if (this.items) {
 					this.items.forEach((item) => {
-						let name = item.split("[")[0];
-						let more = (item.split("[")[1] || "").replace("]", "");
-						let extra = more.split(",");
+						let name = item.split('[')[0];
+						let more = (item.split('[')[1] || '').replace(']', '');
+						let extra = more.split(',');
 
 						name = name.trim().toLowerCase();
 
@@ -260,17 +259,17 @@ module.exports = {
 							extra = config.createComponent[more];
 						}
 
-						if (this.type === "page") {
-							if (config.component.page.type === "component") {
-								return this.addComponent(name, extra, "page");
+						if (this.type === 'page') {
+							if (config.component.page.type === 'component') {
+								return this.addComponent(name, extra, 'page');
 							} else if (
-								config.component.page.type === "single"
+								config.component.page.type === 'single'
 							) {
 								return this.addPage(name);
 							}
 						}
 
-						return this.addComponent(name, extra, "component");
+						return this.addComponent(name, extra, 'component');
 					});
 				}
 			} catch (error) {

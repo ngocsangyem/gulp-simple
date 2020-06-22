@@ -1,70 +1,70 @@
-const fs = require("fs");
-const path = require("path");
-const notify = require("gulp-notify");
+const fs = require('fs');
+const path = require('path');
+const notify = require('gulp-notify');
 
-const { isFile } = require("./core/is");
+const { isFile } = require('./core/is');
 
-const root = path.resolve(__dirname, "../");
-const environment = process.env.NODE_ENV || "development";
-const target = environment === "production" ? "build" : "tmp";
+const root = path.resolve(__dirname, '../');
+const environment = process.env.NODE_ENV || 'development';
+const target = environment === 'production' ? 'build' : 'tmp';
 
 // Read config
 
 let config = {};
 
 try {
-	const appConfig = "config.js";
+	const appConfig = 'config.js';
 
 	if (isFile(appConfig)) {
-		config = require("../config");
+		config = require('../config');
 	}
 } catch (error) {
-	console.log("Find config file fail", error);
-	notify.onError("Error")(error);
+	console.log('Find config file fail', error);
+	notify.onError('Error')(error);
 } finally {
 	// Merge extnames
 	const component = {
-		templates: ".pug",
-		script: ".js",
-		style: ".sass",
+		templates: '.pug',
+		script: '.js',
+		style: '.sass',
 		test: true,
 		data: true,
-		javascriptSyntax: "class",
+		javascriptSyntax: 'class',
 		page: {
-			type: "component",
+			type: 'component',
 		},
 	};
 
 	config.component = Object.assign(component, config.component);
 
-	if (config.component.templates[0] !== ".") {
-		config.component.templates = "." + config.component.templates;
+	if (config.component.templates[0] !== '.') {
+		config.component.templates = '.' + config.component.templates;
 	}
-	if (config.component.script[0] !== ".") {
-		config.component.script = "." + config.component.script;
+	if (config.component.script[0] !== '.') {
+		config.component.script = '.' + config.component.script;
 	}
-	if (config.component.style[0] !== ".") {
-		config.component.style = "." + config.component.style;
+	if (config.component.style[0] !== '.') {
+		config.component.style = '.' + config.component.style;
 	}
 
 	// Merge build
 	const build = {
-		HTMLRoot: "./",
-		autoprefixer: ["last 3 versions"],
+		HTMLRoot: './',
+		autoprefixer: ['last 3 versions'],
 		babel: true,
 		sourcemaps: [],
 		imagemin: [],
 		addVersions: true,
-		bundleName: "app",
+		bundleName: 'app',
 		bundles: [],
 		author: {
-			name: "ngocsangyem",
-			version: "v1.0.0",
-			link: "https://github.com/ngocsangyem",
-			lincense: "MIT",
-			coding: "Coding by ngocsangyem",
-			phone: "XXXXXXXXXX",
-			email: "yem@email.com",
+			name: 'ngocsangyem',
+			version: 'v1.0.0',
+			link: 'https://github.com/ngocsangyem',
+			lincense: 'MIT',
+			coding: 'Coding by ngocsangyem',
+			phone: 'XXXXXXXXXX',
+			email: 'yem@email.com',
 		},
 	};
 
@@ -79,19 +79,19 @@ try {
 
 	config.build.imagemin = []
 		.concat(config.build.imagemin)
-		.filter((el) => ["png", "jpg", "svg", "gif"].includes(el));
+		.filter((el) => ['png', 'jpg', 'svg', 'gif'].includes(el));
 
-	if (config.build.imagemin.includes("jpg")) {
-		config.build.imagemin.push("jpeg");
+	if (config.build.imagemin.includes('jpg')) {
+		config.build.imagemin.push('jpeg');
 	}
 
 	// Merge addContent
 
 	const dependencyTemplate = `// Dependency of [capitalize-name]Component\n\nmodule.exports = {\n\n\tnodes: [],\n\n\tmodules: [],\n\n}\n`;
 
-	const jsonTemplate = "{}";
+	const jsonTemplate = '{}';
 
-	const sassTemplate = "@import ../../styles/includes\n\n.[name]";
+	const sassTemplate = '@import ../../styles/includes\n\n.[name]';
 	const scssTemplate = "@import '../../styles/includes';\n\n.[name]";
 
 	const componentTemplate = `mixin [name](data)\n\t- data = data || {}\n\t- data.class = data.class || ''\n\t- data.content = data.content || 'Some content here'\n\n\t.content(class=data.class)&attributes(attributes)\n\t\tif block\n\t\t\tblock\n\t\telse\n\t\t\t!= data.content`;
@@ -107,11 +107,12 @@ try {
 	const addContent = {
 		dependency: dependencyTemplate,
 		json: jsonTemplate,
-		sass: component.style === ".sass" ? sassTemplate : scssTemplate,
+		sass: sassTemplate,
+		scss: scssTemplate,
 		pug: componentTemplate,
 		test: testTemplate,
 		js:
-			component.javascriptSyntax === "class"
+			config.component.javascriptSyntax === 'class'
 				? jsTemplateClass
 				: jsTemplateFunction,
 		page: pageTemplate,
@@ -130,32 +131,32 @@ try {
 	// Merge dist
 
 	const directories = {
-		base: "./",
+		base: './',
 		entries: {
-			script: "main.js",
-			css: "main.+(sass|scss)",
-			data: "data.json",
+			script: 'main.js',
+			css: 'main.+(sass|scss)',
+			data: 'data.json',
 		},
 		development: {
-			source: "src/",
-			app: "app/",
-			temporary: "tmp/",
-			component: "components/",
-			style: "styles/",
-			assets: "assets/",
-			script: "scripts/",
-			image: "img/",
-			fonts: "fonts/",
-			data: "data/",
-			pages: "pages/",
+			source: 'src/',
+			app: 'app/',
+			temporary: 'tmp/',
+			component: 'components/',
+			style: 'styles/',
+			assets: 'assets/',
+			script: 'scripts/',
+			image: 'img/',
+			fonts: 'fonts/',
+			data: 'data/',
+			pages: 'pages/',
 		},
 		production: {
-			destination: "build/",
-			style: "styles/",
-			script: "scripts/",
-			fonts: "fonts/",
-			image: "img/",
-			assets: "assets/",
+			destination: 'build/',
+			style: 'styles/',
+			script: 'scripts/',
+			fonts: 'fonts/',
+			image: 'img/',
+			assets: 'assets/',
 		},
 	};
 
@@ -215,7 +216,7 @@ const paths = {
 
 		if (isExtendedLengthPath || hasNonAscii) return str;
 
-		return str.replace(/\\/g, "/");
+		return str.replace(/\\/g, '/');
 	},
 
 	root() {
@@ -252,10 +253,10 @@ const paths = {
 
 	_root: root,
 	_root: root,
-	_app: path.join(root, "src", "app"),
-	_component: path.join(root, "src", "app", "components"),
-	_page: path.join(root, "src", "app", "pages"),
-	_assets: path.join(root, "src", "assets"),
+	_app: path.join(root, 'src', 'app'),
+	_component: path.join(root, 'src', 'app', 'components'),
+	_page: path.join(root, 'src', 'app', 'pages'),
+	_assets: path.join(root, 'src', 'assets'),
 	_dist: path.join(root, target),
 	_styles: path.join(root, target, config.directories.production.style),
 	_scripts: path.join(root, target, config.directories.production.script),
