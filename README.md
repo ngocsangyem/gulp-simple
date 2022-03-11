@@ -1,5 +1,7 @@
 <h1 align="center">Welcome to gulp-simple 👋</h1>
 
+> This repos is no longer supported. Please try the new version in [gulp-front](https://github.com/ngocsangyem/gulp-front)
+
 -   [Overview](##overview)
 -   [Features](##features)
 -   [Browser Support](##browser)
